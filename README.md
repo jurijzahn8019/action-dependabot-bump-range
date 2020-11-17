@@ -54,7 +54,7 @@ jobs:
         id: checker
         env:
           # Remove this if do not want debug output
-          DEBUG: "action-dependabot-bump-range:*"
+          DEBUG: "action-dependabot-bump-range*"
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
