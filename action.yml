@@ -1,0 +1,24 @@
+name: "Compute dependabot bump version range"
+description: |
+  This will parse the Pull reqeust title produced by dependabot
+  and compute the version diff so it can be used by automation
+  for example labeling and automerging pulls from dependabot
+inputs:
+  token:
+    description: "Github Api token with repo scope, e.g. secrets.GITHUB_TOKEN"
+    required: true
+outputs:
+  error:
+    description: "contains the error if any"
+  from:
+    description: "contains the old bump version"
+  to:
+    description: "contains the new bump version"
+  diff:
+    description: |
+      Will be one of follwing values:
+
+      "major" | "premajor" | "minor" | "preminor" | "patch" | "prepatch" | "prerelease"
+runs:
+  using: "node12"
+  main: "dist/index.cjs.js"

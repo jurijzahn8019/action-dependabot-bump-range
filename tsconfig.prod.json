@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": { "module": "ESNext" },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/__fixtures__", "**/*.spec.ts"]
+}
