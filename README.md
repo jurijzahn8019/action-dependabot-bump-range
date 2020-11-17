@@ -79,3 +79,5 @@ DEBUG=* \
   INPUT_TOKEN=FOOOOO \
   node dist/index.cjs.js
 ```
+
+foo
