@@ -19,7 +19,7 @@ jobs:
       - uses: jurijzahn8019/action-dependabot-bump-range@v0.0.1
         id: checker
         env:
-          DEBUG: "action-dependabot-bump-range:*"
+          DEBUG: "action-dependabot-bump-range*"
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
