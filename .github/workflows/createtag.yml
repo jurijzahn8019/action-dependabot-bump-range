@@ -29,6 +29,8 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
+          npm ci
           npm run release
 
       - name: Push release info and tag back
