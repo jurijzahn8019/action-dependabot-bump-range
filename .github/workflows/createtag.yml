@@ -1,0 +1,31 @@
+name: Create Tag Cron
+
+on:
+  schedule:
+    # TODO: Set correct value
+    - 0 10 * * *
+    # - 0 18 * * 1
+
+jobs:
+  tag-if-commits:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if any commits since last release
+        id: checker
+        run: |
+          COUNT=$(git log $(git describe --tags --abbrev=0)..HEAD --oneline | wc -l)
+          echo "::set-output name=commits::${COUNT}"
+
+      - name: Bump version and create tag
+        if: steps.checker.outputs.commits > 0
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          npm run release
+
+      - name: Push release info and tag back
+        uses: ad-m/github-push-action@0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tags: true
