@@ -3,7 +3,7 @@ name: Create Tag Cron
 on:
   schedule:
       # TODO: Set correct value
-      - cron: '10 12 * * *'
+      - cron: '40 12 * * *'
       # - cron: '0 18 * * 1'
 
 jobs:
