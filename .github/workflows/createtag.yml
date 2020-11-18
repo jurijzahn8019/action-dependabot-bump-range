@@ -5,9 +5,9 @@ on:
     - cron: '0 18 * * 1'
 
   # TODO: Remove this
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   tag-if-commits:
