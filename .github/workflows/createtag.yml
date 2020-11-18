@@ -2,9 +2,9 @@ name: Create Tag Cron
 
 on:
   schedule:
-    # TODO: Set correct value
-    - 0 10 * * *
-    # - 0 18 * * 1
+      # TODO: Set correct value
+      - cron: '0 10 * * *'
+      # - cron: '0 18 * * 1'
 
 jobs:
   tag-if-commits:
