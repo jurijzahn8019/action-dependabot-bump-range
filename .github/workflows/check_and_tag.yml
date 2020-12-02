@@ -35,7 +35,7 @@ jobs:
           git config --global user.name "GitHub Action"
 
           git config --global --replace-all url.https://$GITHUB_TOKEN:github.com/.insteadOf ssh://git@github.com/
-          git config --global --add' url.https://$GITHUB_TOKEN:github.com/.insteadOf git@github.com
+          git config --global --add url.https://$GITHUB_TOKEN:github.com/.insteadOf git@github.com
 
           npm ci
           npm run release
