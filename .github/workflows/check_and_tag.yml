@@ -22,8 +22,8 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: | 
-          git config --local "url.https://.insteadOf" "git://"
-          git config --local "url.https://jurijzahn8019:${GITHUB_TOKEN}@github.com/.insteadOf"  "git@github.com:"
+          git config --local url."https://".insteadOf "git://"
+          git config --local url."https://${GITHUB_TOKEN}@github.com/".insteadOf  "git@github.com:"
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
           git config -l
