@@ -19,7 +19,7 @@ jobs:
       - name: Configure Git
         run: | 
           git config --local "url.https://.insteadOf" "git://"
-          git config --local "url.https://${githubToken}@github.com/.insteadOf"  "git@github.com:"
+          git config --local "url.https://jurijzahn8019:${githubToken}@github.com/.insteadOf"  "git@github.com:"
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
 
