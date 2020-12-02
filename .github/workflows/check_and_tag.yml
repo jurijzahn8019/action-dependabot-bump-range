@@ -4,10 +4,8 @@ on:
   schedule:
     - cron: '0 18 * * 1'
 
-  # TODO: Remove this
-  push:
-    branches:
-      - main
+  # For Testing
+  # push: { branches: [main] }
 
 jobs:
   tag-if-commits:
