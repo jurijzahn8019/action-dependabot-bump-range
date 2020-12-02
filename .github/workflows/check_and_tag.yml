@@ -5,9 +5,9 @@ on:
     - cron: '0 18 * * 1'
 
   # TODO: Remove this
-  # push:
-  #   branches:
-  #     - main
+  push:
+    branches:
+      - main
 
 jobs:
   tag-if-commits:
@@ -15,6 +15,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2.3.4
+
+      - name: Configure Git
+        run: | 
+          git config --local "url.https://.insteadOf" "git://"
+          git config --local "url.https://${githubToken}@github.com/.insteadOf"  "git@github.com:"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
 
       - name: Check if any commits since last release
         id: checker
@@ -27,16 +34,6 @@ jobs:
       - name: Bump version and create tag
         if: steps.checker.outputs.commits > 0
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
           npm ci
           npm run release
-
-      - name: Push release info and tag back
-        uses: ad-m/github-push-action@v0.6.0
-        if: steps.checker.outputs.commits > 0
-        with:
-          github_token: ${{ secrets.TOKEN_GITHUB }}
-          tags: true
-          branch: main
+          git push --follow-tags origin main
