@@ -44,7 +44,7 @@ jobs:
         if: steps.builder.outputs.modified > 0
         run: |
           git add .
-          git commit -am "chore(action)": update action build output"
+          git commit -am "chore(action): update action build output"
 
       - name: Bump version and create tag
         if: steps.checker.outputs.commits > 0
