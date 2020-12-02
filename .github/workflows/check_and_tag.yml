@@ -30,6 +30,7 @@ jobs:
         if: steps.checker.outputs.commits > 0
         env: 
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          MAIN_BRANCH: main
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
@@ -37,4 +38,5 @@ jobs:
           npm ci
           npm run release
 
-          git push https://$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git --follow-tags origin main
+          REMOTE_URL="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git push "${REMOTE_URL}" HEAD:${MAIN_BRANCH} --follow-tags --tags;
