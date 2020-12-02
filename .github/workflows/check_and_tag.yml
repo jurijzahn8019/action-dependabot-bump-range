@@ -20,10 +20,10 @@ jobs:
 
       - name: Configure Git
         run: | 
-          git config --local "url.https://.insteadOf" "git://"
-          git config --local "url.https://jurijzahn8019:${githubToken}@github.com/.insteadOf"  "git@github.com:"
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --global "url.https://.insteadOf" "git://"
+          git config --global "url.https://jurijzahn8019:${githubToken}@github.com/.insteadOf"  "git@github.com:"
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
 
       - name: Check if any commits since last release
         id: checker

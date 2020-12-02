@@ -13,7 +13,7 @@
     "clean": "rm -rf ./dist ./tmp",
     "lint": "eslint --fix src/**/*.ts",
     "precommit": "npm run lint && npm run build && git add dist/*",
-    "prerel": "standard-version --skip.changelog -p $(git branch --show-current | sed 's/master/rc/g' | sed 's/[_\\/]/-/g')",
+    "prerel": "standard-version --skip.changelog -p $(git branch --show-current | sed 's/main/rc/g' | sed 's/[_\\/]/-/g')",
     "release": "standard-version",
     "push:tags": "git push --follow-tags origin main",
     "test": "jest"
