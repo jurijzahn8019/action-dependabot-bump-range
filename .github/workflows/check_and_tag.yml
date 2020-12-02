@@ -18,16 +18,6 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Configure Git
-        env: 
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-        run: | 
-          git config --local url."https://".insteadOf "git://"
-          git config --local url."https://jurijzahn8019:${GITHUB_TOKEN}@github.com/".insteadOf  "git@github.com:"
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-          git config -l
-
       - name: Check if any commits since last release
         id: checker
         run: |
@@ -38,7 +28,14 @@ jobs:
 
       - name: Bump version and create tag
         if: steps.checker.outputs.commits > 0
+        env: 
+          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git config --global user.password $GITHUB_TOKEN
+          
           npm ci
           npm run release
+
           git push --follow-tags origin main
