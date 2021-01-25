@@ -8,25 +8,46 @@ const titles = [
   "chore(deps-dev): bump jest from 25.4.0 to 26.0.1",
   "chore(deps): bump actions/setup-node from v1 to v2.0.0",
   "chore(deps-dev): foo bar 35.4.0",
+  "chore(deps-dev): bump foobaz from 5.4.0 to 06.0.0",
 ];
 
-describe("utils/matchTitle", () => {
-  it("Should match title", () => {
-    titles.forEach((t) => expect(matchTitle(t)).toMatchSnapshot(t));
+describe("utils", () => {
+  describe("matchTitle", () => {
+    it("Should match title", () => {
+      titles.forEach((t) => expect(matchTitle(t)).toMatchSnapshot(t));
+    });
   });
-});
 
-describe("utils/verDiff", () => {
-  it("Should compare versions", () => {
-    [
-      { from: "0.3.4", to: "0.4.0" },
-      { from: "1.3.4", to: "1.3.5" },
-      { from: "1.3.4", to: "1.4.5" },
-      { from: "1.3.4", to: "2.4.5" },
-    ].forEach((v) =>
-      expect(verDiff(new SemVer(v.from), new SemVer(v.to))).toMatchSnapshot(
-        `${v.from}:${v.to}`
-      )
-    );
+  describe("verDiff", () => {
+    it("Should compare versions", () => {
+      [
+        { from: "0.3.4", to: "0.4.0" },
+        { from: "1.3.4", to: "1.3.5" },
+        { from: "1.3.4", to: "1.4.5" },
+        { from: "1.3.4", to: "2.4.5" },
+      ].forEach((v) =>
+        expect(verDiff(new SemVer(v.from), new SemVer(v.to))).toMatchSnapshot(
+          `${v.from}:${v.to}`
+        )
+      );
+    });
+  });
+
+  describe("getEvent", () => {
+    it("Should read event from runner", async () => {
+      jest.resetModules();
+
+      const { promises: fs } = await import("fs");
+      const readFileSpy = jest.spyOn(fs, "readFile");
+      readFileSpy.mockResolvedValue(JSON.stringify({ some: "foo" }));
+
+      process.env.GITHUB_EVENT_PATH = "The Foo Path";
+      const { getEvent } = await import("./utils");
+
+      const res = await getEvent();
+
+      expect(res).toEqual({ some: "foo" });
+      expect(readFileSpy).toHaveBeenCalledWith("The Foo Path", "utf8");
+    });
   });
 });

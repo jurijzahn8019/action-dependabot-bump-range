@@ -15569,7 +15569,7 @@ function withDefaults$2(request$1, newDefaults) {
     });
 }
 
-const graphql$1 = withDefaults$2(request, {
+withDefaults$2(request, {
     headers: {
         "user-agent": `octokit-graphql.js/${VERSION$2} ${getUserAgent()}`,
     },
@@ -19605,7 +19605,7 @@ class LRUCache {
     if (options.max && (typeof options.max !== 'number' || options.max < 0))
       throw new TypeError('max must be a non-negative number')
     // Kind of weird to have a default max of Infinity, but oh well.
-    const max = this[MAX] = options.max || Infinity;
+    this[MAX] = options.max || Infinity;
 
     const lc = options.length || naiveLength;
     this[LENGTH_CALCULATOR] = (typeof lc !== 'function') ? naiveLength : lc;
@@ -20028,7 +20028,7 @@ class Range {
     // if any comparators are the null set, then replace with JUST null set
     // if more than one comparator, remove any * comparators
     // also, don't include the same comparator more than once
-    const l = rangeList.length;
+    rangeList.length;
     const rangeMap = new Map();
     for (const comp of rangeList) {
       if (isNullSet(comp))
@@ -21090,6 +21090,7 @@ async function run() {
         core.setFailed(e.message);
     }
 }
-const result = run();
 
-export { result, run };
+var index = run();
+
+export default index;

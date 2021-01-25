@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`utils/matchTitle Should match title: chore(deps): bump actions/setup-node from v1 to v2.0.0 1`] = `
+exports[`utils matchTitle Should match title: chore(deps): bump actions/setup-node from v1 to v2.0.0 1`] = `
 Object {
   "from": SemVer {
     "build": Array [],
@@ -29,7 +29,7 @@ Object {
 }
 `;
 
-exports[`utils/matchTitle Should match title: chore(deps-dev): bump @mdi/font from 5.2.45 to 5.3.45 1`] = `
+exports[`utils matchTitle Should match title: chore(deps-dev): bump @mdi/font from 5.2.45 to 5.3.45 1`] = `
 Object {
   "from": SemVer {
     "build": Array [],
@@ -58,7 +58,7 @@ Object {
 }
 `;
 
-exports[`utils/matchTitle Should match title: chore(deps-dev): bump @otto-ec/toolbox from 1.13.0 to 1.13.1 1`] = `
+exports[`utils matchTitle Should match title: chore(deps-dev): bump @otto-ec/toolbox from 1.13.0 to 1.13.1 1`] = `
 Object {
   "from": SemVer {
     "build": Array [],
@@ -87,7 +87,7 @@ Object {
 }
 `;
 
-exports[`utils/matchTitle Should match title: chore(deps-dev): bump @rollup/plugin-commonjs from 11.1.0 to 13.0.0 1`] = `
+exports[`utils matchTitle Should match title: chore(deps-dev): bump @rollup/plugin-commonjs from 11.1.0 to 13.0.0 1`] = `
 Object {
   "from": SemVer {
     "build": Array [],
@@ -116,7 +116,9 @@ Object {
 }
 `;
 
-exports[`utils/matchTitle Should match title: chore(deps-dev): bump jest from 25.4.0 to 26.0.1 1`] = `
+exports[`utils matchTitle Should match title: chore(deps-dev): bump foobaz from 5.4.0 to 06.0.0 1`] = `undefined`;
+
+exports[`utils matchTitle Should match title: chore(deps-dev): bump jest from 25.4.0 to 26.0.1 1`] = `
 Object {
   "from": SemVer {
     "build": Array [],
@@ -145,12 +147,12 @@ Object {
 }
 `;
 
-exports[`utils/matchTitle Should match title: chore(deps-dev): foo bar 35.4.0 1`] = `undefined`;
+exports[`utils matchTitle Should match title: chore(deps-dev): foo bar 35.4.0 1`] = `undefined`;
 
-exports[`utils/verDiff Should compare versions: 0.3.4:0.4.0 1`] = `"minor"`;
+exports[`utils verDiff Should compare versions: 0.3.4:0.4.0 1`] = `"minor"`;
 
-exports[`utils/verDiff Should compare versions: 1.3.4:1.3.5 1`] = `"patch"`;
+exports[`utils verDiff Should compare versions: 1.3.4:1.3.5 1`] = `"patch"`;
 
-exports[`utils/verDiff Should compare versions: 1.3.4:1.4.5 1`] = `"minor"`;
+exports[`utils verDiff Should compare versions: 1.3.4:1.4.5 1`] = `"minor"`;
 
-exports[`utils/verDiff Should compare versions: 1.3.4:2.4.5 1`] = `"major"`;
+exports[`utils verDiff Should compare versions: 1.3.4:2.4.5 1`] = `"major"`;
