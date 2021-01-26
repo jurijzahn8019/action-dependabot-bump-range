@@ -37,7 +37,7 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@octokit/types": "^5.5.0",
+    "@octokit/types": "^6.5.3",
     "debug": "^4.3.1",
     "encoding": "^0.1.13",
     "semver": "^7.3.4"
