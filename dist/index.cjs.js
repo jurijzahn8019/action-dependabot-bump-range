@@ -38,16 +38,6 @@ function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
-function createCommonjsModule(fn, basedir, module) {
-	return module = {
-		path: basedir,
-		exports: {},
-		require: function (path, base) {
-			return commonjsRequire(path, (base === undefined || base === null) ? module.path : base);
-		}
-	}, fn(module, module.exports), module.exports;
-}
-
 function getAugmentedNamespace(n) {
 	if (n.__esModule) return n;
 	var a = Object.defineProperty({}, '__esModule', {value: true});
@@ -63,14 +53,14 @@ function getAugmentedNamespace(n) {
 	return a;
 }
 
-function commonjsRequire () {
-	throw new Error('Dynamic requires are not currently supported by @rollup/plugin-commonjs');
+function createCommonjsModule(fn) {
+  var module = { exports: {} };
+	return fn(module, module.exports), module.exports;
 }
 
-var utils = createCommonjsModule(function (module, exports) {
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
-Object.defineProperty(exports, "__esModule", { value: true });
+
 /**
  * Sanitizes an input into a string so it can be passed into issueCommand safely
  * @param input input to sanitize into a string
@@ -84,11 +74,13 @@ function toCommandValue(input) {
     }
     return JSON.stringify(input);
 }
-exports.toCommandValue = toCommandValue;
+var toCommandValue_1 = toCommandValue;
 
-});
 
-var command = createCommonjsModule(function (module, exports) {
+var utils = /*#__PURE__*/Object.defineProperty({
+	toCommandValue: toCommandValue_1
+}, '__esModule', {value: true});
+
 var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -96,7 +88,7 @@ var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (
     result["default"] = mod;
     return result;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+
 const os = __importStar(require$$0__default['default']);
 
 /**
@@ -113,11 +105,11 @@ function issueCommand(command, properties, message) {
     const cmd = new Command(command, properties, message);
     process.stdout.write(cmd.toString() + os.EOL);
 }
-exports.issueCommand = issueCommand;
+var issueCommand_1 = issueCommand;
 function issue(name, message = '') {
     issueCommand(name, {}, message);
 }
-exports.issue = issue;
+var issue_1 = issue;
 const CMD_STRING = '::';
 class Command {
     constructor(command, properties, message) {
@@ -167,24 +159,27 @@ function escapeProperty(s) {
         .replace(/,/g, '%2C');
 }
 
-});
 
-var fileCommand = createCommonjsModule(function (module, exports) {
+var command = /*#__PURE__*/Object.defineProperty({
+	issueCommand: issueCommand_1,
+	issue: issue_1
+}, '__esModule', {value: true});
+
 // For internal use, subject to change.
-var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
+var __importStar$1 = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
     if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
     result["default"] = mod;
     return result;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const fs = __importStar(fs_1__default['default']);
-const os = __importStar(require$$0__default['default']);
+const fs = __importStar$1(fs_1__default['default']);
+const os$1 = __importStar$1(require$$0__default['default']);
 
-function issueCommand(command, message) {
+function issueCommand$1(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
         throw new Error(`Unable to find environment variable for file command ${command}`);
@@ -192,13 +187,16 @@ function issueCommand(command, message) {
     if (!fs.existsSync(filePath)) {
         throw new Error(`Missing file at path: ${filePath}`);
     }
-    fs.appendFileSync(filePath, `${utils.toCommandValue(message)}${os.EOL}`, {
+    fs.appendFileSync(filePath, `${utils.toCommandValue(message)}${os$1.EOL}`, {
         encoding: 'utf8'
     });
 }
-exports.issueCommand = issueCommand;
+var issueCommand_1$1 = issueCommand$1;
 
-});
+
+var fileCommand = /*#__PURE__*/Object.defineProperty({
+	issueCommand: issueCommand_1$1
+}, '__esModule', {value: true});
 
 var core = createCommonjsModule(function (module, exports) {
 var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
@@ -492,8 +490,6 @@ exports.Context = Context;
 
 });
 
-var proxy = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
 function getProxyUrl(reqUrl) {
     let usingSsl = reqUrl.protocol === 'https:';
     let proxyUrl;
@@ -512,7 +508,7 @@ function getProxyUrl(reqUrl) {
     }
     return proxyUrl;
 }
-exports.getProxyUrl = getProxyUrl;
+var getProxyUrl_1 = getProxyUrl;
 function checkBypass(reqUrl) {
     if (!reqUrl.hostname) {
         return false;
@@ -548,8 +544,12 @@ function checkBypass(reqUrl) {
     }
     return false;
 }
-exports.checkBypass = checkBypass;
-});
+var checkBypass_1 = checkBypass;
+
+var proxy = /*#__PURE__*/Object.defineProperty({
+	getProxyUrl: getProxyUrl_1,
+	checkBypass: checkBypass_1
+}, '__esModule', {value: true});
 
 var httpOverHttp_1 = httpOverHttp;
 var httpsOverHttp_1 = httpsOverHttp;
@@ -1967,6 +1967,9 @@ const DEFAULTS = {
 
 const endpoint = withDefaults(null, DEFAULTS);
 
+/* eslint-disable node/no-deprecated-api */
+
+
 var Buffer$1 = buffer__default['default'].Buffer;
 
 var safer = {};
@@ -2095,9 +2098,9 @@ var bomHandling = {
 	StripBOM: StripBOM
 };
 
-var safeBuffer = createCommonjsModule(function (module, exports) {
 /* eslint-disable node/no-deprecated-api */
 
+var safeBuffer = createCommonjsModule(function (module, exports) {
 var Buffer = buffer__default['default'].Buffer;
 
 // alternative to using Object.keys for old browsers
@@ -17278,7 +17281,6 @@ exports.getOctokit = getOctokit;
 /**
  * Helpers.
  */
-
 var s = 1000;
 var m = s * 60;
 var h = m * 60;
@@ -17699,9 +17701,9 @@ function setup(env) {
 
 var common = setup;
 
-var browser = createCommonjsModule(function (module, exports) {
 /* eslint-env browser */
 
+var browser = createCommonjsModule(function (module, exports) {
 /**
  * This is the web browser implementation of `debug()`.
  */
@@ -18109,14 +18111,11 @@ var supportsColor_1 = {
 	stderr: translateLevel(supportsColor(true, tty__default['default'].isatty(2)))
 };
 
-var node = createCommonjsModule(function (module, exports) {
 /**
  * Module dependencies.
  */
 
-
-
-
+var node = createCommonjsModule(function (module, exports) {
 /**
  * This is the Node.js implementation of `debug()`.
  */
@@ -18375,12 +18374,12 @@ formatters.O = function (v) {
 };
 });
 
-var src = createCommonjsModule(function (module) {
 /**
  * Detect Electron renderer / nwjs process, which is node, but we should
  * treat as a browser.
  */
 
+var src = createCommonjsModule(function (module) {
 if (typeof process === 'undefined' || process.type === 'renderer' || process.browser === true || process.__nwjs) {
 	module.exports = browser;
 } else {
