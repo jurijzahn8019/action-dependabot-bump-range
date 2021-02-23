@@ -53,7 +53,7 @@
     "@types/node": "^14.14.31",
     "@types/semver": "^7.3.4",
     "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.2",
     "cpy-cli": "^3.1.1",
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
