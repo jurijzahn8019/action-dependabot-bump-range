@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.24](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.23...v0.0.24) (2021-04-16)
+
+
+### Bug Fixes
+
+* **parser:** adjust title parser to match non conventional commit titles ([a13ae23](https://github.com/jurijzahn8019/action-dependabot-bump-range/commit/a13ae23d317c5fdc631d6192314db21da363b259))
+
 ### [0.0.23](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.22...v0.0.23) (2021-03-08)
 
 ### [0.0.22](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.21...v0.0.22) (2021-03-01)
