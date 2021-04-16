@@ -3,7 +3,7 @@ import { SemVer, coerce, diff, ReleaseType } from "semver";
 import { promises as fs } from "fs";
 
 const { readFile } = fs;
-const matchPattern = /\w+\([\w-]+\):\s+bump\s+\S+\s+from\s+v?(?<from>[\d.]+)\s+to\s+v?(?<to>[\d.]+)/;
+const matchPattern = /[bB]ump\s+\S+\s+from\s+v?(?<from>[\d.]+)\s+to\s+v?(?<to>[\d.]+)/;
 
 export function matchTitle(
   title: string

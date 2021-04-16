@@ -1,5 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`utils matchTitle Should match title: Bump actions/setup-java from v1 to v2 1`] = `
+Object {
+  "from": SemVer {
+    "build": Array [],
+    "includePrerelease": false,
+    "loose": false,
+    "major": 1,
+    "minor": 0,
+    "options": Object {},
+    "patch": 0,
+    "prerelease": Array [],
+    "raw": "1.0.0",
+    "version": "1.0.0",
+  },
+  "to": SemVer {
+    "build": Array [],
+    "includePrerelease": false,
+    "loose": false,
+    "major": 2,
+    "minor": 0,
+    "options": Object {},
+    "patch": 0,
+    "prerelease": Array [],
+    "raw": "2.0.0",
+    "version": "2.0.0",
+  },
+}
+`;
+
 exports[`utils matchTitle Should match title: chore(deps): bump actions/setup-node from v1 to v2.0.0 1`] = `
 Object {
   "from": SemVer {

@@ -9,6 +9,7 @@ const titles = [
   "chore(deps): bump actions/setup-node from v1 to v2.0.0",
   "chore(deps-dev): foo bar 35.4.0",
   "chore(deps-dev): bump foobaz from 5.4.0 to 06.0.0",
+  "Bump actions/setup-java from v1 to v2",
 ];
 
 describe("utils", () => {
