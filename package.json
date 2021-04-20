@@ -16,7 +16,8 @@
     "prerel": "standard-version --skip.changelog -p $(git branch --show-current | sed 's/main/rc/g' | sed 's/[_\\/]/-/g')",
     "release": "standard-version",
     "push:tags": "git push --follow-tags origin main",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
@@ -28,12 +29,6 @@
     "url": "https://github.com/jurijzahn8019/action-dependabot-bump-range/issues"
   },
   "homepage": "https://github.com/jurijzahn8019/action-dependabot-bump-range#readme",
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run precommit"
-    }
-  },
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
@@ -63,7 +58,7 @@
     "eslint-plugin-jest": "^24.1.9",
     "eslint-plugin-prettier": "^3.3.1",
     "git-branch": "^2.0.1",
-    "husky": "^4.3.8",
+    "husky": "^6.0.0",
     "jest": "^26.6.3",
     "jest-junit": "^12.0.0",
     "prettier": "^2.2.1",
