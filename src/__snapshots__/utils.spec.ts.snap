@@ -178,6 +178,35 @@ Object {
 
 exports[`utils matchTitle Should match title: chore(deps-dev): foo bar 35.4.0 1`] = `undefined`;
 
+exports[`utils matchTitle Should match title: npm(deps-dev): bump @vue/test-utils from 2.0.0-rc.4 to 2.0.0-rc.6 1`] = `
+Object {
+  "from": SemVer {
+    "build": Array [],
+    "includePrerelease": false,
+    "loose": false,
+    "major": 2,
+    "minor": 0,
+    "options": Object {},
+    "patch": 0,
+    "prerelease": Array [],
+    "raw": "2.0.0",
+    "version": "2.0.0",
+  },
+  "to": SemVer {
+    "build": Array [],
+    "includePrerelease": false,
+    "loose": false,
+    "major": 2,
+    "minor": 0,
+    "options": Object {},
+    "patch": 0,
+    "prerelease": Array [],
+    "raw": "2.0.0",
+    "version": "2.0.0",
+  },
+}
+`;
+
 exports[`utils verDiff Should compare versions: 0.3.4:0.4.0 1`] = `"minor"`;
 
 exports[`utils verDiff Should compare versions: 1.3.4:1.3.5 1`] = `"patch"`;
@@ -185,3 +214,5 @@ exports[`utils verDiff Should compare versions: 1.3.4:1.3.5 1`] = `"patch"`;
 exports[`utils verDiff Should compare versions: 1.3.4:1.4.5 1`] = `"minor"`;
 
 exports[`utils verDiff Should compare versions: 1.3.4:2.4.5 1`] = `"major"`;
+
+exports[`utils verDiff Should compare versions: 1.3.4-rc.3:1.3.4-rc.4 1`] = `"prerelease"`;

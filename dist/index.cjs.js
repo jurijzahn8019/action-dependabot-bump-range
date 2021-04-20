@@ -21047,7 +21047,7 @@ var semver = {
 
 /* eslint-disable camelcase */
 const { readFile } = fs_1.promises;
-const matchPattern = /[bB]ump\s+\S+\s+from\s+v?(?<from>[\d.]+)\s+to\s+v?(?<to>[\d.]+)/;
+const matchPattern = /[bB]ump\s+\S+\s+from\s+v?(?<from>[\d.]+[\w-.]*)\s+to\s+v?(?<to>[\d.]+[\w-.]*)/;
 function matchTitle(title) {
     const match = matchPattern.exec(title);
     if ((match === null || match === void 0 ? void 0 : match.groups) && match.groups.from && match.groups.to) {

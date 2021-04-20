@@ -10,6 +10,7 @@ const titles = [
   "chore(deps-dev): foo bar 35.4.0",
   "chore(deps-dev): bump foobaz from 5.4.0 to 06.0.0",
   "Bump actions/setup-java from v1 to v2",
+  "npm(deps-dev): bump @vue/test-utils from 2.0.0-rc.4 to 2.0.0-rc.6",
 ];
 
 describe("utils", () => {
@@ -26,6 +27,7 @@ describe("utils", () => {
         { from: "1.3.4", to: "1.3.5" },
         { from: "1.3.4", to: "1.4.5" },
         { from: "1.3.4", to: "2.4.5" },
+        { from: "1.3.4-rc.3", to: "1.3.4-rc.4" },
       ].forEach((v) =>
         expect(verDiff(new SemVer(v.from), new SemVer(v.to))).toMatchSnapshot(
           `${v.from}:${v.to}`
