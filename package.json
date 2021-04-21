@@ -32,10 +32,10 @@
   "dependencies": {
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@octokit/types": "^6.12.0",
+    "@octokit/types": "^6.13.1",
     "debug": "^4.3.1",
     "encoding": "^0.1.13",
-    "semver": "^7.3.4"
+    "semver": "^7.3.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
@@ -44,7 +44,7 @@
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@rollup/plugin-typescript": "8.2.0",
     "@types/debug": "^4.1.5",
-    "@types/jest": "^26.0.20",
+    "@types/jest": "^26.0.22",
     "@types/node": "^14.14.41",
     "@types/semver": "^7.3.4",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
