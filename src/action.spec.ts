@@ -20,7 +20,9 @@ const setOutputMock = setOutput as jest.MockedFunction<typeof setOutput>;
 const warningMock = warning as jest.MockedFunction<typeof warning>;
 
 const octokit = {
-  pulls: { get: jest.fn() },
+  rest: {
+    pulls: { get: jest.fn() },
+  },
 };
 
 describe("action", () => {
@@ -28,7 +30,7 @@ describe("action", () => {
     getOctokitMock.mockReturnValue(octokit as any);
     getEventMock.mockResolvedValue({ pull_request: { number: 666 } });
 
-    octokit.pulls.get.mockResolvedValue({ data: { title: "The Foo PR" } });
+    octokit.rest.pulls.get.mockResolvedValue({ data: { title: "The Foo PR" } });
     matchTitleMock.mockReturnValue({
       from: new SemVer("2.0.0"),
       to: new SemVer("3.0.0"),
@@ -81,7 +83,7 @@ describe("action", () => {
     expect(verDiffMock).not.toHaveBeenCalled();
     expect(infoMock).not.toHaveBeenCalled();
     expect(matchTitleMock).not.toHaveBeenCalled();
-    expect(octokit.pulls.get).not.toHaveBeenCalled();
+    expect(octokit.rest.pulls.get).not.toHaveBeenCalled();
   });
 
   it("Should skip if no pr info", async () => {
@@ -102,7 +104,7 @@ describe("action", () => {
     expect(verDiffMock).not.toHaveBeenCalled();
     expect(infoMock).not.toHaveBeenCalled();
     expect(matchTitleMock).not.toHaveBeenCalled();
-    expect(octokit.pulls.get).not.toHaveBeenCalled();
+    expect(octokit.rest.pulls.get).not.toHaveBeenCalled();
   });
 
   it("Should skip if not match title", async () => {

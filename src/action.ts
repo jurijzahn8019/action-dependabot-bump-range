@@ -22,7 +22,7 @@ export async function run(): Promise<void> {
 
     dbg("Fetch pull request data");
     const params = { ...context.repo, pull_number: prNumber };
-    const { data: pr } = await client.pulls.get(params);
+    const { data: pr } = await client.rest.pulls.get(params);
 
     dbg("Process pull request title: %s", pr.title);
     const match = matchTitle(pr.title);

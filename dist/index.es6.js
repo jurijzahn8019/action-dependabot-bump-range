@@ -1,18 +1,18 @@
-import require$$0$1 from 'os';
-import fs_1, { promises } from 'fs';
-import require$$1$1 from 'path';
-import http from 'http';
-import https from 'https';
+import require$$1$1 from 'os';
+import require$$0$1, { promises } from 'fs';
+import require$$4$2 from 'path';
+import require$$2$2 from 'http';
+import require$$3$2 from 'https';
 import 'net';
-import tls from 'tls';
-import events from 'events';
+import require$$1$2 from 'tls';
+import require$$4$3 from 'events';
 import 'assert';
-import util from 'util';
-import require$$3$1 from 'stream';
-import require$$2$1 from 'url';
-import require$$4$1 from 'zlib';
-import buffer from 'buffer';
-import tty from 'tty';
+import require$$6$1 from 'util';
+import require$$4$4 from 'stream';
+import require$$2$3 from 'url';
+import require$$4$5 from 'zlib';
+import require$$0$2 from 'buffer';
+import require$$1$3 from 'tty';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -35,14 +35,16 @@ function getAugmentedNamespace(n) {
 	return a;
 }
 
-function createCommonjsModule(fn) {
-  var module = { exports: {} };
-	return fn(module, module.exports), module.exports;
-}
+var core = {};
+
+var command = {};
+
+var utils$2 = {};
 
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+Object.defineProperty(utils$2, "__esModule", { value: true });
+utils$2.toCommandValue = void 0;
 /**
  * Sanitizes an input into a string so it can be passed into issueCommand safely
  * @param input input to sanitize into a string
@@ -56,23 +58,31 @@ function toCommandValue(input) {
     }
     return JSON.stringify(input);
 }
-var toCommandValue_1 = toCommandValue;
+utils$2.toCommandValue = toCommandValue;
 
-
-var utils$2 = /*#__PURE__*/Object.defineProperty({
-	toCommandValue: toCommandValue_1
-}, '__esModule', {value: true});
-
-var __importStar$1 = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
+var __createBinding$4 = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault$4 = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar$4 = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding$4(result, mod, k);
+    __setModuleDefault$4(result, mod);
     return result;
 };
-
-const os$1 = __importStar$1(require$$0$1);
-
+Object.defineProperty(command, "__esModule", { value: true });
+command.issue = command.issueCommand = void 0;
+const os$2 = __importStar$4(require$$1$1);
+const utils_1$2 = utils$2;
 /**
  * Commands
  *
@@ -85,13 +95,13 @@ const os$1 = __importStar$1(require$$0$1);
  */
 function issueCommand$1(command, properties, message) {
     const cmd = new Command(command, properties, message);
-    process.stdout.write(cmd.toString() + os$1.EOL);
+    process.stdout.write(cmd.toString() + os$2.EOL);
 }
-var issueCommand_1$1 = issueCommand$1;
+command.issueCommand = issueCommand$1;
 function issue(name, message = '') {
     issueCommand$1(name, {}, message);
 }
-var issue_1 = issue;
+command.issue = issue;
 const CMD_STRING = '::';
 class Command {
     constructor(command, properties, message) {
@@ -127,13 +137,13 @@ class Command {
     }
 }
 function escapeData(s) {
-    return utils$2.toCommandValue(s)
+    return utils_1$2.toCommandValue(s)
         .replace(/%/g, '%25')
         .replace(/\r/g, '%0D')
         .replace(/\n/g, '%0A');
 }
 function escapeProperty(s) {
-    return utils$2.toCommandValue(s)
+    return utils_1$2.toCommandValue(s)
         .replace(/%/g, '%25')
         .replace(/\r/g, '%0D')
         .replace(/\n/g, '%0A')
@@ -141,26 +151,35 @@ function escapeProperty(s) {
         .replace(/,/g, '%2C');
 }
 
-
-var command = /*#__PURE__*/Object.defineProperty({
-	issueCommand: issueCommand_1$1,
-	issue: issue_1
-}, '__esModule', {value: true});
+var fileCommand = {};
 
 // For internal use, subject to change.
-var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
+var __createBinding$3 = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault$3 = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar$3 = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding$3(result, mod, k);
+    __setModuleDefault$3(result, mod);
     return result;
 };
-
+Object.defineProperty(fileCommand, "__esModule", { value: true });
+fileCommand.issueCommand = void 0;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const fs = __importStar(fs_1);
-const os = __importStar(require$$0$1);
-
+const fs = __importStar$3(require$$0$1);
+const os$1 = __importStar$3(require$$1$1);
+const utils_1$1 = utils$2;
 function issueCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
@@ -169,18 +188,32 @@ function issueCommand(command, message) {
     if (!fs.existsSync(filePath)) {
         throw new Error(`Missing file at path: ${filePath}`);
     }
-    fs.appendFileSync(filePath, `${utils$2.toCommandValue(message)}${os.EOL}`, {
+    fs.appendFileSync(filePath, `${utils_1$1.toCommandValue(message)}${os$1.EOL}`, {
         encoding: 'utf8'
     });
 }
-var issueCommand_1 = issueCommand;
+fileCommand.issueCommand = issueCommand;
 
-
-var fileCommand = /*#__PURE__*/Object.defineProperty({
-	issueCommand: issueCommand_1
-}, '__esModule', {value: true});
-
-var core = createCommonjsModule(function (module, exports) {
+(function (exports) {
+var __createBinding = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -190,19 +223,13 @@ var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisAr
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
-const os = __importStar(require$$0$1);
-const path = __importStar(require$$1$1);
+exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
+const command_1 = command;
+const file_command_1 = fileCommand;
+const utils_1 = utils$2;
+const os = __importStar(require$$1$1);
+const path = __importStar(require$$4$2);
 /**
  * The code to exit an action
  */
@@ -227,16 +254,16 @@ var ExitCode;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function exportVariable(name, val) {
-    const convertedVal = utils$2.toCommandValue(val);
+    const convertedVal = utils_1.toCommandValue(val);
     process.env[name] = convertedVal;
     const filePath = process.env['GITHUB_ENV'] || '';
     if (filePath) {
         const delimiter = '_GitHubActionsFileCommandDelimeter_';
         const commandValue = `${name}<<${delimiter}${os.EOL}${convertedVal}${os.EOL}${delimiter}`;
-        fileCommand.issueCommand('ENV', commandValue);
+        file_command_1.issueCommand('ENV', commandValue);
     }
     else {
-        command.issueCommand('set-env', { name }, convertedVal);
+        command_1.issueCommand('set-env', { name }, convertedVal);
     }
 }
 exports.exportVariable = exportVariable;
@@ -245,7 +272,7 @@ exports.exportVariable = exportVariable;
  * @param secret value of the secret
  */
 function setSecret(secret) {
-    command.issueCommand('add-mask', {}, secret);
+    command_1.issueCommand('add-mask', {}, secret);
 }
 exports.setSecret = setSecret;
 /**
@@ -255,16 +282,18 @@ exports.setSecret = setSecret;
 function addPath(inputPath) {
     const filePath = process.env['GITHUB_PATH'] || '';
     if (filePath) {
-        fileCommand.issueCommand('PATH', inputPath);
+        file_command_1.issueCommand('PATH', inputPath);
     }
     else {
-        command.issueCommand('add-path', {}, inputPath);
+        command_1.issueCommand('add-path', {}, inputPath);
     }
     process.env['PATH'] = `${inputPath}${path.delimiter}${process.env['PATH']}`;
 }
 exports.addPath = addPath;
 /**
- * Gets the value of an input.  The value is also trimmed.
+ * Gets the value of an input.
+ * Unless trimWhitespace is set to false in InputOptions, the value is also trimmed.
+ * Returns an empty string if the value is not defined.
  *
  * @param     name     name of the input to get
  * @param     options  optional. See InputOptions.
@@ -275,9 +304,49 @@ function getInput(name, options) {
     if (options && options.required && !val) {
         throw new Error(`Input required and not supplied: ${name}`);
     }
+    if (options && options.trimWhitespace === false) {
+        return val;
+    }
     return val.trim();
 }
 exports.getInput = getInput;
+/**
+ * Gets the values of an multiline input.  Each value is also trimmed.
+ *
+ * @param     name     name of the input to get
+ * @param     options  optional. See InputOptions.
+ * @returns   string[]
+ *
+ */
+function getMultilineInput(name, options) {
+    const inputs = getInput(name, options)
+        .split('\n')
+        .filter(x => x !== '');
+    return inputs;
+}
+exports.getMultilineInput = getMultilineInput;
+/**
+ * Gets the input value of the boolean type in the YAML 1.2 "core schema" specification.
+ * Support boolean input list: `true | True | TRUE | false | False | FALSE` .
+ * The return value is also in boolean type.
+ * ref: https://yaml.org/spec/1.2/spec.html#id2804923
+ *
+ * @param     name     name of the input to get
+ * @param     options  optional. See InputOptions.
+ * @returns   boolean
+ */
+function getBooleanInput(name, options) {
+    const trueValue = ['true', 'True', 'TRUE'];
+    const falseValue = ['false', 'False', 'FALSE'];
+    const val = getInput(name, options);
+    if (trueValue.includes(val))
+        return true;
+    if (falseValue.includes(val))
+        return false;
+    throw new TypeError(`Input does not meet YAML 1.2 "Core Schema" specification: ${name}\n` +
+        `Support boolean input list: \`true | True | TRUE | false | False | FALSE\``);
+}
+exports.getBooleanInput = getBooleanInput;
 /**
  * Sets the value of an output.
  *
@@ -287,7 +356,7 @@ exports.getInput = getInput;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function setOutput(name, value) {
     process.stdout.write(os.EOL);
-    command.issueCommand('set-output', { name }, value);
+    command_1.issueCommand('set-output', { name }, value);
 }
 exports.setOutput = setOutput;
 /**
@@ -296,7 +365,7 @@ exports.setOutput = setOutput;
  *
  */
 function setCommandEcho(enabled) {
-    command.issue('echo', enabled ? 'on' : 'off');
+    command_1.issue('echo', enabled ? 'on' : 'off');
 }
 exports.setCommandEcho = setCommandEcho;
 //-----------------------------------------------------------------------
@@ -327,7 +396,7 @@ exports.isDebug = isDebug;
  * @param message debug message
  */
 function debug(message) {
-    command.issueCommand('debug', {}, message);
+    command_1.issueCommand('debug', {}, message);
 }
 exports.debug = debug;
 /**
@@ -335,7 +404,7 @@ exports.debug = debug;
  * @param message error issue message. Errors will be converted to string via toString()
  */
 function error(message) {
-    command.issue('error', message instanceof Error ? message.toString() : message);
+    command_1.issue('error', message instanceof Error ? message.toString() : message);
 }
 exports.error = error;
 /**
@@ -343,7 +412,7 @@ exports.error = error;
  * @param message warning issue message. Errors will be converted to string via toString()
  */
 function warning(message) {
-    command.issue('warning', message instanceof Error ? message.toString() : message);
+    command_1.issue('warning', message instanceof Error ? message.toString() : message);
 }
 exports.warning = warning;
 /**
@@ -362,14 +431,14 @@ exports.info = info;
  * @param name The name of the output group
  */
 function startGroup(name) {
-    command.issue('group', name);
+    command_1.issue('group', name);
 }
 exports.startGroup = startGroup;
 /**
  * End an output group.
  */
 function endGroup() {
-    command.issue('endgroup');
+    command_1.issue('endgroup');
 }
 exports.endGroup = endGroup;
 /**
@@ -405,7 +474,7 @@ exports.group = group;
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function saveState(name, value) {
-    command.issueCommand('save-state', { name }, value);
+    command_1.issueCommand('save-state', { name }, value);
 }
 exports.saveState = saveState;
 /**
@@ -418,19 +487,23 @@ function getState(name) {
     return process.env[`STATE_${name}`] || '';
 }
 exports.getState = getState;
-//# sourceMappingURL=core.js.map
-});
 
-var context = createCommonjsModule(function (module, exports) {
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Context = void 0;
+}(core));
 
+var github = {};
 
-class Context {
+var context$1 = {};
+
+Object.defineProperty(context$1, "__esModule", { value: true });
+context$1.Context = void 0;
+const fs_1 = require$$0$1;
+const os_1 = require$$1$1;
+class Context$2 {
     /**
      * Hydrate the context from the environment
      */
     constructor() {
+        var _a, _b, _c;
         this.payload = {};
         if (process.env.GITHUB_EVENT_PATH) {
             if (fs_1.existsSync(process.env.GITHUB_EVENT_PATH)) {
@@ -438,7 +511,7 @@ class Context {
             }
             else {
                 const path = process.env.GITHUB_EVENT_PATH;
-                process.stdout.write(`GITHUB_EVENT_PATH ${path} does not exist${require$$0$1.EOL}`);
+                process.stdout.write(`GITHUB_EVENT_PATH ${path} does not exist${os_1.EOL}`);
             }
         }
         this.eventName = process.env.GITHUB_EVENT_NAME;
@@ -450,6 +523,9 @@ class Context {
         this.job = process.env.GITHUB_JOB;
         this.runNumber = parseInt(process.env.GITHUB_RUN_NUMBER, 10);
         this.runId = parseInt(process.env.GITHUB_RUN_ID, 10);
+        this.apiUrl = (_a = process.env.GITHUB_API_URL) !== null && _a !== void 0 ? _a : `https://api.github.com`;
+        this.serverUrl = (_b = process.env.GITHUB_SERVER_URL) !== null && _b !== void 0 ? _b : `https://github.com`;
+        this.graphqlUrl = (_c = process.env.GITHUB_GRAPHQL_URL) !== null && _c !== void 0 ? _c : `https://api.github.com/graphql`;
     }
     get issue() {
         const payload = this.payload;
@@ -469,10 +545,17 @@ class Context {
         throw new Error("context.repo requires a GITHUB_REPOSITORY environment variable like 'owner/repo'");
     }
 }
-exports.Context = Context;
-//# sourceMappingURL=context.js.map
-});
+context$1.Context = Context$2;
 
+var utils$1 = {};
+
+var utils = {};
+
+var httpClient$1 = {};
+
+var proxy = {};
+
+Object.defineProperty(proxy, "__esModule", { value: true });
 function getProxyUrl(reqUrl) {
     let usingSsl = reqUrl.protocol === 'https:';
     let proxyUrl;
@@ -491,7 +574,7 @@ function getProxyUrl(reqUrl) {
     }
     return proxyUrl;
 }
-var getProxyUrl_1 = getProxyUrl;
+proxy.getProxyUrl = getProxyUrl;
 function checkBypass(reqUrl) {
     if (!reqUrl.hostname) {
         return false;
@@ -527,17 +610,21 @@ function checkBypass(reqUrl) {
     }
     return false;
 }
-var checkBypass_1 = checkBypass;
+proxy.checkBypass = checkBypass;
 
-var proxy = /*#__PURE__*/Object.defineProperty({
-	getProxyUrl: getProxyUrl_1,
-	checkBypass: checkBypass_1
-}, '__esModule', {value: true});
+var tunnel$1 = {};
 
-var httpOverHttp_1 = httpOverHttp;
-var httpsOverHttp_1 = httpsOverHttp;
-var httpOverHttps_1 = httpOverHttps;
-var httpsOverHttps_1 = httpsOverHttps;
+var tls = require$$1$2;
+var http = require$$2$2;
+var https = require$$3$2;
+var events = require$$4$3;
+var util = require$$6$1;
+
+
+tunnel$1.httpOverHttp = httpOverHttp;
+tunnel$1.httpsOverHttp = httpsOverHttp;
+tunnel$1.httpOverHttps = httpOverHttps;
+tunnel$1.httpsOverHttps = httpsOverHttps;
 
 
 function httpOverHttp(options) {
@@ -647,7 +734,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
         new Buffer(connectOptions.proxyAuth).toString('base64');
   }
 
-  debug$1('making CONNECT request');
+  debug$5('making CONNECT request');
   var connectReq = self.request(connectOptions);
   connectReq.useChunkedEncodingByDefault = false; // for v0.6
   connectReq.once('response', onResponse); // for v0.6
@@ -673,7 +760,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
     socket.removeAllListeners();
 
     if (res.statusCode !== 200) {
-      debug$1('tunneling socket could not be established, statusCode=%d',
+      debug$5('tunneling socket could not be established, statusCode=%d',
         res.statusCode);
       socket.destroy();
       var error = new Error('tunneling socket could not be established, ' +
@@ -684,7 +771,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
       return;
     }
     if (head.length > 0) {
-      debug$1('got illegal response body from proxy');
+      debug$5('got illegal response body from proxy');
       socket.destroy();
       var error = new Error('got illegal response body from proxy');
       error.code = 'ECONNRESET';
@@ -692,7 +779,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
       self.removeSocket(placeholder);
       return;
     }
-    debug$1('tunneling connection has established');
+    debug$5('tunneling connection has established');
     self.sockets[self.sockets.indexOf(placeholder)] = socket;
     return cb(socket);
   }
@@ -700,7 +787,7 @@ TunnelingAgent.prototype.createSocket = function createSocket(options, cb) {
   function onError(cause) {
     connectReq.removeAllListeners();
 
-    debug$1('tunneling socket could not be established, cause=%s\n',
+    debug$5('tunneling socket could not be established, cause=%s\n',
           cause.message, cause.stack);
     var error = new Error('tunneling socket could not be established, ' +
                           'cause=' + cause.message);
@@ -772,9 +859,9 @@ function mergeOptions(target) {
 }
 
 
-var debug$1;
+var debug$5;
 if (process.env.NODE_DEBUG && /\btunnel\b/.test(process.env.NODE_DEBUG)) {
-  debug$1 = function() {
+  debug$5 = function() {
     var args = Array.prototype.slice.call(arguments);
     if (typeof args[0] === 'string') {
       args[0] = 'TUNNEL: ' + args[0];
@@ -784,25 +871,17 @@ if (process.env.NODE_DEBUG && /\btunnel\b/.test(process.env.NODE_DEBUG)) {
     console.error.apply(console, args);
   };
 } else {
-  debug$1 = function() {};
+  debug$5 = function() {};
 }
-var debug_1$1 = debug$1; // for test
-
-var tunnel$1 = {
-	httpOverHttp: httpOverHttp_1,
-	httpsOverHttp: httpsOverHttp_1,
-	httpOverHttps: httpOverHttps_1,
-	httpsOverHttps: httpsOverHttps_1,
-	debug: debug_1$1
-};
+tunnel$1.debug = debug$5; // for test
 
 var tunnel = tunnel$1;
 
-var httpClient = createCommonjsModule(function (module, exports) {
+(function (exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
-
-
-
+const http = require$$2$2;
+const https = require$$3$2;
+const pm = proxy;
 let tunnel$1;
 var HttpCodes;
 (function (HttpCodes) {
@@ -848,7 +927,7 @@ var MediaTypes;
  * @param serverUrl  The server URL where the request will be sent. For example, https://api.github.com
  */
 function getProxyUrl(serverUrl) {
-    let proxyUrl = proxy.getProxyUrl(new URL(serverUrl));
+    let proxyUrl = pm.getProxyUrl(new URL(serverUrl));
     return proxyUrl ? proxyUrl.href : '';
 }
 exports.getProxyUrl = getProxyUrl;
@@ -1201,7 +1280,7 @@ class HttpClient {
     }
     _getAgent(parsedUrl) {
         let agent;
-        let proxyUrl = proxy.getProxyUrl(parsedUrl);
+        let proxyUrl = pm.getProxyUrl(parsedUrl);
         let useProxy = proxyUrl && proxyUrl.hostname;
         if (this._keepAlive && useProxy) {
             agent = this._proxyAgent;
@@ -1227,7 +1306,9 @@ class HttpClient {
                 maxSockets: maxSockets,
                 keepAlive: this._keepAlive,
                 proxy: {
-                    proxyAuth: `${proxyUrl.username}:${proxyUrl.password}`,
+                    ...((proxyUrl.username || proxyUrl.password) && {
+                        proxyAuth: `${proxyUrl.username}:${proxyUrl.password}`
+                    }),
                     host: proxyUrl.hostname,
                     port: proxyUrl.port
                 }
@@ -1333,31 +1414,30 @@ class HttpClient {
     }
 }
 exports.HttpClient = HttpClient;
-});
+}(httpClient$1));
 
-var utils$1 = createCommonjsModule(function (module, exports) {
-var __createBinding = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+var __createBinding$2 = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
-var __setModuleDefault = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
+var __setModuleDefault$2 = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
     Object.defineProperty(o, "default", { enumerable: true, value: v });
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
+var __importStar$2 = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding$2(result, mod, k);
+    __setModuleDefault$2(result, mod);
     return result;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getApiBaseUrl = exports.getProxyAgent = exports.getAuthString = void 0;
-const httpClient$1 = __importStar(httpClient);
+Object.defineProperty(utils, "__esModule", { value: true });
+utils.getApiBaseUrl = utils.getProxyAgent = utils.getAuthString = void 0;
+const httpClient = __importStar$2(httpClient$1);
 function getAuthString(token, options) {
     if (!token && !options.auth) {
         throw new Error('Parameter token or opts.auth is required');
@@ -1367,18 +1447,16 @@ function getAuthString(token, options) {
     }
     return typeof options.auth === 'string' ? options.auth : `token ${token}`;
 }
-exports.getAuthString = getAuthString;
+utils.getAuthString = getAuthString;
 function getProxyAgent(destinationUrl) {
-    const hc = new httpClient$1.HttpClient();
+    const hc = new httpClient.HttpClient();
     return hc.getAgent(destinationUrl);
 }
-exports.getProxyAgent = getProxyAgent;
+utils.getProxyAgent = getProxyAgent;
 function getApiBaseUrl() {
     return process.env['GITHUB_API_URL'] || 'https://api.github.com';
 }
-exports.getApiBaseUrl = getApiBaseUrl;
-//# sourceMappingURL=utils.js.map
-});
+utils.getApiBaseUrl = getApiBaseUrl;
 
 function getUserAgent() {
     if (typeof navigator === "object" && "userAgent" in navigator) {
@@ -1390,11 +1468,13 @@ function getUserAgent() {
     return "<environment undetectable>";
 }
 
-var register_1 = register;
+var beforeAfterHook = {exports: {}};
 
-function register (state, name, method, options) {
-  if (typeof method !== 'function') {
-    throw new Error('method for before hook must be a function')
+var register_1 = register$1;
+
+function register$1(state, name, method, options) {
+  if (typeof method !== "function") {
+    throw new Error("method for before hook must be a function");
   }
 
   if (!options) {
@@ -1403,99 +1483,104 @@ function register (state, name, method, options) {
 
   if (Array.isArray(name)) {
     return name.reverse().reduce(function (callback, name) {
-      return register.bind(null, state, name, callback, options)
-    }, method)()
+      return register$1.bind(null, state, name, callback, options);
+    }, method)();
   }
 
-  return Promise.resolve()
-    .then(function () {
-      if (!state.registry[name]) {
-        return method(options)
-      }
+  return Promise.resolve().then(function () {
+    if (!state.registry[name]) {
+      return method(options);
+    }
 
-      return (state.registry[name]).reduce(function (method, registered) {
-        return registered.hook.bind(null, method, options)
-      }, method)()
-    })
+    return state.registry[name].reduce(function (method, registered) {
+      return registered.hook.bind(null, method, options);
+    }, method)();
+  });
 }
 
-var add = addHook;
+var add = addHook$1;
 
-function addHook (state, kind, name, hook) {
+function addHook$1(state, kind, name, hook) {
   var orig = hook;
   if (!state.registry[name]) {
     state.registry[name] = [];
   }
 
-  if (kind === 'before') {
+  if (kind === "before") {
     hook = function (method, options) {
       return Promise.resolve()
         .then(orig.bind(null, options))
-        .then(method.bind(null, options))
+        .then(method.bind(null, options));
     };
   }
 
-  if (kind === 'after') {
+  if (kind === "after") {
     hook = function (method, options) {
       var result;
       return Promise.resolve()
         .then(method.bind(null, options))
         .then(function (result_) {
           result = result_;
-          return orig(result, options)
+          return orig(result, options);
         })
         .then(function () {
-          return result
-        })
+          return result;
+        });
     };
   }
 
-  if (kind === 'error') {
+  if (kind === "error") {
     hook = function (method, options) {
       return Promise.resolve()
         .then(method.bind(null, options))
         .catch(function (error) {
-          return orig(error, options)
-        })
+          return orig(error, options);
+        });
     };
   }
 
   state.registry[name].push({
     hook: hook,
-    orig: orig
+    orig: orig,
   });
 }
 
-var remove = removeHook;
+var remove = removeHook$1;
 
-function removeHook (state, name, method) {
+function removeHook$1(state, name, method) {
   if (!state.registry[name]) {
-    return
+    return;
   }
 
   var index = state.registry[name]
-    .map(function (registered) { return registered.orig })
+    .map(function (registered) {
+      return registered.orig;
+    })
     .indexOf(method);
 
   if (index === -1) {
-    return
+    return;
   }
 
   state.registry[name].splice(index, 1);
 }
+
+var register = register_1;
+var addHook = add;
+var removeHook = remove;
 
 // bind with array of arguments: https://stackoverflow.com/a/21792913
 var bind = Function.bind;
 var bindable = bind.bind(bind);
 
 function bindApi (hook, state, name) {
-  var removeHookRef = bindable(remove, null).apply(null, name ? [state, name] : [state]);
+  var removeHookRef = bindable(removeHook, null).apply(null, name ? [state, name] : [state]);
   hook.api = { remove: removeHookRef };
   hook.remove = removeHookRef
 
   ;['before', 'error', 'after', 'wrap'].forEach(function (kind) {
     var args = name ? [state, kind, name] : [state, kind];
-    hook[kind] = hook.api[kind] = bindable(add, null).apply(null, args);
+    hook[kind] = hook.api[kind] = bindable(addHook, null).apply(null, args);
   });
 }
 
@@ -1504,7 +1589,7 @@ function HookSingular () {
   var singularHookState = {
     registry: {}
   };
-  var singularHook = register_1.bind(null, singularHookState, singularHookName);
+  var singularHook = register.bind(null, singularHookState, singularHookName);
   bindApi(singularHook, singularHookState, singularHookName);
   return singularHook
 }
@@ -1514,7 +1599,7 @@ function HookCollection () {
     registry: {}
   };
 
-  var hook = register_1.bind(null, state);
+  var hook = register.bind(null, state);
   bindApi(hook, state);
 
   return hook
@@ -1532,14 +1617,11 @@ function Hook () {
 Hook.Singular = HookSingular.bind();
 Hook.Collection = HookCollection.bind();
 
-var beforeAfterHook = Hook;
+beforeAfterHook.exports = Hook;
 // expose constructors as a named property for TypeScript
-var Hook_1 = Hook;
-var Singular = Hook.Singular;
-var Collection = Hook.Collection;
-beforeAfterHook.Hook = Hook_1;
-beforeAfterHook.Singular = Singular;
-beforeAfterHook.Collection = Collection;
+beforeAfterHook.exports.Hook = Hook;
+beforeAfterHook.exports.Singular = Hook.Singular;
+var Collection = beforeAfterHook.exports.Collection = Hook.Collection;
 
 /*!
  * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
@@ -1837,7 +1919,7 @@ function expand(template, context) {
     });
 }
 
-function parse$2(options) {
+function parse$7(options) {
     // https://fetch.spec.whatwg.org/#methods
     let method = options.method.toUpperCase();
     // replace :varname with {varname} to make it RFC 6570 compatible
@@ -1916,7 +1998,7 @@ function parse$2(options) {
 }
 
 function endpointWithDefaults(defaults, route, options) {
-    return parse$2(merge(defaults, route, options));
+    return parse$7(merge(defaults, route, options));
 }
 
 function withDefaults$2(oldDefaults, newDefaults) {
@@ -1926,11 +2008,11 @@ function withDefaults$2(oldDefaults, newDefaults) {
         DEFAULTS,
         defaults: withDefaults$2.bind(null, DEFAULTS),
         merge: merge.bind(null, DEFAULTS),
-        parse: parse$2,
+        parse: parse$7,
     });
 }
 
-const VERSION$5 = "6.0.9";
+const VERSION$5 = "6.0.12";
 
 const userAgent = `octokit-endpoint.js/${VERSION$5} ${getUserAgent()}`;
 // DEFAULTS has all properties set that EndpointOptions has, except url.
@@ -1950,9 +2032,15 @@ const DEFAULTS = {
 
 const endpoint = withDefaults$2(null, DEFAULTS);
 
+var lib$1 = {exports: {}};
+
+var encoding = {};
+
+var lib = {exports: {}};
+
 /* eslint-disable node/no-deprecated-api */
 
-
+var buffer = require$$0$2;
 var Buffer$9 = buffer.Buffer;
 
 var safer = {};
@@ -2026,9 +2114,11 @@ if (!safer.constants) {
 
 var safer_1 = safer;
 
+var bomHandling = {};
+
 var BOMChar = '\uFEFF';
 
-var PrependBOM = PrependBOMWrapper;
+bomHandling.PrependBOM = PrependBOMWrapper;
 function PrependBOMWrapper(encoder, options) {
     this.encoder = encoder;
     this.addBOM = true;
@@ -2050,7 +2140,7 @@ PrependBOMWrapper.prototype.end = function() {
 
 //------------------------------------------------------------------------------
 
-var StripBOM = StripBOMWrapper;
+bomHandling.StripBOM = StripBOMWrapper;
 function StripBOMWrapper(decoder, options) {
     this.decoder = decoder;
     this.pass = false;
@@ -2076,14 +2166,17 @@ StripBOMWrapper.prototype.end = function() {
     return this.decoder.end();
 };
 
-var bomHandling = {
-	PrependBOM: PrependBOM,
-	StripBOM: StripBOM
-};
+var encodings = {};
 
+var string_decoder = {};
+
+var safeBuffer = {exports: {}};
+
+/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
+
+(function (module, exports) {
 /* eslint-disable node/no-deprecated-api */
-
-var safeBuffer = createCommonjsModule(function (module, exports) {
+var buffer = require$$0$2;
 var Buffer = buffer.Buffer;
 
 // alternative to using Object.keys for old browsers
@@ -2103,6 +2196,8 @@ if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow)
 function SafeBuffer (arg, encodingOrOffset, length) {
   return Buffer(arg, encodingOrOffset, length)
 }
+
+SafeBuffer.prototype = Object.create(Buffer.prototype);
 
 // Copy static methods from Buffer
 copyProps(Buffer, SafeBuffer);
@@ -2144,11 +2239,11 @@ SafeBuffer.allocUnsafeSlow = function (size) {
   }
   return buffer.SlowBuffer(size)
 };
-});
+}(safeBuffer, safeBuffer.exports));
 
 /*<replacement>*/
 
-var Buffer$8 = safeBuffer.Buffer;
+var Buffer$8 = safeBuffer.exports.Buffer;
 /*</replacement>*/
 
 var isEncoding = Buffer$8.isEncoding || function (encoding) {
@@ -2199,7 +2294,7 @@ function normalizeEncoding(enc) {
 // StringDecoder provides an interface for efficiently splitting a series of
 // buffers into a series of JS strings without breaking apart multi-byte
 // characters.
-var StringDecoder_1 = StringDecoder$1;
+string_decoder.StringDecoder = StringDecoder$1;
 function StringDecoder$1(encoding) {
   this.encoding = normalizeEncoding(encoding);
   var nb;
@@ -2419,10 +2514,6 @@ function simpleEnd(buf) {
   return buf && buf.length ? this.write(buf) : '';
 }
 
-var string_decoder = {
-	StringDecoder: StringDecoder_1
-};
-
 var Buffer$7 = safer_1.Buffer;
 
 // Export Node.js internal encodings.
@@ -2621,11 +2712,13 @@ InternalDecoderCesu8.prototype.end = function() {
     return res;
 };
 
+var utf32 = {};
+
 var Buffer$6 = safer_1.Buffer;
 
 // == UTF32-LE/BE codec. ==========================================================
 
-var _utf32 = Utf32Codec;
+utf32._utf32 = Utf32Codec;
 
 function Utf32Codec(codecOptions, iconv) {
     this.iconv = iconv;
@@ -2633,12 +2726,12 @@ function Utf32Codec(codecOptions, iconv) {
     this.isLE = codecOptions.isLE;
 }
 
-var utf32le = { type: '_utf32', isLE: true };
-var utf32be = { type: '_utf32', isLE: false };
+utf32.utf32le = { type: '_utf32', isLE: true };
+utf32.utf32be = { type: '_utf32', isLE: false };
 
 // Aliases
-var ucs4le = 'utf32le';
-var ucs4be = 'utf32be';
+utf32.ucs4le = 'utf32le';
+utf32.ucs4be = 'utf32be';
 
 Utf32Codec.prototype.encoder = Utf32Encoder;
 Utf32Codec.prototype.decoder = Utf32Decoder;
@@ -2809,8 +2902,8 @@ Utf32Decoder.prototype.end = function() {
 
 // Encoder prepends BOM (which can be overridden with (addBOM: false}).
 
-var utf32_1 = Utf32AutoCodec;
-var ucs4 = 'utf32';
+utf32.utf32 = Utf32AutoCodec;
+utf32.ucs4 = 'utf32';
 
 function Utf32AutoCodec(options, iconv) {
     this.iconv = iconv;
@@ -2938,15 +3031,7 @@ function detectEncoding$1(bufs, defaultEncoding) {
     return defaultEncoding || 'utf-32le';
 }
 
-var utf32 = {
-	_utf32: _utf32,
-	utf32le: utf32le,
-	utf32be: utf32be,
-	ucs4le: ucs4le,
-	ucs4be: ucs4be,
-	utf32: utf32_1,
-	ucs4: ucs4
-};
+var utf16 = {};
 
 var Buffer$5 = safer_1.Buffer;
 
@@ -2954,7 +3039,7 @@ var Buffer$5 = safer_1.Buffer;
 
 // == UTF16-BE codec. ==========================================================
 
-var utf16be = Utf16BECodec;
+utf16.utf16be = Utf16BECodec;
 function Utf16BECodec() {
 }
 
@@ -3022,7 +3107,7 @@ Utf16BEDecoder.prototype.end = function() {
 
 // Encoder uses UTF-16LE and prepends BOM (which can be overridden with addBOM: false).
 
-var utf16_1 = Utf16Codec;
+utf16.utf16 = Utf16Codec;
 function Utf16Codec(codecOptions, iconv) {
     this.iconv = iconv;
 }
@@ -3143,18 +3228,15 @@ function detectEncoding(bufs, defaultEncoding) {
     return defaultEncoding || 'utf-16le';
 }
 
-var utf16 = {
-	utf16be: utf16be,
-	utf16: utf16_1
-};
+var utf7 = {};
 
 var Buffer$4 = safer_1.Buffer;
 
 // UTF-7 codec, according to https://tools.ietf.org/html/rfc2152
 // See also below a UTF-7-IMAP codec, according to http://tools.ietf.org/html/rfc3501#section-5.1.3
 
-var utf7_1 = Utf7Codec;
-var unicode11utf7 = 'utf7'; // Alias UNICODE-1-1-UTF-7
+utf7.utf7 = Utf7Codec;
+utf7.unicode11utf7 = 'utf7'; // Alias UNICODE-1-1-UTF-7
 function Utf7Codec(codecOptions, iconv) {
     this.iconv = iconv;
 }
@@ -3277,7 +3359,7 @@ Utf7Decoder.prototype.end = function() {
 //  * "-&" while in base64 is not allowed.
 
 
-var utf7imap = Utf7IMAPCodec;
+utf7.utf7imap = Utf7IMAPCodec;
 function Utf7IMAPCodec(codecOptions, iconv) {
     this.iconv = iconv;
 }
@@ -3434,18 +3516,14 @@ Utf7IMAPDecoder.prototype.end = function() {
     return res;
 };
 
-var utf7 = {
-	utf7: utf7_1,
-	unicode11utf7: unicode11utf7,
-	utf7imap: utf7imap
-};
+var sbcsCodec = {};
 
 var Buffer$3 = safer_1.Buffer;
 
 // Single-byte codec. Needs a 'chars' string parameter that contains 256 or 128 chars that
 // correspond to encoded bytes (if 128 - then lower half is ASCII). 
 
-var _sbcs = SBCSCodec;
+sbcsCodec._sbcs = SBCSCodec;
 function SBCSCodec(codecOptions, iconv) {
     if (!codecOptions)
         throw new Error("SBCS codec is called without the data.")
@@ -3510,10 +3588,6 @@ SBCSDecoder.prototype.write = function(buf) {
 };
 
 SBCSDecoder.prototype.end = function() {
-};
-
-var sbcsCodec = {
-	_sbcs: _sbcs
 };
 
 // Manually added data to be used by sbcs codec in addition to generated one.
@@ -4143,13 +4217,15 @@ var sbcsDataGenerated = {
   }
 };
 
+var dbcsCodec = {};
+
 var Buffer$2 = safer_1.Buffer;
 
 // Multibyte codec. In this scheme, a character is represented by 1 or more bytes.
 // Our codec supports UTF-16 surrogates, extensions for GB18030 and unicode sequences.
 // To save memory and loading time, we read table files only when requested.
 
-var _dbcs = DBCSCodec;
+dbcsCodec._dbcs = DBCSCodec;
 
 var UNASSIGNED = -1,
     GB18030_CODE = -2,
@@ -4729,10 +4805,6 @@ function findIdx(table, val) {
     }
     return l;
 }
-
-var dbcsCodec = {
-	_dbcs: _dbcs
-};
 
 var require$$0 = [
 	[
@@ -6102,7 +6174,7 @@ var require$$1 = [
 	]
 ];
 
-var require$$2 = [
+var require$$2$1 = [
 	[
 		"0",
 		"\u0000",
@@ -8722,7 +8794,7 @@ var require$$2 = [
 	]
 ];
 
-var require$$3 = [
+var require$$3$1 = [
 	[
 		"a140",
 		"",
@@ -9403,7 +9475,7 @@ var gbChars = [
 	39394,
 	189000
 ];
-var require$$4 = {
+var require$$4$1 = {
 	uChars: uChars,
 	gbChars: gbChars
 };
@@ -13104,13 +13176,13 @@ var dbcsData = {
     '936': 'cp936',
     'cp936': {
         type: '_dbcs',
-        table: function() { return require$$2 },
+        table: function() { return require$$2$1 },
     },
 
     // GBK (~22000 chars) is an extension of CP936 that added user-mapped chars and some other.
     'gbk': {
         type: '_dbcs',
-        table: function() { return require$$2.concat(require$$3) },
+        table: function() { return require$$2$1.concat(require$$3$1) },
     },
     'xgbk': 'gbk',
     'isoir58': 'gbk',
@@ -13122,8 +13194,8 @@ var dbcsData = {
     // http://www.khngai.com/chinese/charmap/tblgbk.php?page=0
     'gb18030': {
         type: '_dbcs',
-        table: function() { return require$$2.concat(require$$3) },
-        gb18030: function() { return require$$4 },
+        table: function() { return require$$2$1.concat(require$$3$1) },
+        gb18030: function() { return require$$4$1 },
         encodeSkipVals: [0x80],
         encodeAdd: {'€': 0xA2E3},
     },
@@ -13195,7 +13267,7 @@ var dbcsData = {
     'xxbig5': 'big5hkscs',
 };
 
-var encodings = createCommonjsModule(function (module, exports) {
+(function (exports) {
 
 // Update this array if you add/rename/remove files in this directory.
 // We support Browserify by skipping automatic module discovery and requiring modules directly.
@@ -13218,7 +13290,7 @@ for (var i = 0; i < modules.length; i++) {
         if (Object.prototype.hasOwnProperty.call(module, enc))
             exports[enc] = module[enc];
 }
-});
+}(encodings));
 
 var Buffer$1 = safer_1.Buffer;
 
@@ -13328,11 +13400,12 @@ var streams = function(stream_module) {
     };
 };
 
-var lib$1 = createCommonjsModule(function (module) {
+(function (module) {
 
 var Buffer = safer_1.Buffer;
 
-var iconv = module.exports;
+var bomHandling$1 = bomHandling,
+    iconv = module.exports;
 
 // All codecs and aliases are kept here, keyed by encoding name/alias.
 // They are lazy loaded in `iconv.getCodec` from `encodings/index.js`.
@@ -13445,7 +13518,7 @@ iconv.getEncoder = function getEncoder(encoding, options) {
         encoder = new codec.encoder(options, codec);
 
     if (codec.bomAware && options && options.addBOM)
-        encoder = new bomHandling.PrependBOM(encoder, options);
+        encoder = new bomHandling$1.PrependBOM(encoder, options);
 
     return encoder;
 };
@@ -13455,7 +13528,7 @@ iconv.getDecoder = function getDecoder(encoding, options) {
         decoder = new codec.decoder(options, codec);
 
     if (codec.bomAware && !(options && options.stripBOM === false))
-        decoder = new bomHandling.StripBOM(decoder, options);
+        decoder = new bomHandling$1.StripBOM(decoder, options);
 
     return decoder;
 };
@@ -13491,7 +13564,7 @@ iconv.enableStreamingAPI = function enableStreamingAPI(stream_module) {
 // Enable Streaming API automatically if 'stream' module is available and non-empty (the majority of environments).
 var stream_module;
 try {
-    stream_module = require$$3$1;
+    stream_module = require$$4$4;
 } catch (e) {}
 
 if (stream_module && stream_module.Transform) {
@@ -13503,10 +13576,12 @@ if (stream_module && stream_module.Transform) {
         throw new Error("iconv-lite Streaming API is not enabled. Use iconv.enableStreamingAPI(require('stream')); to enable it.");
     };
 }
-});
+}(lib));
+
+var iconvLite = lib.exports;
 
 // Expose to the world
-var convert_1 = convert;
+encoding.convert = convert;
 
 /**
  * Convert encoding of an UTF-8 string or a buffer
@@ -13559,11 +13634,11 @@ function convert(str, to, from) {
  */
 function convertIconvLite(str, to, from) {
     if (to === 'UTF-8') {
-        return lib$1.decode(str, from);
+        return iconvLite.decode(str, from);
     } else if (from === 'UTF-8') {
-        return lib$1.encode(str, to);
+        return iconvLite.encode(str, to);
     } else {
-        return lib$1.encode(lib$1.decode(str, from), to);
+        return iconvLite.encode(iconvLite.decode(str, from), to);
     }
 }
 
@@ -13585,21 +13660,17 @@ function checkEncoding(name) {
         .toUpperCase();
 }
 
-var encoding = {
-	convert: convert_1
-};
-
-var lib = createCommonjsModule(function (module, exports) {
+(function (module, exports) {
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var Stream = _interopDefault(require$$3$1);
-var http$1 = _interopDefault(http);
-var Url = _interopDefault(require$$2$1);
-var https$1 = _interopDefault(https);
-var zlib = _interopDefault(require$$4$1);
+var Stream = _interopDefault(require$$4$4);
+var http = _interopDefault(require$$2$2);
+var Url = _interopDefault(require$$2$3);
+var https = _interopDefault(require$$3$2);
+var zlib = _interopDefault(require$$4$5);
 
 // Based on https://github.com/tmpvar/jsdom/blob/aa85b2abf07766ff7bf5c1f6daafb3726f2f2db5/lib/jsdom/living/blob.js
 
@@ -14633,7 +14704,7 @@ function createHeadersLenient(obj) {
 const INTERNALS$1 = Symbol('Response internals');
 
 // fix an issue where "STATUS_CODES" aren't a named export for node <10
-const STATUS_CODES = http$1.STATUS_CODES;
+const STATUS_CODES = http.STATUS_CODES;
 
 /**
  * Response class
@@ -15000,7 +15071,7 @@ function fetch(url, opts) {
 		const request = new Request(url, opts);
 		const options = getNodeRequestOptions(request);
 
-		const send = (options.protocol === 'https:' ? https$1 : http$1).request;
+		const send = (options.protocol === 'https:' ? https : http).request;
 		const signal = request.signal;
 
 		let response = null;
@@ -15238,9 +15309,9 @@ exports.Headers = Headers;
 exports.Request = Request;
 exports.Response = Response;
 exports.FetchError = FetchError;
-});
+}(lib$1, lib$1.exports));
 
-var nodeFetch = /*@__PURE__*/getDefaultExportFromCjs(lib);
+var nodeFetch = /*@__PURE__*/getDefaultExportFromCjs(lib$1.exports);
 
 class Deprecation extends Error {
   constructor(message) {
@@ -15257,14 +15328,16 @@ class Deprecation extends Error {
 
 }
 
+var once$2 = {exports: {}};
+
 // Returns a wrapper function that returns a wrapped callback
 // The wrapper function should do some stuff, and return a
 // presumably different callback function.
 // This makes sure that own properties are retained, so that
 // decorations and such are not lost along the way.
-var wrappy_1 = wrappy;
-function wrappy (fn, cb) {
-  if (fn && cb) return wrappy(fn)(cb)
+var wrappy_1 = wrappy$1;
+function wrappy$1 (fn, cb) {
+  if (fn && cb) return wrappy$1(fn)(cb)
 
   if (typeof fn !== 'function')
     throw new TypeError('need wrapper function')
@@ -15291,8 +15364,9 @@ function wrappy (fn, cb) {
   }
 }
 
-var once_1 = wrappy_1(once);
-var strict = wrappy_1(onceStrict);
+var wrappy = wrappy_1;
+once$2.exports = wrappy(once);
+once$2.exports.strict = wrappy(onceStrict);
 
 once.proto = once(function () {
   Object.defineProperty(Function.prototype, 'once', {
@@ -15332,9 +15406,11 @@ function onceStrict (fn) {
   f.called = false;
   return f
 }
-once_1.strict = strict;
 
-const logOnce = once_1((deprecation) => console.warn(deprecation));
+var once$1 = once$2.exports;
+
+const logOnceCode = once$1((deprecation) => console.warn(deprecation));
+const logOnceHeaders = once$1((deprecation) => console.warn(deprecation));
 /**
  * Error with extra properties to help with debugging
  */
@@ -15348,13 +15424,14 @@ class RequestError extends Error {
         }
         this.name = "HttpError";
         this.status = statusCode;
-        Object.defineProperty(this, "code", {
-            get() {
-                logOnce(new Deprecation("[@octokit/request-error] `error.code` is deprecated, use `error.status`."));
-                return statusCode;
-            },
-        });
-        this.headers = options.headers || {};
+        let headers;
+        if ("headers" in options && typeof options.headers !== "undefined") {
+            headers = options.headers;
+        }
+        if ("response" in options) {
+            this.response = options.response;
+            headers = options.response.headers;
+        }
         // redact request credentials without mutating original request options
         const requestCopy = Object.assign({}, options.request);
         if (options.request.headers.authorization) {
@@ -15370,16 +15447,32 @@ class RequestError extends Error {
             // see https://developer.github.com/v3/#oauth2-token-sent-in-a-header
             .replace(/\baccess_token=\w+/g, "access_token=[REDACTED]");
         this.request = requestCopy;
+        // deprecations
+        Object.defineProperty(this, "code", {
+            get() {
+                logOnceCode(new Deprecation("[@octokit/request-error] `error.code` is deprecated, use `error.status`."));
+                return statusCode;
+            },
+        });
+        Object.defineProperty(this, "headers", {
+            get() {
+                logOnceHeaders(new Deprecation("[@octokit/request-error] `error.headers` is deprecated, use `error.response.headers`."));
+                return headers || {};
+            },
+        });
     }
 }
 
-const VERSION$4 = "5.4.10";
+const VERSION$4 = "5.6.0";
 
 function getBufferResponse(response) {
     return response.arrayBuffer();
 }
 
 function fetchWrapper(requestOptions) {
+    const log = requestOptions.request && requestOptions.request.log
+        ? requestOptions.request.log
+        : console;
     if (isPlainObject(requestOptions.body) ||
         Array.isArray(requestOptions.body)) {
         requestOptions.body = JSON.stringify(requestOptions.body);
@@ -15393,12 +15486,20 @@ function fetchWrapper(requestOptions) {
         body: requestOptions.body,
         headers: requestOptions.headers,
         redirect: requestOptions.redirect,
-    }, requestOptions.request))
-        .then((response) => {
+    }, 
+    // `requestOptions.request.agent` type is incompatible
+    // see https://github.com/octokit/types.ts/pull/264
+    requestOptions.request))
+        .then(async (response) => {
         url = response.url;
         status = response.status;
         for (const keyAndValue of response.headers) {
             headers[keyAndValue[0]] = keyAndValue[1];
+        }
+        if ("deprecation" in headers) {
+            const matches = headers.link && headers.link.match(/<([^>]+)>; rel="deprecation"/);
+            const deprecationLink = matches && matches.pop();
+            log.warn(`[@octokit/request] "${requestOptions.method} ${requestOptions.url}" is deprecated. It is scheduled to be removed on ${headers.sunset}${deprecationLink ? `. See ${deprecationLink}` : ""}`);
         }
         if (status === 204 || status === 205) {
             return;
@@ -15409,46 +15510,40 @@ function fetchWrapper(requestOptions) {
                 return;
             }
             throw new RequestError(response.statusText, status, {
-                headers,
+                response: {
+                    url,
+                    status,
+                    headers,
+                    data: undefined,
+                },
                 request: requestOptions,
             });
         }
         if (status === 304) {
             throw new RequestError("Not modified", status, {
-                headers,
+                response: {
+                    url,
+                    status,
+                    headers,
+                    data: await getResponseData(response),
+                },
                 request: requestOptions,
             });
         }
         if (status >= 400) {
-            return response
-                .text()
-                .then((message) => {
-                const error = new RequestError(message, status, {
+            const data = await getResponseData(response);
+            const error = new RequestError(toErrorMessage(data), status, {
+                response: {
+                    url,
+                    status,
                     headers,
-                    request: requestOptions,
-                });
-                try {
-                    let responseBody = JSON.parse(error.message);
-                    Object.assign(error, responseBody);
-                    let errors = responseBody.errors;
-                    // Assumption `errors` would always be in Array format
-                    error.message =
-                        error.message + ": " + errors.map(JSON.stringify).join(", ");
-                }
-                catch (e) {
-                    // ignore, see octokit/rest.js#684
-                }
-                throw error;
+                    data,
+                },
+                request: requestOptions,
             });
+            throw error;
         }
-        const contentType = response.headers.get("content-type");
-        if (/application\/json/.test(contentType)) {
-            return response.json();
-        }
-        if (!contentType || /^text\/|charset=utf-8$/.test(contentType)) {
-            return response.text();
-        }
-        return getBufferResponse(response);
+        return getResponseData(response);
     })
         .then((data) => {
         return {
@@ -15459,14 +15554,35 @@ function fetchWrapper(requestOptions) {
         };
     })
         .catch((error) => {
-        if (error instanceof RequestError) {
+        if (error instanceof RequestError)
             throw error;
-        }
         throw new RequestError(error.message, 500, {
-            headers,
             request: requestOptions,
         });
     });
+}
+async function getResponseData(response) {
+    const contentType = response.headers.get("content-type");
+    if (/application\/json/.test(contentType)) {
+        return response.json();
+    }
+    if (!contentType || /^text\/|charset=utf-8$/.test(contentType)) {
+        return response.text();
+    }
+    return getBufferResponse(response);
+}
+function toErrorMessage(data) {
+    if (typeof data === "string")
+        return data;
+    // istanbul ignore else - just in case
+    if ("message" in data) {
+        if (Array.isArray(data.errors)) {
+            return `${data.message}: ${data.errors.map(JSON.stringify).join(", ")}`;
+        }
+        return data.message;
+    }
+    // istanbul ignore next - just in case
+    return `Unknown error: ${JSON.stringify(data)}`;
 }
 
 function withDefaults$1(oldEndpoint, newDefaults) {
@@ -15497,7 +15613,7 @@ const request = withDefaults$1(endpoint, {
     },
 });
 
-const VERSION$3 = "4.5.7";
+const VERSION$3 = "4.6.4";
 
 class GraphqlError extends Error {
     constructor(request, response) {
@@ -15524,10 +15640,18 @@ const NON_VARIABLE_OPTIONS = [
     "query",
     "mediaType",
 ];
+const FORBIDDEN_VARIABLE_OPTIONS = ["query", "method", "url"];
 const GHES_V3_SUFFIX_REGEX = /\/api\/v3\/?$/;
 function graphql(request, query, options) {
-    if (typeof query === "string" && options && "query" in options) {
-        return Promise.reject(new Error(`[@octokit/graphql] "query" cannot be used as variable name`));
+    if (options) {
+        if (typeof query === "string" && "query" in options) {
+            return Promise.reject(new Error(`[@octokit/graphql] "query" cannot be used as variable name`));
+        }
+        for (const key in options) {
+            if (!FORBIDDEN_VARIABLE_OPTIONS.includes(key))
+                continue;
+            return Promise.reject(new Error(`[@octokit/graphql] "${key}" cannot be used as variable name`));
+        }
     }
     const parsedOptions = typeof query === "string" ? Object.assign({ query }, options) : query;
     const requestOptions = Object.keys(parsedOptions).reduce((result, key) => {
@@ -15631,7 +15755,7 @@ const createTokenAuth = function createTokenAuth(token) {
     });
 };
 
-const VERSION$2 = "3.2.1";
+const VERSION$2 = "3.5.1";
 
 class Octokit {
     constructor(options = {}) {
@@ -15640,6 +15764,7 @@ class Octokit {
             baseUrl: request.endpoint.DEFAULTS.baseUrl,
             headers: {},
             request: Object.assign({}, options.request, {
+                // @ts-ignore internal usage only, no need to type
                 hook: hook.bind(null, "request"),
             }),
             mediaType: {
@@ -15757,13 +15882,21 @@ var distWeb$2 = /*#__PURE__*/Object.freeze({
 	Octokit: Octokit
 });
 
+var require$$2 = /*@__PURE__*/getAugmentedNamespace(distWeb$2);
+
 const Endpoints = {
     actions: {
         addSelectedRepoToOrgSecret: [
             "PUT /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
         ],
+        approveWorkflowRun: [
+            "POST /repos/{owner}/{repo}/actions/runs/{run_id}/approve",
+        ],
         cancelWorkflowRun: [
             "POST /repos/{owner}/{repo}/actions/runs/{run_id}/cancel",
+        ],
+        createOrUpdateEnvironmentSecret: [
+            "PUT /repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}",
         ],
         createOrUpdateOrgSecret: ["PUT /orgs/{org}/actions/secrets/{secret_name}"],
         createOrUpdateRepoSecret: [
@@ -15785,6 +15918,9 @@ const Endpoints = {
         deleteArtifact: [
             "DELETE /repos/{owner}/{repo}/actions/artifacts/{artifact_id}",
         ],
+        deleteEnvironmentSecret: [
+            "DELETE /repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}",
+        ],
         deleteOrgSecret: ["DELETE /orgs/{org}/actions/secrets/{secret_name}"],
         deleteRepoSecret: [
             "DELETE /repos/{owner}/{repo}/actions/secrets/{secret_name}",
@@ -15799,6 +15935,12 @@ const Endpoints = {
         deleteWorkflowRunLogs: [
             "DELETE /repos/{owner}/{repo}/actions/runs/{run_id}/logs",
         ],
+        disableSelectedRepositoryGithubActionsOrganization: [
+            "DELETE /orgs/{org}/actions/permissions/repositories/{repository_id}",
+        ],
+        disableWorkflow: [
+            "PUT /repos/{owner}/{repo}/actions/workflows/{workflow_id}/disable",
+        ],
         downloadArtifact: [
             "GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}/{archive_format}",
         ],
@@ -15808,12 +15950,47 @@ const Endpoints = {
         downloadWorkflowRunLogs: [
             "GET /repos/{owner}/{repo}/actions/runs/{run_id}/logs",
         ],
+        enableSelectedRepositoryGithubActionsOrganization: [
+            "PUT /orgs/{org}/actions/permissions/repositories/{repository_id}",
+        ],
+        enableWorkflow: [
+            "PUT /repos/{owner}/{repo}/actions/workflows/{workflow_id}/enable",
+        ],
+        getAllowedActionsOrganization: [
+            "GET /orgs/{org}/actions/permissions/selected-actions",
+        ],
+        getAllowedActionsRepository: [
+            "GET /repos/{owner}/{repo}/actions/permissions/selected-actions",
+        ],
         getArtifact: ["GET /repos/{owner}/{repo}/actions/artifacts/{artifact_id}"],
+        getEnvironmentPublicKey: [
+            "GET /repositories/{repository_id}/environments/{environment_name}/secrets/public-key",
+        ],
+        getEnvironmentSecret: [
+            "GET /repositories/{repository_id}/environments/{environment_name}/secrets/{secret_name}",
+        ],
+        getGithubActionsPermissionsOrganization: [
+            "GET /orgs/{org}/actions/permissions",
+        ],
+        getGithubActionsPermissionsRepository: [
+            "GET /repos/{owner}/{repo}/actions/permissions",
+        ],
         getJobForWorkflowRun: ["GET /repos/{owner}/{repo}/actions/jobs/{job_id}"],
         getOrgPublicKey: ["GET /orgs/{org}/actions/secrets/public-key"],
         getOrgSecret: ["GET /orgs/{org}/actions/secrets/{secret_name}"],
+        getPendingDeploymentsForRun: [
+            "GET /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments",
+        ],
+        getRepoPermissions: [
+            "GET /repos/{owner}/{repo}/actions/permissions",
+            {},
+            { renamed: ["actions", "getGithubActionsPermissionsRepository"] },
+        ],
         getRepoPublicKey: ["GET /repos/{owner}/{repo}/actions/secrets/public-key"],
         getRepoSecret: ["GET /repos/{owner}/{repo}/actions/secrets/{secret_name}"],
+        getReviewsForRun: [
+            "GET /repos/{owner}/{repo}/actions/runs/{run_id}/approvals",
+        ],
         getSelfHostedRunnerForOrg: ["GET /orgs/{org}/actions/runners/{runner_id}"],
         getSelfHostedRunnerForRepo: [
             "GET /repos/{owner}/{repo}/actions/runners/{runner_id}",
@@ -15827,6 +16004,9 @@ const Endpoints = {
             "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/timing",
         ],
         listArtifactsForRepo: ["GET /repos/{owner}/{repo}/actions/artifacts"],
+        listEnvironmentSecrets: [
+            "GET /repositories/{repository_id}/environments/{environment_name}/secrets",
+        ],
         listJobsForWorkflowRun: [
             "GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
         ],
@@ -15839,6 +16019,9 @@ const Endpoints = {
         ],
         listSelectedReposForOrgSecret: [
             "GET /orgs/{org}/actions/secrets/{secret_name}/repositories",
+        ],
+        listSelectedRepositoriesEnabledGithubActionsOrganization: [
+            "GET /orgs/{org}/actions/permissions/repositories",
         ],
         listSelfHostedRunnersForOrg: ["GET /orgs/{org}/actions/runners"],
         listSelfHostedRunnersForRepo: ["GET /repos/{owner}/{repo}/actions/runners"],
@@ -15853,8 +16036,26 @@ const Endpoints = {
         removeSelectedRepoFromOrgSecret: [
             "DELETE /orgs/{org}/actions/secrets/{secret_name}/repositories/{repository_id}",
         ],
+        reviewPendingDeploymentsForRun: [
+            "POST /repos/{owner}/{repo}/actions/runs/{run_id}/pending_deployments",
+        ],
+        setAllowedActionsOrganization: [
+            "PUT /orgs/{org}/actions/permissions/selected-actions",
+        ],
+        setAllowedActionsRepository: [
+            "PUT /repos/{owner}/{repo}/actions/permissions/selected-actions",
+        ],
+        setGithubActionsPermissionsOrganization: [
+            "PUT /orgs/{org}/actions/permissions",
+        ],
+        setGithubActionsPermissionsRepository: [
+            "PUT /repos/{owner}/{repo}/actions/permissions",
+        ],
         setSelectedReposForOrgSecret: [
             "PUT /orgs/{org}/actions/secrets/{secret_name}/repositories",
+        ],
+        setSelectedRepositoriesEnabledGithubActionsOrganization: [
+            "PUT /orgs/{org}/actions/permissions/repositories",
         ],
     },
     activity: {
@@ -15911,6 +16112,10 @@ const Endpoints = {
             "POST /content_references/{content_reference_id}/attachments",
             { mediaType: { previews: ["corsair"] } },
         ],
+        createContentAttachmentForRepo: [
+            "POST /repos/{owner}/{repo}/content_references/{content_reference_id}/attachments",
+            { mediaType: { previews: ["corsair"] } },
+        ],
         createFromManifest: ["POST /app-manifests/{code}/conversions"],
         createInstallationAccessToken: [
             "POST /app/installations/{installation_id}/access_tokens",
@@ -15930,6 +16135,7 @@ const Endpoints = {
             "GET /marketplace_listing/stubbed/accounts/{account_id}",
         ],
         getUserInstallation: ["GET /users/{username}/installation"],
+        getWebhookConfigForApp: ["GET /app/hook/config"],
         listAccountsForPlan: ["GET /marketplace_listing/plans/{plan_id}/accounts"],
         listAccountsForPlanStubbed: [
             "GET /marketplace_listing/stubbed/plans/{plan_id}/accounts",
@@ -15951,10 +16157,12 @@ const Endpoints = {
         ],
         resetToken: ["PATCH /applications/{client_id}/token"],
         revokeInstallationAccessToken: ["DELETE /installation/token"],
+        scopeToken: ["POST /applications/{client_id}/token/scoped"],
         suspendInstallation: ["PUT /app/installations/{installation_id}/suspended"],
         unsuspendInstallation: [
             "DELETE /app/installations/{installation_id}/suspended",
         ],
+        updateWebhookConfigForApp: ["PATCH /app/hook/config"],
     },
     billing: {
         getGithubActionsBillingOrg: ["GET /orgs/{org}/settings/billing/actions"],
@@ -15973,58 +16181,48 @@ const Endpoints = {
         ],
     },
     checks: {
-        create: [
-            "POST /repos/{owner}/{repo}/check-runs",
-            { mediaType: { previews: ["antiope"] } },
-        ],
-        createSuite: [
-            "POST /repos/{owner}/{repo}/check-suites",
-            { mediaType: { previews: ["antiope"] } },
-        ],
-        get: [
-            "GET /repos/{owner}/{repo}/check-runs/{check_run_id}",
-            { mediaType: { previews: ["antiope"] } },
-        ],
-        getSuite: [
-            "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}",
-            { mediaType: { previews: ["antiope"] } },
-        ],
+        create: ["POST /repos/{owner}/{repo}/check-runs"],
+        createSuite: ["POST /repos/{owner}/{repo}/check-suites"],
+        get: ["GET /repos/{owner}/{repo}/check-runs/{check_run_id}"],
+        getSuite: ["GET /repos/{owner}/{repo}/check-suites/{check_suite_id}"],
         listAnnotations: [
             "GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
-            { mediaType: { previews: ["antiope"] } },
         ],
-        listForRef: [
-            "GET /repos/{owner}/{repo}/commits/{ref}/check-runs",
-            { mediaType: { previews: ["antiope"] } },
-        ],
+        listForRef: ["GET /repos/{owner}/{repo}/commits/{ref}/check-runs"],
         listForSuite: [
             "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
-            { mediaType: { previews: ["antiope"] } },
         ],
-        listSuitesForRef: [
-            "GET /repos/{owner}/{repo}/commits/{ref}/check-suites",
-            { mediaType: { previews: ["antiope"] } },
-        ],
+        listSuitesForRef: ["GET /repos/{owner}/{repo}/commits/{ref}/check-suites"],
         rerequestSuite: [
             "POST /repos/{owner}/{repo}/check-suites/{check_suite_id}/rerequest",
-            { mediaType: { previews: ["antiope"] } },
         ],
         setSuitesPreferences: [
             "PATCH /repos/{owner}/{repo}/check-suites/preferences",
-            { mediaType: { previews: ["antiope"] } },
         ],
-        update: [
-            "PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}",
-            { mediaType: { previews: ["antiope"] } },
-        ],
+        update: ["PATCH /repos/{owner}/{repo}/check-runs/{check_run_id}"],
     },
     codeScanning: {
+        deleteAnalysis: [
+            "DELETE /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}{?confirm_delete}",
+        ],
         getAlert: [
             "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
             {},
             { renamedParameters: { alert_id: "alert_number" } },
         ],
+        getAnalysis: [
+            "GET /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}",
+        ],
+        getSarif: ["GET /repos/{owner}/{repo}/code-scanning/sarifs/{sarif_id}"],
+        listAlertInstances: [
+            "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",
+        ],
         listAlertsForRepo: ["GET /repos/{owner}/{repo}/code-scanning/alerts"],
+        listAlertsInstances: [
+            "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",
+            {},
+            { renamed: ["codeScanning", "listAlertInstances"] },
+        ],
         listRecentAnalyses: ["GET /repos/{owner}/{repo}/code-scanning/analyses"],
         updateAlert: [
             "PATCH /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}",
@@ -16046,6 +16244,32 @@ const Endpoints = {
         ],
     },
     emojis: { get: ["GET /emojis"] },
+    enterpriseAdmin: {
+        disableSelectedOrganizationGithubActionsEnterprise: [
+            "DELETE /enterprises/{enterprise}/actions/permissions/organizations/{org_id}",
+        ],
+        enableSelectedOrganizationGithubActionsEnterprise: [
+            "PUT /enterprises/{enterprise}/actions/permissions/organizations/{org_id}",
+        ],
+        getAllowedActionsEnterprise: [
+            "GET /enterprises/{enterprise}/actions/permissions/selected-actions",
+        ],
+        getGithubActionsPermissionsEnterprise: [
+            "GET /enterprises/{enterprise}/actions/permissions",
+        ],
+        listSelectedOrganizationsEnabledGithubActionsEnterprise: [
+            "GET /enterprises/{enterprise}/actions/permissions/organizations",
+        ],
+        setAllowedActionsEnterprise: [
+            "PUT /enterprises/{enterprise}/actions/permissions/selected-actions",
+        ],
+        setGithubActionsPermissionsEnterprise: [
+            "PUT /enterprises/{enterprise}/actions/permissions",
+        ],
+        setSelectedOrganizationsEnabledGithubActionsEnterprise: [
+            "PUT /enterprises/{enterprise}/actions/permissions/organizations",
+        ],
+    },
     gists: {
         checkIsStarred: ["GET /gists/{gist_id}/star"],
         create: ["POST /gists"],
@@ -16088,29 +16312,31 @@ const Endpoints = {
         getTemplate: ["GET /gitignore/templates/{name}"],
     },
     interactions: {
-        getRestrictionsForOrg: [
-            "GET /orgs/{org}/interaction-limits",
-            { mediaType: { previews: ["sombra"] } },
+        getRestrictionsForAuthenticatedUser: ["GET /user/interaction-limits"],
+        getRestrictionsForOrg: ["GET /orgs/{org}/interaction-limits"],
+        getRestrictionsForRepo: ["GET /repos/{owner}/{repo}/interaction-limits"],
+        getRestrictionsForYourPublicRepos: [
+            "GET /user/interaction-limits",
+            {},
+            { renamed: ["interactions", "getRestrictionsForAuthenticatedUser"] },
         ],
-        getRestrictionsForRepo: [
-            "GET /repos/{owner}/{repo}/interaction-limits",
-            { mediaType: { previews: ["sombra"] } },
-        ],
-        removeRestrictionsForOrg: [
-            "DELETE /orgs/{org}/interaction-limits",
-            { mediaType: { previews: ["sombra"] } },
-        ],
+        removeRestrictionsForAuthenticatedUser: ["DELETE /user/interaction-limits"],
+        removeRestrictionsForOrg: ["DELETE /orgs/{org}/interaction-limits"],
         removeRestrictionsForRepo: [
             "DELETE /repos/{owner}/{repo}/interaction-limits",
-            { mediaType: { previews: ["sombra"] } },
         ],
-        setRestrictionsForOrg: [
-            "PUT /orgs/{org}/interaction-limits",
-            { mediaType: { previews: ["sombra"] } },
+        removeRestrictionsForYourPublicRepos: [
+            "DELETE /user/interaction-limits",
+            {},
+            { renamed: ["interactions", "removeRestrictionsForAuthenticatedUser"] },
         ],
-        setRestrictionsForRepo: [
-            "PUT /repos/{owner}/{repo}/interaction-limits",
-            { mediaType: { previews: ["sombra"] } },
+        setRestrictionsForAuthenticatedUser: ["PUT /user/interaction-limits"],
+        setRestrictionsForOrg: ["PUT /orgs/{org}/interaction-limits"],
+        setRestrictionsForRepo: ["PUT /repos/{owner}/{repo}/interaction-limits"],
+        setRestrictionsForYourPublicRepos: [
+            "PUT /user/interaction-limits",
+            {},
+            { renamed: ["interactions", "setRestrictionsForAuthenticatedUser"] },
         ],
     },
     issues: {
@@ -16189,7 +16415,12 @@ const Endpoints = {
             { headers: { "content-type": "text/plain; charset=utf-8" } },
         ],
     },
-    meta: { get: ["GET /meta"] },
+    meta: {
+        get: ["GET /meta"],
+        getOctocat: ["GET /octocat"],
+        getZen: ["GET /zen"],
+        root: ["GET /"],
+    },
     migrations: {
         cancelImport: ["DELETE /repos/{owner}/{repo}/import"],
         deleteArchiveForAuthenticatedUser: [
@@ -16252,6 +16483,7 @@ const Endpoints = {
     },
     orgs: {
         blockUser: ["PUT /orgs/{org}/blocks/{username}"],
+        cancelInvitation: ["DELETE /orgs/{org}/invitations/{invitation_id}"],
         checkBlockedUser: ["GET /orgs/{org}/blocks/{username}"],
         checkMembershipForUser: ["GET /orgs/{org}/members/{username}"],
         checkPublicMembershipForUser: ["GET /orgs/{org}/public_members/{username}"],
@@ -16265,9 +16497,11 @@ const Endpoints = {
         getMembershipForAuthenticatedUser: ["GET /user/memberships/orgs/{org}"],
         getMembershipForUser: ["GET /orgs/{org}/memberships/{username}"],
         getWebhook: ["GET /orgs/{org}/hooks/{hook_id}"],
+        getWebhookConfigForOrg: ["GET /orgs/{org}/hooks/{hook_id}/config"],
         list: ["GET /organizations"],
         listAppInstallations: ["GET /orgs/{org}/installations"],
         listBlockedUsers: ["GET /orgs/{org}/blocks"],
+        listFailedInvitations: ["GET /orgs/{org}/failed_invitations"],
         listForAuthenticatedUser: ["GET /user/orgs"],
         listForUser: ["GET /users/{username}/orgs"],
         listInvitationTeams: ["GET /orgs/{org}/invitations/{invitation_id}/teams"],
@@ -16296,6 +16530,75 @@ const Endpoints = {
             "PATCH /user/memberships/orgs/{org}",
         ],
         updateWebhook: ["PATCH /orgs/{org}/hooks/{hook_id}"],
+        updateWebhookConfigForOrg: ["PATCH /orgs/{org}/hooks/{hook_id}/config"],
+    },
+    packages: {
+        deletePackageForAuthenticatedUser: [
+            "DELETE /user/packages/{package_type}/{package_name}",
+        ],
+        deletePackageForOrg: [
+            "DELETE /orgs/{org}/packages/{package_type}/{package_name}",
+        ],
+        deletePackageVersionForAuthenticatedUser: [
+            "DELETE /user/packages/{package_type}/{package_name}/versions/{package_version_id}",
+        ],
+        deletePackageVersionForOrg: [
+            "DELETE /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+        ],
+        getAllPackageVersionsForAPackageOwnedByAnOrg: [
+            "GET /orgs/{org}/packages/{package_type}/{package_name}/versions",
+            {},
+            { renamed: ["packages", "getAllPackageVersionsForPackageOwnedByOrg"] },
+        ],
+        getAllPackageVersionsForAPackageOwnedByTheAuthenticatedUser: [
+            "GET /user/packages/{package_type}/{package_name}/versions",
+            {},
+            {
+                renamed: [
+                    "packages",
+                    "getAllPackageVersionsForPackageOwnedByAuthenticatedUser",
+                ],
+            },
+        ],
+        getAllPackageVersionsForPackageOwnedByAuthenticatedUser: [
+            "GET /user/packages/{package_type}/{package_name}/versions",
+        ],
+        getAllPackageVersionsForPackageOwnedByOrg: [
+            "GET /orgs/{org}/packages/{package_type}/{package_name}/versions",
+        ],
+        getAllPackageVersionsForPackageOwnedByUser: [
+            "GET /users/{username}/packages/{package_type}/{package_name}/versions",
+        ],
+        getPackageForAuthenticatedUser: [
+            "GET /user/packages/{package_type}/{package_name}",
+        ],
+        getPackageForOrganization: [
+            "GET /orgs/{org}/packages/{package_type}/{package_name}",
+        ],
+        getPackageForUser: [
+            "GET /users/{username}/packages/{package_type}/{package_name}",
+        ],
+        getPackageVersionForAuthenticatedUser: [
+            "GET /user/packages/{package_type}/{package_name}/versions/{package_version_id}",
+        ],
+        getPackageVersionForOrganization: [
+            "GET /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+        ],
+        getPackageVersionForUser: [
+            "GET /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+        ],
+        restorePackageForAuthenticatedUser: [
+            "POST /user/packages/{package_type}/{package_name}/restore{?token}",
+        ],
+        restorePackageForOrg: [
+            "POST /orgs/{org}/packages/{package_type}/{package_name}/restore{?token}",
+        ],
+        restorePackageVersionForAuthenticatedUser: [
+            "POST /user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
+        ],
+        restorePackageVersionForOrg: [
+            "POST /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
+        ],
     },
     projects: {
         addCollaborator: [
@@ -16477,6 +16780,10 @@ const Endpoints = {
             "POST /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
             { mediaType: { previews: ["squirrel-girl"] } },
         ],
+        createForRelease: [
+            "POST /repos/{owner}/{repo}/releases/{release_id}/reactions",
+            { mediaType: { previews: ["squirrel-girl"] } },
+        ],
         createForTeamDiscussionCommentInOrg: [
             "POST /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",
             { mediaType: { previews: ["squirrel-girl"] } },
@@ -16513,7 +16820,7 @@ const Endpoints = {
             "DELETE /reactions/{reaction_id}",
             { mediaType: { previews: ["squirrel-girl"] } },
             {
-                deprecated: "octokit.reactions.deleteLegacy() is deprecated, see https://developer.github.com/v3/reactions/#delete-a-reaction-legacy",
+                deprecated: "octokit.rest.reactions.deleteLegacy() is deprecated, see https://docs.github.com/rest/reference/reactions/#delete-a-reaction-legacy",
             },
         ],
         listForCommitComment: [
@@ -16570,6 +16877,9 @@ const Endpoints = {
             { mediaType: { previews: ["dorian"] } },
         ],
         compareCommits: ["GET /repos/{owner}/{repo}/compare/{base}...{head}"],
+        compareCommitsWithBasehead: [
+            "GET /repos/{owner}/{repo}/compare/{basehead}",
+        ],
         createCommitComment: [
             "POST /repos/{owner}/{repo}/commits/{commit_sha}/comments",
         ],
@@ -16587,6 +16897,9 @@ const Endpoints = {
         createForAuthenticatedUser: ["POST /user/repos"],
         createFork: ["POST /repos/{owner}/{repo}/forks"],
         createInOrg: ["POST /orgs/{org}/repos"],
+        createOrUpdateEnvironment: [
+            "PUT /repos/{owner}/{repo}/environments/{environment_name}",
+        ],
         createOrUpdateFileContents: ["PUT /repos/{owner}/{repo}/contents/{path}"],
         createPagesSite: [
             "POST /repos/{owner}/{repo}/pages",
@@ -16605,6 +16918,9 @@ const Endpoints = {
         ],
         deleteAdminBranchProtection: [
             "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
+        ],
+        deleteAnEnvironment: [
+            "DELETE /repos/{owner}/{repo}/environments/{environment_name}",
         ],
         deleteBranchProtection: [
             "DELETE /repos/{owner}/{repo}/branches/{branch}/protection",
@@ -16642,7 +16958,13 @@ const Endpoints = {
             "DELETE /repos/{owner}/{repo}/vulnerability-alerts",
             { mediaType: { previews: ["dorian"] } },
         ],
-        downloadArchive: ["GET /repos/{owner}/{repo}/{archive_format}/{ref}"],
+        downloadArchive: [
+            "GET /repos/{owner}/{repo}/zipball/{ref}",
+            {},
+            { renamed: ["repos", "downloadZipballArchive"] },
+        ],
+        downloadTarballArchive: ["GET /repos/{owner}/{repo}/tarball/{ref}"],
+        downloadZipballArchive: ["GET /repos/{owner}/{repo}/zipball/{ref}"],
         enableAutomatedSecurityFixes: [
             "PUT /repos/{owner}/{repo}/automated-security-fixes",
             { mediaType: { previews: ["london"] } },
@@ -16658,6 +16980,7 @@ const Endpoints = {
         getAdminBranchProtection: [
             "GET /repos/{owner}/{repo}/branches/{branch}/protection/enforce_admins",
         ],
+        getAllEnvironments: ["GET /repos/{owner}/{repo}/environments"],
         getAllStatusCheckContexts: [
             "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks/contexts",
         ],
@@ -16685,10 +17008,7 @@ const Endpoints = {
             "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_signatures",
             { mediaType: { previews: ["zzzax"] } },
         ],
-        getCommunityProfileMetrics: [
-            "GET /repos/{owner}/{repo}/community/profile",
-            { mediaType: { previews: ["black-panther"] } },
-        ],
+        getCommunityProfileMetrics: ["GET /repos/{owner}/{repo}/community/profile"],
         getContent: ["GET /repos/{owner}/{repo}/contents/{path}"],
         getContributorsStats: ["GET /repos/{owner}/{repo}/stats/contributors"],
         getDeployKey: ["GET /repos/{owner}/{repo}/keys/{key_id}"],
@@ -16696,16 +17016,21 @@ const Endpoints = {
         getDeploymentStatus: [
             "GET /repos/{owner}/{repo}/deployments/{deployment_id}/statuses/{status_id}",
         ],
+        getEnvironment: [
+            "GET /repos/{owner}/{repo}/environments/{environment_name}",
+        ],
         getLatestPagesBuild: ["GET /repos/{owner}/{repo}/pages/builds/latest"],
         getLatestRelease: ["GET /repos/{owner}/{repo}/releases/latest"],
         getPages: ["GET /repos/{owner}/{repo}/pages"],
         getPagesBuild: ["GET /repos/{owner}/{repo}/pages/builds/{build_id}"],
+        getPagesHealthCheck: ["GET /repos/{owner}/{repo}/pages/health"],
         getParticipationStats: ["GET /repos/{owner}/{repo}/stats/participation"],
         getPullRequestReviewProtection: [
             "GET /repos/{owner}/{repo}/branches/{branch}/protection/required_pull_request_reviews",
         ],
         getPunchCardStats: ["GET /repos/{owner}/{repo}/stats/punch_card"],
         getReadme: ["GET /repos/{owner}/{repo}/readme"],
+        getReadmeInDirectory: ["GET /repos/{owner}/{repo}/readme/{dir}"],
         getRelease: ["GET /repos/{owner}/{repo}/releases/{release_id}"],
         getReleaseAsset: ["GET /repos/{owner}/{repo}/releases/assets/{asset_id}"],
         getReleaseByTag: ["GET /repos/{owner}/{repo}/releases/tags/{tag}"],
@@ -16722,6 +17047,9 @@ const Endpoints = {
         ],
         getViews: ["GET /repos/{owner}/{repo}/traffic/views"],
         getWebhook: ["GET /repos/{owner}/{repo}/hooks/{hook_id}"],
+        getWebhookConfigForRepo: [
+            "GET /repos/{owner}/{repo}/hooks/{hook_id}/config",
+        ],
         listBranches: ["GET /repos/{owner}/{repo}/branches"],
         listBranchesForHeadCommit: [
             "GET /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head",
@@ -16790,6 +17118,7 @@ const Endpoints = {
             {},
             { mapToData: "users" },
         ],
+        renameBranch: ["POST /repos/{owner}/{repo}/branches/{branch}/rename"],
         replaceAllTopics: [
             "PUT /repos/{owner}/{repo}/topics",
             { mediaType: { previews: ["mercy"] } },
@@ -16838,8 +17167,16 @@ const Endpoints = {
         ],
         updateStatusCheckPotection: [
             "PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
+            {},
+            { renamed: ["repos", "updateStatusCheckProtection"] },
+        ],
+        updateStatusCheckProtection: [
+            "PATCH /repos/{owner}/{repo}/branches/{branch}/protection/required_status_checks",
         ],
         updateWebhook: ["PATCH /repos/{owner}/{repo}/hooks/{hook_id}"],
+        updateWebhookConfigForRepo: [
+            "PATCH /repos/{owner}/{repo}/hooks/{hook_id}/config",
+        ],
         uploadReleaseAsset: [
             "POST /repos/{owner}/{repo}/releases/{release_id}/assets{?name,label}",
             { baseUrl: "https://uploads.github.com" },
@@ -16853,6 +17190,15 @@ const Endpoints = {
         repos: ["GET /search/repositories"],
         topics: ["GET /search/topics", { mediaType: { previews: ["mercy"] } }],
         users: ["GET /search/users"],
+    },
+    secretScanning: {
+        getAlert: [
+            "GET /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+        ],
+        listAlertsForRepo: ["GET /repos/{owner}/{repo}/secret-scanning/alerts"],
+        updateAlert: [
+            "PATCH /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
+        ],
     },
     teams: {
         addOrUpdateMembershipForUserInOrg: [
@@ -16963,7 +17309,7 @@ const Endpoints = {
     },
 };
 
-const VERSION$1 = "4.2.1";
+const VERSION$1 = "5.3.1";
 
 function endpointsToMethods(octokit, endpointsMap) {
     const newMethods = {};
@@ -17026,27 +17372,31 @@ function decorate(octokit, scope, methodName, defaults, decorations) {
     return Object.assign(withDecorations, requestWithDefaults);
 }
 
-/**
- * This plugin is a 1:1 copy of internal @octokit/rest plugins. The primary
- * goal is to rebuild @octokit/rest on top of @octokit/core. Once that is
- * done, we will remove the registerEndpoints methods and return the methods
- * directly as with the other plugins. At that point we will also remove the
- * legacy workarounds and deprecations.
- *
- * See the plan at
- * https://github.com/octokit/plugin-rest-endpoint-methods.js/pull/1
- */
 function restEndpointMethods(octokit) {
-    return endpointsToMethods(octokit, Endpoints);
+    const api = endpointsToMethods(octokit, Endpoints);
+    return {
+        rest: api,
+    };
 }
 restEndpointMethods.VERSION = VERSION$1;
+function legacyRestEndpointMethods(octokit) {
+    const api = endpointsToMethods(octokit, Endpoints);
+    return {
+        ...api,
+        rest: api,
+    };
+}
+legacyRestEndpointMethods.VERSION = VERSION$1;
 
 var distWeb$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
+	legacyRestEndpointMethods: legacyRestEndpointMethods,
 	restEndpointMethods: restEndpointMethods
 });
 
-const VERSION = "2.6.0";
+var require$$3 = /*@__PURE__*/getAugmentedNamespace(distWeb$1);
+
+const VERSION = "2.13.5";
 
 /**
  * Some “list” response that can be paginated have a different response structure
@@ -17065,6 +17415,13 @@ const VERSION = "2.6.0";
  * otherwise match: https://developer.github.com/v3/repos/statuses/#get-the-combined-status-for-a-specific-ref
  */
 function normalizePaginatedListResponse(response) {
+    // endpoints can respond with 204 if repository is empty
+    if (!response.data) {
+        return {
+            ...response,
+            data: [],
+        };
+    }
     const responseNeedsNormalization = "total_count" in response.data && !("url" in response.data);
     if (!responseNeedsNormalization)
         return response;
@@ -17102,13 +17459,27 @@ function iterator$1(octokit, route, parameters) {
             async next() {
                 if (!url)
                     return { done: true };
-                const response = await requestMethod({ method, url, headers });
-                const normalizedResponse = normalizePaginatedListResponse(response);
-                // `response.headers.link` format:
-                // '<https://api.github.com/users/aseemk/followers?page=2>; rel="next", <https://api.github.com/users/aseemk/followers?page=2>; rel="last"'
-                // sets `url` to undefined if "next" URL is not present or `link` header is not set
-                url = ((normalizedResponse.headers.link || "").match(/<([^>]+)>;\s*rel="next"/) || [])[1];
-                return { value: normalizedResponse };
+                try {
+                    const response = await requestMethod({ method, url, headers });
+                    const normalizedResponse = normalizePaginatedListResponse(response);
+                    // `response.headers.link` format:
+                    // '<https://api.github.com/users/aseemk/followers?page=2>; rel="next", <https://api.github.com/users/aseemk/followers?page=2>; rel="last"'
+                    // sets `url` to undefined if "next" URL is not present or `link` header is not set
+                    url = ((normalizedResponse.headers.link || "").match(/<([^>]+)>;\s*rel="next"/) || [])[1];
+                    return { value: normalizedResponse };
+                }
+                catch (error) {
+                    if (error.status !== 409)
+                        throw error;
+                    url = "";
+                    return {
+                        value: {
+                            status: 200,
+                            headers: {},
+                            data: [],
+                        },
+                    };
+                }
             },
         }),
     };
@@ -17142,6 +17513,207 @@ const composePaginateRest = Object.assign(paginate, {
     iterator: iterator$1,
 });
 
+const paginatingEndpoints = [
+    "GET /app/installations",
+    "GET /applications/grants",
+    "GET /authorizations",
+    "GET /enterprises/{enterprise}/actions/permissions/organizations",
+    "GET /enterprises/{enterprise}/actions/runner-groups",
+    "GET /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/organizations",
+    "GET /enterprises/{enterprise}/actions/runner-groups/{runner_group_id}/runners",
+    "GET /enterprises/{enterprise}/actions/runners",
+    "GET /enterprises/{enterprise}/actions/runners/downloads",
+    "GET /events",
+    "GET /gists",
+    "GET /gists/public",
+    "GET /gists/starred",
+    "GET /gists/{gist_id}/comments",
+    "GET /gists/{gist_id}/commits",
+    "GET /gists/{gist_id}/forks",
+    "GET /installation/repositories",
+    "GET /issues",
+    "GET /marketplace_listing/plans",
+    "GET /marketplace_listing/plans/{plan_id}/accounts",
+    "GET /marketplace_listing/stubbed/plans",
+    "GET /marketplace_listing/stubbed/plans/{plan_id}/accounts",
+    "GET /networks/{owner}/{repo}/events",
+    "GET /notifications",
+    "GET /organizations",
+    "GET /orgs/{org}/actions/permissions/repositories",
+    "GET /orgs/{org}/actions/runner-groups",
+    "GET /orgs/{org}/actions/runner-groups/{runner_group_id}/repositories",
+    "GET /orgs/{org}/actions/runner-groups/{runner_group_id}/runners",
+    "GET /orgs/{org}/actions/runners",
+    "GET /orgs/{org}/actions/runners/downloads",
+    "GET /orgs/{org}/actions/secrets",
+    "GET /orgs/{org}/actions/secrets/{secret_name}/repositories",
+    "GET /orgs/{org}/blocks",
+    "GET /orgs/{org}/credential-authorizations",
+    "GET /orgs/{org}/events",
+    "GET /orgs/{org}/failed_invitations",
+    "GET /orgs/{org}/hooks",
+    "GET /orgs/{org}/installations",
+    "GET /orgs/{org}/invitations",
+    "GET /orgs/{org}/invitations/{invitation_id}/teams",
+    "GET /orgs/{org}/issues",
+    "GET /orgs/{org}/members",
+    "GET /orgs/{org}/migrations",
+    "GET /orgs/{org}/migrations/{migration_id}/repositories",
+    "GET /orgs/{org}/outside_collaborators",
+    "GET /orgs/{org}/projects",
+    "GET /orgs/{org}/public_members",
+    "GET /orgs/{org}/repos",
+    "GET /orgs/{org}/team-sync/groups",
+    "GET /orgs/{org}/teams",
+    "GET /orgs/{org}/teams/{team_slug}/discussions",
+    "GET /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments",
+    "GET /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+    "GET /orgs/{org}/teams/{team_slug}/discussions/{discussion_number}/reactions",
+    "GET /orgs/{org}/teams/{team_slug}/invitations",
+    "GET /orgs/{org}/teams/{team_slug}/members",
+    "GET /orgs/{org}/teams/{team_slug}/projects",
+    "GET /orgs/{org}/teams/{team_slug}/repos",
+    "GET /orgs/{org}/teams/{team_slug}/team-sync/group-mappings",
+    "GET /orgs/{org}/teams/{team_slug}/teams",
+    "GET /projects/columns/{column_id}/cards",
+    "GET /projects/{project_id}/collaborators",
+    "GET /projects/{project_id}/columns",
+    "GET /repos/{owner}/{repo}/actions/artifacts",
+    "GET /repos/{owner}/{repo}/actions/runners",
+    "GET /repos/{owner}/{repo}/actions/runners/downloads",
+    "GET /repos/{owner}/{repo}/actions/runs",
+    "GET /repos/{owner}/{repo}/actions/runs/{run_id}/artifacts",
+    "GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs",
+    "GET /repos/{owner}/{repo}/actions/secrets",
+    "GET /repos/{owner}/{repo}/actions/workflows",
+    "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs",
+    "GET /repos/{owner}/{repo}/assignees",
+    "GET /repos/{owner}/{repo}/branches",
+    "GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
+    "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
+    "GET /repos/{owner}/{repo}/code-scanning/alerts",
+    "GET /repos/{owner}/{repo}/code-scanning/alerts/{alert_number}/instances",
+    "GET /repos/{owner}/{repo}/code-scanning/analyses",
+    "GET /repos/{owner}/{repo}/collaborators",
+    "GET /repos/{owner}/{repo}/comments",
+    "GET /repos/{owner}/{repo}/comments/{comment_id}/reactions",
+    "GET /repos/{owner}/{repo}/commits",
+    "GET /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head",
+    "GET /repos/{owner}/{repo}/commits/{commit_sha}/comments",
+    "GET /repos/{owner}/{repo}/commits/{commit_sha}/pulls",
+    "GET /repos/{owner}/{repo}/commits/{ref}/check-runs",
+    "GET /repos/{owner}/{repo}/commits/{ref}/check-suites",
+    "GET /repos/{owner}/{repo}/commits/{ref}/statuses",
+    "GET /repos/{owner}/{repo}/contributors",
+    "GET /repos/{owner}/{repo}/deployments",
+    "GET /repos/{owner}/{repo}/deployments/{deployment_id}/statuses",
+    "GET /repos/{owner}/{repo}/events",
+    "GET /repos/{owner}/{repo}/forks",
+    "GET /repos/{owner}/{repo}/git/matching-refs/{ref}",
+    "GET /repos/{owner}/{repo}/hooks",
+    "GET /repos/{owner}/{repo}/invitations",
+    "GET /repos/{owner}/{repo}/issues",
+    "GET /repos/{owner}/{repo}/issues/comments",
+    "GET /repos/{owner}/{repo}/issues/comments/{comment_id}/reactions",
+    "GET /repos/{owner}/{repo}/issues/events",
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/comments",
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/events",
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/labels",
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/reactions",
+    "GET /repos/{owner}/{repo}/issues/{issue_number}/timeline",
+    "GET /repos/{owner}/{repo}/keys",
+    "GET /repos/{owner}/{repo}/labels",
+    "GET /repos/{owner}/{repo}/milestones",
+    "GET /repos/{owner}/{repo}/milestones/{milestone_number}/labels",
+    "GET /repos/{owner}/{repo}/notifications",
+    "GET /repos/{owner}/{repo}/pages/builds",
+    "GET /repos/{owner}/{repo}/projects",
+    "GET /repos/{owner}/{repo}/pulls",
+    "GET /repos/{owner}/{repo}/pulls/comments",
+    "GET /repos/{owner}/{repo}/pulls/comments/{comment_id}/reactions",
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/comments",
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/commits",
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/files",
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/requested_reviewers",
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews",
+    "GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews/{review_id}/comments",
+    "GET /repos/{owner}/{repo}/releases",
+    "GET /repos/{owner}/{repo}/releases/{release_id}/assets",
+    "GET /repos/{owner}/{repo}/secret-scanning/alerts",
+    "GET /repos/{owner}/{repo}/stargazers",
+    "GET /repos/{owner}/{repo}/subscribers",
+    "GET /repos/{owner}/{repo}/tags",
+    "GET /repos/{owner}/{repo}/teams",
+    "GET /repositories",
+    "GET /repositories/{repository_id}/environments/{environment_name}/secrets",
+    "GET /scim/v2/enterprises/{enterprise}/Groups",
+    "GET /scim/v2/enterprises/{enterprise}/Users",
+    "GET /scim/v2/organizations/{org}/Users",
+    "GET /search/code",
+    "GET /search/commits",
+    "GET /search/issues",
+    "GET /search/labels",
+    "GET /search/repositories",
+    "GET /search/topics",
+    "GET /search/users",
+    "GET /teams/{team_id}/discussions",
+    "GET /teams/{team_id}/discussions/{discussion_number}/comments",
+    "GET /teams/{team_id}/discussions/{discussion_number}/comments/{comment_number}/reactions",
+    "GET /teams/{team_id}/discussions/{discussion_number}/reactions",
+    "GET /teams/{team_id}/invitations",
+    "GET /teams/{team_id}/members",
+    "GET /teams/{team_id}/projects",
+    "GET /teams/{team_id}/repos",
+    "GET /teams/{team_id}/team-sync/group-mappings",
+    "GET /teams/{team_id}/teams",
+    "GET /user/blocks",
+    "GET /user/emails",
+    "GET /user/followers",
+    "GET /user/following",
+    "GET /user/gpg_keys",
+    "GET /user/installations",
+    "GET /user/installations/{installation_id}/repositories",
+    "GET /user/issues",
+    "GET /user/keys",
+    "GET /user/marketplace_purchases",
+    "GET /user/marketplace_purchases/stubbed",
+    "GET /user/memberships/orgs",
+    "GET /user/migrations",
+    "GET /user/migrations/{migration_id}/repositories",
+    "GET /user/orgs",
+    "GET /user/public_emails",
+    "GET /user/repos",
+    "GET /user/repository_invitations",
+    "GET /user/starred",
+    "GET /user/subscriptions",
+    "GET /user/teams",
+    "GET /users",
+    "GET /users/{username}/events",
+    "GET /users/{username}/events/orgs/{org}",
+    "GET /users/{username}/events/public",
+    "GET /users/{username}/followers",
+    "GET /users/{username}/following",
+    "GET /users/{username}/gists",
+    "GET /users/{username}/gpg_keys",
+    "GET /users/{username}/keys",
+    "GET /users/{username}/orgs",
+    "GET /users/{username}/projects",
+    "GET /users/{username}/received_events",
+    "GET /users/{username}/received_events/public",
+    "GET /users/{username}/repos",
+    "GET /users/{username}/starred",
+    "GET /users/{username}/subscriptions",
+];
+
+function isPaginatingEndpoint(arg) {
+    if (typeof arg === "string") {
+        return paginatingEndpoints.includes(arg);
+    }
+    else {
+        return false;
+    }
+}
+
 /**
  * @param octokit Octokit instance
  * @param options Options passed to Octokit constructor
@@ -17158,44 +17730,41 @@ paginateRest.VERSION = VERSION;
 var distWeb = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	composePaginateRest: composePaginateRest,
-	paginateRest: paginateRest
+	isPaginatingEndpoint: isPaginatingEndpoint,
+	paginateRest: paginateRest,
+	paginatingEndpoints: paginatingEndpoints
 });
 
-var core_1 = /*@__PURE__*/getAugmentedNamespace(distWeb$2);
+var require$$4 = /*@__PURE__*/getAugmentedNamespace(distWeb);
 
-var plugin_rest_endpoint_methods_1 = /*@__PURE__*/getAugmentedNamespace(distWeb$1);
-
-var plugin_paginate_rest_1 = /*@__PURE__*/getAugmentedNamespace(distWeb);
-
-var utils = createCommonjsModule(function (module, exports) {
-var __createBinding = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+var __createBinding$1 = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
 }) : (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     o[k2] = m[k];
 }));
-var __setModuleDefault = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
+var __setModuleDefault$1 = (commonjsGlobal && commonjsGlobal.__setModuleDefault) || (Object.create ? (function(o, v) {
     Object.defineProperty(o, "default", { enumerable: true, value: v });
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
+var __importStar$1 = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding$1(result, mod, k);
+    __setModuleDefault$1(result, mod);
     return result;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOctokitOptions = exports.GitHub = exports.context = void 0;
-const Context = __importStar(context);
-const Utils = __importStar(utils$1);
+Object.defineProperty(utils$1, "__esModule", { value: true });
+utils$1.getOctokitOptions = utils$1.GitHub = utils$1.context = void 0;
+const Context$1 = __importStar$1(context$1);
+const Utils = __importStar$1(utils);
 // octokit + plugins
-
-
-
-exports.context = new Context.Context();
+const core_1 = require$$2;
+const plugin_rest_endpoint_methods_1 = require$$3;
+const plugin_paginate_rest_1 = require$$4;
+utils$1.context = new Context$1.Context();
 const baseUrl = Utils.getApiBaseUrl();
 const defaults = {
     baseUrl,
@@ -17203,7 +17772,7 @@ const defaults = {
         agent: Utils.getProxyAgent(baseUrl)
     }
 };
-exports.GitHub = core_1.Octokit.plugin(plugin_rest_endpoint_methods_1.restEndpointMethods, plugin_paginate_rest_1.paginateRest).defaults(defaults);
+utils$1.GitHub = core_1.Octokit.plugin(plugin_rest_endpoint_methods_1.restEndpointMethods, plugin_paginate_rest_1.paginateRest).defaults(defaults);
 /**
  * Convience function to correctly format Octokit Options to pass into the constructor.
  *
@@ -17219,11 +17788,8 @@ function getOctokitOptions(token, options) {
     }
     return opts;
 }
-exports.getOctokitOptions = getOctokitOptions;
-//# sourceMappingURL=utils.js.map
-});
+utils$1.getOctokitOptions = getOctokitOptions;
 
-var github = createCommonjsModule(function (module, exports) {
 var __createBinding = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
@@ -17239,15 +17805,15 @@ var __setModuleDefault = (commonjsGlobal && commonjsGlobal.__setModuleDefault) |
 var __importStar = (commonjsGlobal && commonjsGlobal.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
     return result;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOctokit = exports.context = void 0;
-const Context = __importStar(context);
-
-exports.context = new Context.Context();
+Object.defineProperty(github, "__esModule", { value: true });
+var getOctokit_1 = github.getOctokit = context = github.context = void 0;
+const Context = __importStar(context$1);
+const utils_1 = utils$1;
+var context = github.context = new Context.Context();
 /**
  * Returns a hydrated octokit ready to use for GitHub Actions
  *
@@ -17255,15 +17821,18 @@ exports.context = new Context.Context();
  * @param     options  other options to set
  */
 function getOctokit(token, options) {
-    return new utils.GitHub(utils.getOctokitOptions(token, options));
+    return new utils_1.GitHub(utils_1.getOctokitOptions(token, options));
 }
-exports.getOctokit = getOctokit;
-//# sourceMappingURL=github.js.map
-});
+getOctokit_1 = github.getOctokit = getOctokit;
+
+var src = {exports: {}};
+
+var browser = {exports: {}};
 
 /**
  * Helpers.
  */
+
 var s = 1000;
 var m = s * 60;
 var h = m * 60;
@@ -17289,7 +17858,7 @@ var ms = function(val, options) {
   options = options || {};
   var type = typeof val;
   if (type === 'string' && val.length > 0) {
-    return parse$1(val);
+    return parse$6(val);
   } else if (type === 'number' && isFinite(val)) {
     return options.long ? fmtLong(val) : fmtShort(val);
   }
@@ -17307,7 +17876,7 @@ var ms = function(val, options) {
  * @api private
  */
 
-function parse$1(str) {
+function parse$6(str) {
   str = String(str);
   if (str.length > 100) {
     return;
@@ -17686,7 +18255,7 @@ var common = setup;
 
 /* eslint-env browser */
 
-var browser = createCommonjsModule(function (module, exports) {
+(function (module, exports) {
 /**
  * This is the web browser implementation of `debug()`.
  */
@@ -17954,14 +18523,20 @@ formatters.j = function (v) {
 		return '[UnexpectedJSONParseError]: ' + error.message;
 	}
 };
-});
+}(browser, browser.exports));
 
-var hasFlag = (flag, argv = process.argv) => {
+var node = {exports: {}};
+
+var hasFlag$1 = (flag, argv = process.argv) => {
 	const prefix = flag.startsWith('-') ? '' : (flag.length === 1 ? '-' : '--');
 	const position = argv.indexOf(prefix + flag);
 	const terminatorPosition = argv.indexOf('--');
 	return position !== -1 && (terminatorPosition === -1 || position < terminatorPosition);
 };
+
+const os = require$$1$1;
+const tty = require$$1$3;
+const hasFlag = hasFlag$1;
 
 const {env} = process;
 
@@ -18029,7 +18604,7 @@ function supportsColor(haveStream, streamIsTTY) {
 	if (process.platform === 'win32') {
 		// Windows 10 build 10586 is the first Windows release that supports 256 colors.
 		// Windows 10 build 14931 is the first release that supports 16m/TrueColor.
-		const osRelease = require$$0$1.release().split('.');
+		const osRelease = os.release().split('.');
 		if (
 			Number(osRelease[0]) >= 10 &&
 			Number(osRelease[2]) >= 10586
@@ -18098,7 +18673,10 @@ var supportsColor_1 = {
  * Module dependencies.
  */
 
-var node = createCommonjsModule(function (module, exports) {
+(function (module, exports) {
+const tty = require$$1$3;
+const util = require$$6$1;
+
 /**
  * This is the Node.js implementation of `debug()`.
  */
@@ -18355,20 +18933,22 @@ formatters.O = function (v) {
 	this.inspectOpts.colors = this.useColors;
 	return util.inspect(v, this.inspectOpts);
 };
-});
+}(node, node.exports));
 
 /**
  * Detect Electron renderer / nwjs process, which is node, but we should
  * treat as a browser.
  */
 
-var src = createCommonjsModule(function (module) {
 if (typeof process === 'undefined' || process.type === 'renderer' || process.browser === true || process.__nwjs) {
-	module.exports = browser;
+	src.exports = browser.exports;
 } else {
-	module.exports = node;
+	src.exports = node.exports;
 }
-});
+
+var debug$4 = src.exports;
+
+var re$5 = {exports: {}};
 
 // Note: this is the semver.org version of the spec that it implements
 // Not necessarily the package version of this code.
@@ -18388,7 +18968,7 @@ var constants = {
   MAX_SAFE_COMPONENT_LENGTH
 };
 
-const debug = (
+const debug$3 = (
   typeof process === 'object' &&
   process.env &&
   process.env.NODE_DEBUG &&
@@ -18396,11 +18976,11 @@ const debug = (
 ) ? (...args) => console.error('SEMVER', ...args)
   : () => {};
 
-var debug_1 = debug;
+var debug_1 = debug$3;
 
-var re_1 = createCommonjsModule(function (module, exports) {
+(function (module, exports) {
 const { MAX_SAFE_COMPONENT_LENGTH } = constants;
-
+const debug = debug_1;
 exports = module.exports = {};
 
 // The actual regexps go on exports.re
@@ -18411,7 +18991,7 @@ let R = 0;
 
 const createToken = (name, value, isGlobal) => {
   const index = R++;
-  debug_1(index, value);
+  debug(index, value);
   t[name] = index;
   src[index] = value;
   re[index] = new RegExp(value, isGlobal ? 'g' : undefined);
@@ -18581,19 +19161,19 @@ createToken('STAR', '(<|>)?=?\\s*\\*');
 // >=0.0.0 is like a star
 createToken('GTE0', '^\\s*>=\\s*0\.0\.0\\s*$');
 createToken('GTE0PRE', '^\\s*>=\\s*0\.0\.0-0\\s*$');
-});
+}(re$5, re$5.exports));
 
 // parse out just the options we care about so we always get a consistent
 // obj with keys in a consistent order.
 const opts = ['includePrerelease', 'loose', 'rtl'];
-const parseOptions = options =>
+const parseOptions$4 = options =>
   !options ? {}
   : typeof options !== 'object' ? { loose: true }
   : opts.filter(k => options[k]).reduce((options, k) => {
     options[k] = true;
     return options
   }, {});
-var parseOptions_1 = parseOptions;
+var parseOptions_1 = parseOptions$4;
 
 const numeric = /^[0-9]+$/;
 const compareIdentifiers$1 = (a, b) => {
@@ -18619,16 +19199,17 @@ var identifiers = {
   rcompareIdentifiers
 };
 
+const debug$2 = debug_1;
 const { MAX_LENGTH: MAX_LENGTH$1, MAX_SAFE_INTEGER } = constants;
-const { re: re$4, t: t$4 } = re_1;
+const { re: re$4, t: t$4 } = re$5.exports;
 
-
+const parseOptions$3 = parseOptions_1;
 const { compareIdentifiers } = identifiers;
-class SemVer {
+class SemVer$e {
   constructor (version, options) {
-    options = parseOptions_1(options);
+    options = parseOptions$3(options);
 
-    if (version instanceof SemVer) {
+    if (version instanceof SemVer$e) {
       if (version.loose === !!options.loose &&
           version.includePrerelease === !!options.includePrerelease) {
         return version
@@ -18645,7 +19226,7 @@ class SemVer {
       )
     }
 
-    debug_1('SemVer', version, options);
+    debug$2('SemVer', version, options);
     this.options = options;
     this.loose = !!options.loose;
     // this isn't actually relevant for versions, but keep it so that we
@@ -18709,12 +19290,12 @@ class SemVer {
   }
 
   compare (other) {
-    debug_1('SemVer.compare', this.version, this.options, other);
-    if (!(other instanceof SemVer)) {
+    debug$2('SemVer.compare', this.version, this.options, other);
+    if (!(other instanceof SemVer$e)) {
       if (typeof other === 'string' && other === this.version) {
         return 0
       }
-      other = new SemVer(other, this.options);
+      other = new SemVer$e(other, this.options);
     }
 
     if (other.version === this.version) {
@@ -18725,8 +19306,8 @@ class SemVer {
   }
 
   compareMain (other) {
-    if (!(other instanceof SemVer)) {
-      other = new SemVer(other, this.options);
+    if (!(other instanceof SemVer$e)) {
+      other = new SemVer$e(other, this.options);
     }
 
     return (
@@ -18737,8 +19318,8 @@ class SemVer {
   }
 
   comparePre (other) {
-    if (!(other instanceof SemVer)) {
-      other = new SemVer(other, this.options);
+    if (!(other instanceof SemVer$e)) {
+      other = new SemVer$e(other, this.options);
     }
 
     // NOT having a prerelease is > having one
@@ -18754,7 +19335,7 @@ class SemVer {
     do {
       const a = this.prerelease[i];
       const b = other.prerelease[i];
-      debug_1('prerelease compare', i, a, b);
+      debug$2('prerelease compare', i, a, b);
       if (a === undefined && b === undefined) {
         return 0
       } else if (b === undefined) {
@@ -18770,15 +19351,15 @@ class SemVer {
   }
 
   compareBuild (other) {
-    if (!(other instanceof SemVer)) {
-      other = new SemVer(other, this.options);
+    if (!(other instanceof SemVer$e)) {
+      other = new SemVer$e(other, this.options);
     }
 
     let i = 0;
     do {
       const a = this.build[i];
       const b = other.build[i];
-      debug_1('prerelease compare', i, a, b);
+      debug$2('prerelease compare', i, a, b);
       if (a === undefined && b === undefined) {
         return 0
       } else if (b === undefined) {
@@ -18904,17 +19485,17 @@ class SemVer {
   }
 }
 
-var semver$1 = SemVer;
+var semver$1 = SemVer$e;
 
 const {MAX_LENGTH} = constants;
-const { re: re$3, t: t$3 } = re_1;
+const { re: re$3, t: t$3 } = re$5.exports;
+const SemVer$d = semver$1;
 
+const parseOptions$2 = parseOptions_1;
+const parse$5 = (version, options) => {
+  options = parseOptions$2(options);
 
-
-const parse = (version, options) => {
-  options = parseOptions_1(options);
-
-  if (version instanceof semver$1) {
+  if (version instanceof SemVer$d) {
     return version
   }
 
@@ -18932,25 +19513,29 @@ const parse = (version, options) => {
   }
 
   try {
-    return new semver$1(version, options)
+    return new SemVer$d(version, options)
   } catch (er) {
     return null
   }
 };
 
-var parse_1 = parse;
+var parse_1 = parse$5;
 
+const parse$4 = parse_1;
 const valid$1 = (version, options) => {
-  const v = parse_1(version, options);
+  const v = parse$4(version, options);
   return v ? v.version : null
 };
 var valid_1 = valid$1;
 
+const parse$3 = parse_1;
 const clean = (version, options) => {
-  const s = parse_1(version.trim().replace(/^[=v]+/, ''), options);
+  const s = parse$3(version.trim().replace(/^[=v]+/, ''), options);
   return s ? s.version : null
 };
 var clean_1 = clean;
+
+const SemVer$c = semver$1;
 
 const inc = (version, release, options, identifier) => {
   if (typeof (options) === 'string') {
@@ -18959,27 +19544,32 @@ const inc = (version, release, options, identifier) => {
   }
 
   try {
-    return new semver$1(version, options).inc(release, identifier).version
+    return new SemVer$c(version, options).inc(release, identifier).version
   } catch (er) {
     return null
   }
 };
 var inc_1 = inc;
 
-const compare = (a, b, loose) =>
-  new semver$1(a, loose).compare(new semver$1(b, loose));
+const SemVer$b = semver$1;
+const compare$a = (a, b, loose) =>
+  new SemVer$b(a, loose).compare(new SemVer$b(b, loose));
 
-var compare_1 = compare;
+var compare_1 = compare$a;
 
-const eq = (a, b, loose) => compare_1(a, b, loose) === 0;
-var eq_1 = eq;
+const compare$9 = compare_1;
+const eq$2 = (a, b, loose) => compare$9(a, b, loose) === 0;
+var eq_1 = eq$2;
+
+const parse$2 = parse_1;
+const eq$1 = eq_1;
 
 const diff = (version1, version2) => {
-  if (eq_1(version1, version2)) {
+  if (eq$1(version1, version2)) {
     return null
   } else {
-    const v1 = parse_1(version1);
-    const v2 = parse_1(version2);
+    const v1 = parse$2(version1);
+    const v2 = parse$2(version2);
     const hasPre = v1.prerelease.length || v2.prerelease.length;
     const prefix = hasPre ? 'pre' : '';
     const defaultResult = hasPre ? 'prerelease' : '';
@@ -18995,56 +19585,77 @@ const diff = (version1, version2) => {
 };
 var diff_1 = diff;
 
-const major = (a, loose) => new semver$1(a, loose).major;
+const SemVer$a = semver$1;
+const major = (a, loose) => new SemVer$a(a, loose).major;
 var major_1 = major;
 
-const minor = (a, loose) => new semver$1(a, loose).minor;
+const SemVer$9 = semver$1;
+const minor = (a, loose) => new SemVer$9(a, loose).minor;
 var minor_1 = minor;
 
-const patch = (a, loose) => new semver$1(a, loose).patch;
+const SemVer$8 = semver$1;
+const patch = (a, loose) => new SemVer$8(a, loose).patch;
 var patch_1 = patch;
 
+const parse$1 = parse_1;
 const prerelease = (version, options) => {
-  const parsed = parse_1(version, options);
+  const parsed = parse$1(version, options);
   return (parsed && parsed.prerelease.length) ? parsed.prerelease : null
 };
 var prerelease_1 = prerelease;
 
-const rcompare = (a, b, loose) => compare_1(b, a, loose);
+const compare$8 = compare_1;
+const rcompare = (a, b, loose) => compare$8(b, a, loose);
 var rcompare_1 = rcompare;
 
-const compareLoose = (a, b) => compare_1(a, b, true);
+const compare$7 = compare_1;
+const compareLoose = (a, b) => compare$7(a, b, true);
 var compareLoose_1 = compareLoose;
 
-const compareBuild = (a, b, loose) => {
-  const versionA = new semver$1(a, loose);
-  const versionB = new semver$1(b, loose);
+const SemVer$7 = semver$1;
+const compareBuild$2 = (a, b, loose) => {
+  const versionA = new SemVer$7(a, loose);
+  const versionB = new SemVer$7(b, loose);
   return versionA.compare(versionB) || versionA.compareBuild(versionB)
 };
-var compareBuild_1 = compareBuild;
+var compareBuild_1 = compareBuild$2;
 
-const sort = (list, loose) => list.sort((a, b) => compareBuild_1(a, b, loose));
+const compareBuild$1 = compareBuild_1;
+const sort = (list, loose) => list.sort((a, b) => compareBuild$1(a, b, loose));
 var sort_1 = sort;
 
-const rsort = (list, loose) => list.sort((a, b) => compareBuild_1(b, a, loose));
+const compareBuild = compareBuild_1;
+const rsort = (list, loose) => list.sort((a, b) => compareBuild(b, a, loose));
 var rsort_1 = rsort;
 
-const gt = (a, b, loose) => compare_1(a, b, loose) > 0;
-var gt_1 = gt;
+const compare$6 = compare_1;
+const gt$3 = (a, b, loose) => compare$6(a, b, loose) > 0;
+var gt_1 = gt$3;
 
-const lt = (a, b, loose) => compare_1(a, b, loose) < 0;
-var lt_1 = lt;
+const compare$5 = compare_1;
+const lt$2 = (a, b, loose) => compare$5(a, b, loose) < 0;
+var lt_1 = lt$2;
 
-const neq = (a, b, loose) => compare_1(a, b, loose) !== 0;
-var neq_1 = neq;
+const compare$4 = compare_1;
+const neq$1 = (a, b, loose) => compare$4(a, b, loose) !== 0;
+var neq_1 = neq$1;
 
-const gte = (a, b, loose) => compare_1(a, b, loose) >= 0;
-var gte_1 = gte;
+const compare$3 = compare_1;
+const gte$2 = (a, b, loose) => compare$3(a, b, loose) >= 0;
+var gte_1 = gte$2;
 
-const lte = (a, b, loose) => compare_1(a, b, loose) <= 0;
-var lte_1 = lte;
+const compare$2 = compare_1;
+const lte$2 = (a, b, loose) => compare$2(a, b, loose) <= 0;
+var lte_1 = lte$2;
 
-const cmp = (a, op, b, loose) => {
+const eq = eq_1;
+const neq = neq_1;
+const gt$2 = gt_1;
+const gte$1 = gte_1;
+const lt$1 = lt_1;
+const lte$1 = lte_1;
+
+const cmp$1 = (a, op, b, loose) => {
   switch (op) {
     case '===':
       if (typeof a === 'object')
@@ -19063,33 +19674,35 @@ const cmp = (a, op, b, loose) => {
     case '':
     case '=':
     case '==':
-      return eq_1(a, b, loose)
+      return eq(a, b, loose)
 
     case '!=':
-      return neq_1(a, b, loose)
+      return neq(a, b, loose)
 
     case '>':
-      return gt_1(a, b, loose)
+      return gt$2(a, b, loose)
 
     case '>=':
-      return gte_1(a, b, loose)
+      return gte$1(a, b, loose)
 
     case '<':
-      return lt_1(a, b, loose)
+      return lt$1(a, b, loose)
 
     case '<=':
-      return lte_1(a, b, loose)
+      return lte$1(a, b, loose)
 
     default:
       throw new TypeError(`Invalid operator: ${op}`)
   }
 };
-var cmp_1 = cmp;
+var cmp_1 = cmp$1;
 
-const {re: re$2, t: t$2} = re_1;
+const SemVer$6 = semver$1;
+const parse = parse_1;
+const {re: re$2, t: t$2} = re$5.exports;
 
 const coerce = (version, options) => {
-  if (version instanceof semver$1) {
+  if (version instanceof SemVer$6) {
     return version
   }
 
@@ -19132,7 +19745,7 @@ const coerce = (version, options) => {
   if (match === null)
     return null
 
-  return parse_1(`${match[2]}.${match[3] || '0'}.${match[4] || '0'}`, options)
+  return parse(`${match[2]}.${match[3] || '0'}.${match[4] || '0'}`, options)
 };
 var coerce_1 = coerce;
 
@@ -19144,15 +19757,15 @@ var iterator = function (Yallist) {
   };
 };
 
-var yallist = Yallist;
+var yallist = Yallist$1;
 
-Yallist.Node = Node;
-Yallist.create = Yallist;
+Yallist$1.Node = Node;
+Yallist$1.create = Yallist$1;
 
-function Yallist (list) {
+function Yallist$1 (list) {
   var self = this;
-  if (!(self instanceof Yallist)) {
-    self = new Yallist();
+  if (!(self instanceof Yallist$1)) {
+    self = new Yallist$1();
   }
 
   self.tail = null;
@@ -19172,7 +19785,7 @@ function Yallist (list) {
   return self
 }
 
-Yallist.prototype.removeNode = function (node) {
+Yallist$1.prototype.removeNode = function (node) {
   if (node.list !== this) {
     throw new Error('removing node which does not belong to this list')
   }
@@ -19203,7 +19816,7 @@ Yallist.prototype.removeNode = function (node) {
   return next
 };
 
-Yallist.prototype.unshiftNode = function (node) {
+Yallist$1.prototype.unshiftNode = function (node) {
   if (node === this.head) {
     return
   }
@@ -19226,7 +19839,7 @@ Yallist.prototype.unshiftNode = function (node) {
   this.length++;
 };
 
-Yallist.prototype.pushNode = function (node) {
+Yallist$1.prototype.pushNode = function (node) {
   if (node === this.tail) {
     return
   }
@@ -19249,21 +19862,21 @@ Yallist.prototype.pushNode = function (node) {
   this.length++;
 };
 
-Yallist.prototype.push = function () {
+Yallist$1.prototype.push = function () {
   for (var i = 0, l = arguments.length; i < l; i++) {
     push(this, arguments[i]);
   }
   return this.length
 };
 
-Yallist.prototype.unshift = function () {
+Yallist$1.prototype.unshift = function () {
   for (var i = 0, l = arguments.length; i < l; i++) {
     unshift(this, arguments[i]);
   }
   return this.length
 };
 
-Yallist.prototype.pop = function () {
+Yallist$1.prototype.pop = function () {
   if (!this.tail) {
     return undefined
   }
@@ -19279,7 +19892,7 @@ Yallist.prototype.pop = function () {
   return res
 };
 
-Yallist.prototype.shift = function () {
+Yallist$1.prototype.shift = function () {
   if (!this.head) {
     return undefined
   }
@@ -19295,7 +19908,7 @@ Yallist.prototype.shift = function () {
   return res
 };
 
-Yallist.prototype.forEach = function (fn, thisp) {
+Yallist$1.prototype.forEach = function (fn, thisp) {
   thisp = thisp || this;
   for (var walker = this.head, i = 0; walker !== null; i++) {
     fn.call(thisp, walker.value, i, this);
@@ -19303,7 +19916,7 @@ Yallist.prototype.forEach = function (fn, thisp) {
   }
 };
 
-Yallist.prototype.forEachReverse = function (fn, thisp) {
+Yallist$1.prototype.forEachReverse = function (fn, thisp) {
   thisp = thisp || this;
   for (var walker = this.tail, i = this.length - 1; walker !== null; i--) {
     fn.call(thisp, walker.value, i, this);
@@ -19311,7 +19924,7 @@ Yallist.prototype.forEachReverse = function (fn, thisp) {
   }
 };
 
-Yallist.prototype.get = function (n) {
+Yallist$1.prototype.get = function (n) {
   for (var i = 0, walker = this.head; walker !== null && i < n; i++) {
     // abort out of the list early if we hit a cycle
     walker = walker.next;
@@ -19321,7 +19934,7 @@ Yallist.prototype.get = function (n) {
   }
 };
 
-Yallist.prototype.getReverse = function (n) {
+Yallist$1.prototype.getReverse = function (n) {
   for (var i = 0, walker = this.tail; walker !== null && i < n; i++) {
     // abort out of the list early if we hit a cycle
     walker = walker.prev;
@@ -19331,9 +19944,9 @@ Yallist.prototype.getReverse = function (n) {
   }
 };
 
-Yallist.prototype.map = function (fn, thisp) {
+Yallist$1.prototype.map = function (fn, thisp) {
   thisp = thisp || this;
-  var res = new Yallist();
+  var res = new Yallist$1();
   for (var walker = this.head; walker !== null;) {
     res.push(fn.call(thisp, walker.value, this));
     walker = walker.next;
@@ -19341,9 +19954,9 @@ Yallist.prototype.map = function (fn, thisp) {
   return res
 };
 
-Yallist.prototype.mapReverse = function (fn, thisp) {
+Yallist$1.prototype.mapReverse = function (fn, thisp) {
   thisp = thisp || this;
-  var res = new Yallist();
+  var res = new Yallist$1();
   for (var walker = this.tail; walker !== null;) {
     res.push(fn.call(thisp, walker.value, this));
     walker = walker.prev;
@@ -19351,7 +19964,7 @@ Yallist.prototype.mapReverse = function (fn, thisp) {
   return res
 };
 
-Yallist.prototype.reduce = function (fn, initial) {
+Yallist$1.prototype.reduce = function (fn, initial) {
   var acc;
   var walker = this.head;
   if (arguments.length > 1) {
@@ -19371,7 +19984,7 @@ Yallist.prototype.reduce = function (fn, initial) {
   return acc
 };
 
-Yallist.prototype.reduceReverse = function (fn, initial) {
+Yallist$1.prototype.reduceReverse = function (fn, initial) {
   var acc;
   var walker = this.tail;
   if (arguments.length > 1) {
@@ -19391,7 +20004,7 @@ Yallist.prototype.reduceReverse = function (fn, initial) {
   return acc
 };
 
-Yallist.prototype.toArray = function () {
+Yallist$1.prototype.toArray = function () {
   var arr = new Array(this.length);
   for (var i = 0, walker = this.head; walker !== null; i++) {
     arr[i] = walker.value;
@@ -19400,7 +20013,7 @@ Yallist.prototype.toArray = function () {
   return arr
 };
 
-Yallist.prototype.toArrayReverse = function () {
+Yallist$1.prototype.toArrayReverse = function () {
   var arr = new Array(this.length);
   for (var i = 0, walker = this.tail; walker !== null; i++) {
     arr[i] = walker.value;
@@ -19409,7 +20022,7 @@ Yallist.prototype.toArrayReverse = function () {
   return arr
 };
 
-Yallist.prototype.slice = function (from, to) {
+Yallist$1.prototype.slice = function (from, to) {
   to = to || this.length;
   if (to < 0) {
     to += this.length;
@@ -19418,7 +20031,7 @@ Yallist.prototype.slice = function (from, to) {
   if (from < 0) {
     from += this.length;
   }
-  var ret = new Yallist();
+  var ret = new Yallist$1();
   if (to < from || to < 0) {
     return ret
   }
@@ -19437,7 +20050,7 @@ Yallist.prototype.slice = function (from, to) {
   return ret
 };
 
-Yallist.prototype.sliceReverse = function (from, to) {
+Yallist$1.prototype.sliceReverse = function (from, to) {
   to = to || this.length;
   if (to < 0) {
     to += this.length;
@@ -19446,7 +20059,7 @@ Yallist.prototype.sliceReverse = function (from, to) {
   if (from < 0) {
     from += this.length;
   }
-  var ret = new Yallist();
+  var ret = new Yallist$1();
   if (to < from || to < 0) {
     return ret
   }
@@ -19465,7 +20078,7 @@ Yallist.prototype.sliceReverse = function (from, to) {
   return ret
 };
 
-Yallist.prototype.splice = function (start, deleteCount, ...nodes) {
+Yallist$1.prototype.splice = function (start, deleteCount, ...nodes) {
   if (start > this.length) {
     start = this.length - 1;
   }
@@ -19496,7 +20109,7 @@ Yallist.prototype.splice = function (start, deleteCount, ...nodes) {
   return ret;
 };
 
-Yallist.prototype.reverse = function () {
+Yallist$1.prototype.reverse = function () {
   var head = this.head;
   var tail = this.tail;
   for (var walker = head; walker !== null; walker = walker.prev) {
@@ -19567,11 +20180,11 @@ function Node (value, prev, next, list) {
 
 try {
   // add if support for Symbol.iterator is present
-  iterator(Yallist);
+  iterator(Yallist$1);
 } catch (er) {}
 
 // A linked list to keep track of recently-used-ness
-
+const Yallist = yallist;
 
 const MAX = Symbol('max');
 const LENGTH = Symbol('length');
@@ -19703,7 +20316,7 @@ class LRUCache {
     }
 
     this[CACHE] = new Map(); // hash of items by key
-    this[LRU_LIST] = new yallist(); // list of items in order of use recency
+    this[LRU_LIST] = new Yallist(); // list of items in order of use recency
     this[LENGTH] = 0; // length of items in the list
   }
 
@@ -19904,22 +20517,22 @@ const forEachStep = (self, fn, node, thisp) => {
 var lruCache = LRUCache;
 
 // hoisted class for cyclic dependency
-class Range {
+class Range$a {
   constructor (range, options) {
-    options = parseOptions_1(options);
+    options = parseOptions$1(options);
 
-    if (range instanceof Range) {
+    if (range instanceof Range$a) {
       if (
         range.loose === !!options.loose &&
         range.includePrerelease === !!options.includePrerelease
       ) {
         return range
       } else {
-        return new Range(range.raw, options)
+        return new Range$a(range.raw, options)
       }
     }
 
-    if (range instanceof comparator) {
+    if (range instanceof Comparator$3) {
       // just put it in the set and return
       this.raw = range.value;
       this.set = [[range]];
@@ -19996,10 +20609,10 @@ class Range {
     // `1.2.3 - 1.2.4` => `>=1.2.3 <=1.2.4`
     const hr = loose ? re$1[t$1.HYPHENRANGELOOSE] : re$1[t$1.HYPHENRANGE];
     range = range.replace(hr, hyphenReplace(this.options.includePrerelease));
-    debug_1('hyphen replace', range);
+    debug$1('hyphen replace', range);
     // `> 1.2.3 < 1.2.5` => `>1.2.3 <1.2.5`
     range = range.replace(re$1[t$1.COMPARATORTRIM], comparatorTrimReplace);
-    debug_1('comparator trim', range, re$1[t$1.COMPARATORTRIM]);
+    debug$1('comparator trim', range, re$1[t$1.COMPARATORTRIM]);
 
     // `~ 1.2.3` => `~1.2.3`
     range = range.replace(re$1[t$1.TILDETRIM], tildeTrimReplace);
@@ -20023,7 +20636,7 @@ class Range {
       .map(comp => replaceGTE0(comp, this.options))
       // in loose mode, throw out any that are not valid comparators
       .filter(this.options.loose ? comp => !!comp.match(compRe) : () => true)
-      .map(comp => new comparator(comp, this.options));
+      .map(comp => new Comparator$3(comp, this.options));
 
     // if any comparators are the null set, then replace with JUST null set
     // if more than one comparator, remove any * comparators
@@ -20044,7 +20657,7 @@ class Range {
   }
 
   intersects (range, options) {
-    if (!(range instanceof Range)) {
+    if (!(range instanceof Range$a)) {
       throw new TypeError('a Range is required')
     }
 
@@ -20073,7 +20686,7 @@ class Range {
 
     if (typeof version === 'string') {
       try {
-        version = new semver$1(version, this.options);
+        version = new SemVer$5(version, this.options);
       } catch (er) {
         return false
       }
@@ -20087,22 +20700,22 @@ class Range {
     return false
   }
 }
-var range = Range;
+var range = Range$a;
 
+const LRU = lruCache;
+const cache = new LRU({ max: 1000 });
 
-const cache = new lruCache({ max: 1000 });
-
-
-
-
-
+const parseOptions$1 = parseOptions_1;
+const Comparator$3 = comparator;
+const debug$1 = debug_1;
+const SemVer$5 = semver$1;
 const {
   re: re$1,
   t: t$1,
   comparatorTrimReplace,
   tildeTrimReplace,
   caretTrimReplace
-} = re_1;
+} = re$5.exports;
 
 const isNullSet = c => c.value === '<0.0.0-0';
 const isAny = c => c.value === '';
@@ -20129,15 +20742,15 @@ const isSatisfiable = (comparators, options) => {
 // already replaced the hyphen ranges
 // turn into a set of JUST comparators.
 const parseComparator = (comp, options) => {
-  debug_1('comp', comp, options);
+  debug$1('comp', comp, options);
   comp = replaceCarets(comp, options);
-  debug_1('caret', comp);
+  debug$1('caret', comp);
   comp = replaceTildes(comp, options);
-  debug_1('tildes', comp);
+  debug$1('tildes', comp);
   comp = replaceXRanges(comp, options);
-  debug_1('xrange', comp);
+  debug$1('xrange', comp);
   comp = replaceStars(comp, options);
-  debug_1('stars', comp);
+  debug$1('stars', comp);
   return comp
 };
 
@@ -20157,7 +20770,7 @@ const replaceTildes = (comp, options) =>
 const replaceTilde = (comp, options) => {
   const r = options.loose ? re$1[t$1.TILDELOOSE] : re$1[t$1.TILDE];
   return comp.replace(r, (_, M, m, p, pr) => {
-    debug_1('tilde', comp, _, M, m, p, pr);
+    debug$1('tilde', comp, _, M, m, p, pr);
     let ret;
 
     if (isX(M)) {
@@ -20168,7 +20781,7 @@ const replaceTilde = (comp, options) => {
       // ~1.2 == >=1.2.0 <1.3.0-0
       ret = `>=${M}.${m}.0 <${M}.${+m + 1}.0-0`;
     } else if (pr) {
-      debug_1('replaceTilde pr', pr);
+      debug$1('replaceTilde pr', pr);
       ret = `>=${M}.${m}.${p}-${pr
       } <${M}.${+m + 1}.0-0`;
     } else {
@@ -20177,7 +20790,7 @@ const replaceTilde = (comp, options) => {
       } <${M}.${+m + 1}.0-0`;
     }
 
-    debug_1('tilde return', ret);
+    debug$1('tilde return', ret);
     return ret
   })
 };
@@ -20194,11 +20807,11 @@ const replaceCarets = (comp, options) =>
   }).join(' ');
 
 const replaceCaret = (comp, options) => {
-  debug_1('caret', comp, options);
+  debug$1('caret', comp, options);
   const r = options.loose ? re$1[t$1.CARETLOOSE] : re$1[t$1.CARET];
   const z = options.includePrerelease ? '-0' : '';
   return comp.replace(r, (_, M, m, p, pr) => {
-    debug_1('caret', comp, _, M, m, p, pr);
+    debug$1('caret', comp, _, M, m, p, pr);
     let ret;
 
     if (isX(M)) {
@@ -20212,7 +20825,7 @@ const replaceCaret = (comp, options) => {
         ret = `>=${M}.${m}.0${z} <${+M + 1}.0.0-0`;
       }
     } else if (pr) {
-      debug_1('replaceCaret pr', pr);
+      debug$1('replaceCaret pr', pr);
       if (M === '0') {
         if (m === '0') {
           ret = `>=${M}.${m}.${p}-${pr
@@ -20226,7 +20839,7 @@ const replaceCaret = (comp, options) => {
         } <${+M + 1}.0.0-0`;
       }
     } else {
-      debug_1('no pr');
+      debug$1('no pr');
       if (M === '0') {
         if (m === '0') {
           ret = `>=${M}.${m}.${p
@@ -20241,13 +20854,13 @@ const replaceCaret = (comp, options) => {
       }
     }
 
-    debug_1('caret return', ret);
+    debug$1('caret return', ret);
     return ret
   })
 };
 
 const replaceXRanges = (comp, options) => {
-  debug_1('replaceXRanges', comp, options);
+  debug$1('replaceXRanges', comp, options);
   return comp.split(/\s+/).map((comp) => {
     return replaceXRange(comp, options)
   }).join(' ')
@@ -20257,7 +20870,7 @@ const replaceXRange = (comp, options) => {
   comp = comp.trim();
   const r = options.loose ? re$1[t$1.XRANGELOOSE] : re$1[t$1.XRANGE];
   return comp.replace(r, (ret, gtlt, M, m, p, pr) => {
-    debug_1('xRange', comp, ret, gtlt, M, m, p, pr);
+    debug$1('xRange', comp, ret, gtlt, M, m, p, pr);
     const xM = isX(M);
     const xm = xM || isX(m);
     const xp = xm || isX(p);
@@ -20321,7 +20934,7 @@ const replaceXRange = (comp, options) => {
       } <${M}.${+m + 1}.0-0`;
     }
 
-    debug_1('xRange return', ret);
+    debug$1('xRange return', ret);
 
     return ret
   })
@@ -20330,13 +20943,13 @@ const replaceXRange = (comp, options) => {
 // Because * is AND-ed with everything else in the comparator,
 // and '' means "any version", just remove the *s entirely.
 const replaceStars = (comp, options) => {
-  debug_1('replaceStars', comp, options);
+  debug$1('replaceStars', comp, options);
   // Looseness is ignored here.  star is always as loose as it gets!
   return comp.trim().replace(re$1[t$1.STAR], '')
 };
 
 const replaceGTE0 = (comp, options) => {
-  debug_1('replaceGTE0', comp, options);
+  debug$1('replaceGTE0', comp, options);
   return comp.trim()
     .replace(re$1[options.includePrerelease ? t$1.GTE0PRE : t$1.GTE0], '')
 };
@@ -20392,8 +21005,8 @@ const testSet = (set, version, options) => {
     // However, `1.2.4-alpha.notready` should NOT be allowed,
     // even though it's within the range set by the comparators.
     for (let i = 0; i < set.length; i++) {
-      debug_1(set[i].semver);
-      if (set[i].semver === comparator.ANY) {
+      debug$1(set[i].semver);
+      if (set[i].semver === Comparator$3.ANY) {
         continue
       }
 
@@ -20416,14 +21029,14 @@ const testSet = (set, version, options) => {
 
 const ANY$2 = Symbol('SemVer ANY');
 // hoisted class for cyclic dependency
-class Comparator {
+class Comparator$2 {
   static get ANY () {
     return ANY$2
   }
   constructor (comp, options) {
-    options = parseOptions_1(options);
+    options = parseOptions(options);
 
-    if (comp instanceof Comparator) {
+    if (comp instanceof Comparator$2) {
       if (comp.loose === !!options.loose) {
         return comp
       } else {
@@ -20431,7 +21044,7 @@ class Comparator {
       }
     }
 
-    debug_1('comparator', comp, options);
+    debug('comparator', comp, options);
     this.options = options;
     this.loose = !!options.loose;
     this.parse(comp);
@@ -20442,7 +21055,7 @@ class Comparator {
       this.value = this.operator + this.semver.version;
     }
 
-    debug_1('comp', this);
+    debug('comp', this);
   }
 
   parse (comp) {
@@ -20462,7 +21075,7 @@ class Comparator {
     if (!m[2]) {
       this.semver = ANY$2;
     } else {
-      this.semver = new semver$1(m[2], this.options.loose);
+      this.semver = new SemVer$4(m[2], this.options.loose);
     }
   }
 
@@ -20471,7 +21084,7 @@ class Comparator {
   }
 
   test (version) {
-    debug_1('Comparator.test', version, this.options.loose);
+    debug('Comparator.test', version, this.options.loose);
 
     if (this.semver === ANY$2 || version === ANY$2) {
       return true
@@ -20479,17 +21092,17 @@ class Comparator {
 
     if (typeof version === 'string') {
       try {
-        version = new semver$1(version, this.options);
+        version = new SemVer$4(version, this.options);
       } catch (er) {
         return false
       }
     }
 
-    return cmp_1(version, this.operator, this.semver, this.options)
+    return cmp(version, this.operator, this.semver, this.options)
   }
 
   intersects (comp, options) {
-    if (!(comp instanceof Comparator)) {
+    if (!(comp instanceof Comparator$2)) {
       throw new TypeError('a Comparator is required')
     }
 
@@ -20504,12 +21117,12 @@ class Comparator {
       if (this.value === '') {
         return true
       }
-      return new range(comp.value, options).test(this.value)
+      return new Range$9(comp.value, options).test(this.value)
     } else if (comp.operator === '') {
       if (comp.value === '') {
         return true
       }
-      return new range(this.value, options).test(comp.semver)
+      return new Range$9(this.value, options).test(comp.semver)
     }
 
     const sameDirectionIncreasing =
@@ -20523,11 +21136,11 @@ class Comparator {
       (this.operator === '>=' || this.operator === '<=') &&
       (comp.operator === '>=' || comp.operator === '<=');
     const oppositeDirectionsLessThan =
-      cmp_1(this.semver, '<', comp.semver, options) &&
+      cmp(this.semver, '<', comp.semver, options) &&
       (this.operator === '>=' || this.operator === '>') &&
         (comp.operator === '<=' || comp.operator === '<');
     const oppositeDirectionsGreaterThan =
-      cmp_1(this.semver, '>', comp.semver, options) &&
+      cmp(this.semver, '>', comp.semver, options) &&
       (this.operator === '<=' || this.operator === '<') &&
         (comp.operator === '>=' || comp.operator === '>');
 
@@ -20541,34 +21154,44 @@ class Comparator {
   }
 }
 
-var comparator = Comparator;
+var comparator = Comparator$2;
 
+const parseOptions = parseOptions_1;
+const {re, t} = re$5.exports;
+const cmp = cmp_1;
+const debug = debug_1;
+const SemVer$4 = semver$1;
+const Range$9 = range;
 
-const {re, t} = re_1;
-
-const satisfies = (version, range$1, options) => {
+const Range$8 = range;
+const satisfies$3 = (version, range, options) => {
   try {
-    range$1 = new range(range$1, options);
+    range = new Range$8(range, options);
   } catch (er) {
     return false
   }
-  return range$1.test(version)
+  return range.test(version)
 };
-var satisfies_1 = satisfies;
+var satisfies_1 = satisfies$3;
+
+const Range$7 = range;
 
 // Mostly just for testing and legacy API reasons
-const toComparators = (range$1, options) =>
-  new range(range$1, options).set
+const toComparators = (range, options) =>
+  new Range$7(range, options).set
     .map(comp => comp.map(c => c.value).join(' ').trim().split(' '));
 
 var toComparators_1 = toComparators;
 
-const maxSatisfying = (versions, range$1, options) => {
+const SemVer$3 = semver$1;
+const Range$6 = range;
+
+const maxSatisfying = (versions, range, options) => {
   let max = null;
   let maxSV = null;
   let rangeObj = null;
   try {
-    rangeObj = new range(range$1, options);
+    rangeObj = new Range$6(range, options);
   } catch (er) {
     return null
   }
@@ -20578,7 +21201,7 @@ const maxSatisfying = (versions, range$1, options) => {
       if (!max || maxSV.compare(v) === -1) {
         // compare(max, v, true)
         max = v;
-        maxSV = new semver$1(max, options);
+        maxSV = new SemVer$3(max, options);
       }
     }
   });
@@ -20586,12 +21209,14 @@ const maxSatisfying = (versions, range$1, options) => {
 };
 var maxSatisfying_1 = maxSatisfying;
 
-const minSatisfying = (versions, range$1, options) => {
+const SemVer$2 = semver$1;
+const Range$5 = range;
+const minSatisfying = (versions, range, options) => {
   let min = null;
   let minSV = null;
   let rangeObj = null;
   try {
-    rangeObj = new range(range$1, options);
+    rangeObj = new Range$5(range, options);
   } catch (er) {
     return null
   }
@@ -20601,7 +21226,7 @@ const minSatisfying = (versions, range$1, options) => {
       if (!min || minSV.compare(v) === 1) {
         // compare(min, v, true)
         min = v;
-        minSV = new semver$1(min, options);
+        minSV = new SemVer$2(min, options);
       }
     }
   });
@@ -20609,27 +21234,31 @@ const minSatisfying = (versions, range$1, options) => {
 };
 var minSatisfying_1 = minSatisfying;
 
-const minVersion = (range$1, loose) => {
-  range$1 = new range(range$1, loose);
+const SemVer$1 = semver$1;
+const Range$4 = range;
+const gt$1 = gt_1;
 
-  let minver = new semver$1('0.0.0');
-  if (range$1.test(minver)) {
+const minVersion = (range, loose) => {
+  range = new Range$4(range, loose);
+
+  let minver = new SemVer$1('0.0.0');
+  if (range.test(minver)) {
     return minver
   }
 
-  minver = new semver$1('0.0.0-0');
-  if (range$1.test(minver)) {
+  minver = new SemVer$1('0.0.0-0');
+  if (range.test(minver)) {
     return minver
   }
 
   minver = null;
-  for (let i = 0; i < range$1.set.length; ++i) {
-    const comparators = range$1.set[i];
+  for (let i = 0; i < range.set.length; ++i) {
+    const comparators = range.set[i];
 
     let setMin = null;
     comparators.forEach((comparator) => {
       // Clone to avoid manipulating the comparator's semver object.
-      const compver = new semver$1(comparator.semver.version);
+      const compver = new SemVer$1(comparator.semver.version);
       switch (comparator.operator) {
         case '>':
           if (compver.prerelease.length === 0) {
@@ -20641,7 +21270,7 @@ const minVersion = (range$1, loose) => {
           /* fallthrough */
         case '':
         case '>=':
-          if (!setMin || gt_1(compver, setMin)) {
+          if (!setMin || gt$1(compver, setMin)) {
             setMin = compver;
           }
           break
@@ -20654,11 +21283,11 @@ const minVersion = (range$1, loose) => {
           throw new Error(`Unexpected operation: ${comparator.operator}`)
       }
     });
-    if (setMin && (!minver || gt_1(minver, setMin)))
+    if (setMin && (!minver || gt$1(minver, setMin)))
       minver = setMin;
   }
 
-  if (minver && range$1.test(minver)) {
+  if (minver && range.test(minver)) {
     return minver
   }
 
@@ -20666,42 +21295,45 @@ const minVersion = (range$1, loose) => {
 };
 var minVersion_1 = minVersion;
 
-const validRange = (range$1, options) => {
+const Range$3 = range;
+const validRange = (range, options) => {
   try {
     // Return '*' instead of '' so that truthiness works.
     // This will throw if it's invalid anyway
-    return new range(range$1, options).range || '*'
+    return new Range$3(range, options).range || '*'
   } catch (er) {
     return null
   }
 };
 var valid = validRange;
 
-const {ANY: ANY$1} = comparator;
+const SemVer = semver$1;
+const Comparator$1 = comparator;
+const {ANY: ANY$1} = Comparator$1;
+const Range$2 = range;
+const satisfies$2 = satisfies_1;
+const gt = gt_1;
+const lt = lt_1;
+const lte = lte_1;
+const gte = gte_1;
 
-
-
-
-
-
-
-const outside = (version, range$1, hilo, options) => {
-  version = new semver$1(version, options);
-  range$1 = new range(range$1, options);
+const outside$2 = (version, range, hilo, options) => {
+  version = new SemVer(version, options);
+  range = new Range$2(range, options);
 
   let gtfn, ltefn, ltfn, comp, ecomp;
   switch (hilo) {
     case '>':
-      gtfn = gt_1;
-      ltefn = lte_1;
-      ltfn = lt_1;
+      gtfn = gt;
+      ltefn = lte;
+      ltfn = lt;
       comp = '>';
       ecomp = '>=';
       break
     case '<':
-      gtfn = lt_1;
-      ltefn = gte_1;
-      ltfn = gt_1;
+      gtfn = lt;
+      ltefn = gte;
+      ltfn = gt;
       comp = '<';
       ecomp = '<=';
       break
@@ -20710,29 +21342,29 @@ const outside = (version, range$1, hilo, options) => {
   }
 
   // If it satisfies the range it is not outside
-  if (satisfies_1(version, range$1, options)) {
+  if (satisfies$2(version, range, options)) {
     return false
   }
 
   // From now on, variable terms are as if we're in "gtr" mode.
   // but note that everything is flipped for the "ltr" function.
 
-  for (let i = 0; i < range$1.set.length; ++i) {
-    const comparators = range$1.set[i];
+  for (let i = 0; i < range.set.length; ++i) {
+    const comparators = range.set[i];
 
     let high = null;
     let low = null;
 
-    comparators.forEach((comparator$1) => {
-      if (comparator$1.semver === ANY$1) {
-        comparator$1 = new comparator('>=0.0.0');
+    comparators.forEach((comparator) => {
+      if (comparator.semver === ANY$1) {
+        comparator = new Comparator$1('>=0.0.0');
       }
-      high = high || comparator$1;
-      low = low || comparator$1;
-      if (gtfn(comparator$1.semver, high.semver, options)) {
-        high = comparator$1;
-      } else if (ltfn(comparator$1.semver, low.semver, options)) {
-        low = comparator$1;
+      high = high || comparator;
+      low = low || comparator;
+      if (gtfn(comparator.semver, high.semver, options)) {
+        high = comparator;
+      } else if (ltfn(comparator.semver, low.semver, options)) {
+        low = comparator;
       }
     });
 
@@ -20754,20 +21386,22 @@ const outside = (version, range$1, hilo, options) => {
   return true
 };
 
-var outside_1 = outside;
+var outside_1 = outside$2;
 
 // Determine if version is greater than all the versions possible in the range.
-
-const gtr = (version, range, options) => outside_1(version, range, '>', options);
+const outside$1 = outside_1;
+const gtr = (version, range, options) => outside$1(version, range, '>', options);
 var gtr_1 = gtr;
 
+const outside = outside_1;
 // Determine if version is less than all the versions possible in the range
-const ltr = (version, range, options) => outside_1(version, range, '<', options);
+const ltr = (version, range, options) => outside(version, range, '<', options);
 var ltr_1 = ltr;
 
+const Range$1 = range;
 const intersects = (r1, r2, options) => {
-  r1 = new range(r1, options);
-  r2 = new range(r2, options);
+  r1 = new Range$1(r1, options);
+  r2 = new Range$1(r2, options);
   return r1.intersects(r2)
 };
 var intersects_1 = intersects;
@@ -20775,15 +21409,15 @@ var intersects_1 = intersects;
 // given a set of versions and a range, create a "simplified" range
 // that includes the same versions that the original range does
 // If the original range is shorter than the simplified one, return that.
-
-
+const satisfies$1 = satisfies_1;
+const compare$1 = compare_1;
 var simplify = (versions, range, options) => {
   const set = [];
   let min = null;
   let prev = null;
-  const v = versions.sort((a, b) => compare_1(a, b, options));
+  const v = versions.sort((a, b) => compare$1(a, b, options));
   for (const version of v) {
-    const included = satisfies_1(version, range, options);
+    const included = satisfies$1(version, range, options);
     if (included) {
       prev = version;
       if (!min)
@@ -20817,9 +21451,11 @@ var simplify = (versions, range, options) => {
   return simplified.length < original.length ? simplified : range
 };
 
-const { ANY } = comparator;
-
-
+const Range = range;
+const Comparator = comparator;
+const { ANY } = Comparator;
+const satisfies = satisfies_1;
+const compare = compare_1;
 
 // Complex range `r1 || r2 || ...` is a subset of `R1 || R2 || ...` iff:
 // - Every simple range `r1, r2, ...` is a null set, OR
@@ -20861,8 +21497,8 @@ const subset = (sub, dom, options = {}) => {
   if (sub === dom)
     return true
 
-  sub = new range(sub, options);
-  dom = new range(dom, options);
+  sub = new Range(sub, options);
+  dom = new Range(dom, options);
   let sawNonNull = false;
 
   OUTER: for (const simpleSub of sub.set) {
@@ -20890,16 +21526,16 @@ const simpleSubset = (sub, dom, options) => {
     if (dom.length === 1 && dom[0].semver === ANY)
       return true
     else if (options.includePrerelease)
-      sub = [ new comparator('>=0.0.0-0') ];
+      sub = [ new Comparator('>=0.0.0-0') ];
     else
-      sub = [ new comparator('>=0.0.0') ];
+      sub = [ new Comparator('>=0.0.0') ];
   }
 
   if (dom.length === 1 && dom[0].semver === ANY) {
     if (options.includePrerelease)
       return true
     else
-      dom = [ new comparator('>=0.0.0') ];
+      dom = [ new Comparator('>=0.0.0') ];
   }
 
   const eqSet = new Set();
@@ -20918,7 +21554,7 @@ const simpleSubset = (sub, dom, options) => {
 
   let gtltComp;
   if (gt && lt) {
-    gtltComp = compare_1(gt.semver, lt.semver, options);
+    gtltComp = compare(gt.semver, lt.semver, options);
     if (gtltComp > 0)
       return null
     else if (gtltComp === 0 && (gt.operator !== '>=' || lt.operator !== '<='))
@@ -20927,14 +21563,14 @@ const simpleSubset = (sub, dom, options) => {
 
   // will iterate one or zero times
   for (const eq of eqSet) {
-    if (gt && !satisfies_1(eq, String(gt), options))
+    if (gt && !satisfies(eq, String(gt), options))
       return null
 
-    if (lt && !satisfies_1(eq, String(lt), options))
+    if (lt && !satisfies(eq, String(lt), options))
       return null
 
     for (const c of dom) {
-      if (!satisfies_1(eq, String(c), options))
+      if (!satisfies(eq, String(c), options))
         return false
     }
 
@@ -20973,7 +21609,7 @@ const simpleSubset = (sub, dom, options) => {
         higher = higherGT(gt, c, options);
         if (higher === c && higher !== gt)
           return false
-      } else if (gt.operator === '>=' && !satisfies_1(gt.semver, String(c), options))
+      } else if (gt.operator === '>=' && !satisfies(gt.semver, String(c), options))
         return false
     }
     if (lt) {
@@ -20989,7 +21625,7 @@ const simpleSubset = (sub, dom, options) => {
         lower = lowerLT(lt, c, options);
         if (lower === c && lower !== lt)
           return false
-      } else if (lt.operator === '<=' && !satisfies_1(lt.semver, String(c), options))
+      } else if (lt.operator === '<=' && !satisfies(lt.semver, String(c), options))
         return false
     }
     if (!c.operator && (lt || gt) && gtltComp !== 0)
@@ -21018,7 +21654,7 @@ const simpleSubset = (sub, dom, options) => {
 const higherGT = (a, b, options) => {
   if (!a)
     return b
-  const comp = compare_1(a.semver, b.semver, options);
+  const comp = compare(a.semver, b.semver, options);
   return comp > 0 ? a
     : comp < 0 ? b
     : b.operator === '>' && a.operator === '>=' ? b
@@ -21029,7 +21665,7 @@ const higherGT = (a, b, options) => {
 const lowerLT = (a, b, options) => {
   if (!a)
     return b
-  const comp = compare_1(a.semver, b.semver, options);
+  const comp = compare(a.semver, b.semver, options);
   return comp < 0 ? a
     : comp > 0 ? b
     : b.operator === '<' && a.operator === '<=' ? b
@@ -21039,11 +21675,11 @@ const lowerLT = (a, b, options) => {
 var subset_1 = subset;
 
 // just pre-load all the stuff that index.js lazily exports
-
+const internalRe = re$5.exports;
 var semver = {
-  re: re_1.re,
-  src: re_1.src,
-  tokens: re_1.t,
+  re: internalRe.re,
+  src: internalRe.src,
+  tokens: internalRe.t,
   SEMVER_SPEC_VERSION: constants.SEMVER_SPEC_VERSION,
   SemVer: semver$1,
   compareIdentifiers: identifiers.compareIdentifiers,
@@ -21109,22 +21745,22 @@ async function getEvent() {
 }
 
 /* eslint-disable camelcase */
-const dbg = src("action-dependabot-bump-range");
+const dbg = debug$4("action-dependabot-bump-range");
 async function run() {
     dbg("Check whether user is memebr of teams");
     try {
         dbg("Retrieve inputs");
         const token = core.getInput("token", { required: true });
         const { pull_request: { number: prNumber } = {} } = await getEvent();
-        const client = github.getOctokit(token);
+        const client = getOctokit_1(token);
         // dbg("Process Event: %j", event);
         if (prNumber === undefined) {
             core.setOutput("result", "no pr info provided");
             return;
         }
         dbg("Fetch pull request data");
-        const params = { ...github.context.repo, pull_number: prNumber };
-        const { data: pr } = await client.pulls.get(params);
+        const params = { ...context.repo, pull_number: prNumber };
+        const { data: pr } = await client.rest.pulls.get(params);
         dbg("Process pull request title: %s", pr.title);
         const match = matchTitle(pr.title);
         if (!match) {
