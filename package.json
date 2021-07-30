@@ -32,7 +32,7 @@
   "dependencies": {
     "@actions/core": "^1.4.0",
     "@actions/github": "^5.0.0",
-    "@octokit/types": "^6.21.1",
+    "@octokit/types": "^6.22.0",
     "debug": "^4.3.2",
     "encoding": "^0.1.13",
     "semver": "^7.3.5"
