@@ -34,6 +34,7 @@ jobs:
       - name: Lint Sources
         run: npm run lint
       - name: Build Sources
+        timeout-minutes: 2
         run: npm run build
       - name: Test Sources
         run: npm run test
