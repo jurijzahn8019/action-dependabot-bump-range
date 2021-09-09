@@ -44,7 +44,7 @@ var utils$2 = {};
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
 Object.defineProperty(utils$2, "__esModule", { value: true });
-utils$2.toCommandValue = void 0;
+utils$2.toCommandProperties = utils$2.toCommandValue = void 0;
 /**
  * Sanitizes an input into a string so it can be passed into issueCommand safely
  * @param input input to sanitize into a string
@@ -59,6 +59,25 @@ function toCommandValue(input) {
     return JSON.stringify(input);
 }
 utils$2.toCommandValue = toCommandValue;
+/**
+ *
+ * @param annotationProperties
+ * @returns The command properties to send with the actual annotation command
+ * See IssueCommandProperties: https://github.com/actions/runner/blob/main/src/Runner.Worker/ActionCommandManager.cs#L646
+ */
+function toCommandProperties(annotationProperties) {
+    if (!Object.keys(annotationProperties).length) {
+        return {};
+    }
+    return {
+        title: annotationProperties.title,
+        line: annotationProperties.startLine,
+        endLine: annotationProperties.endLine,
+        col: annotationProperties.startColumn,
+        endColumn: annotationProperties.endColumn
+    };
+}
+utils$2.toCommandProperties = toCommandProperties;
 
 var __createBinding$4 = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -224,7 +243,7 @@ var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisAr
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
+exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
 const command_1 = command;
 const file_command_1 = fileCommand;
 const utils_1 = utils$2;
@@ -402,19 +421,30 @@ exports.debug = debug;
 /**
  * Adds an error issue
  * @param message error issue message. Errors will be converted to string via toString()
+ * @param properties optional properties to add to the annotation.
  */
-function error(message) {
-    command_1.issue('error', message instanceof Error ? message.toString() : message);
+function error(message, properties = {}) {
+    command_1.issueCommand('error', utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
 }
 exports.error = error;
 /**
- * Adds an warning issue
+ * Adds a warning issue
  * @param message warning issue message. Errors will be converted to string via toString()
+ * @param properties optional properties to add to the annotation.
  */
-function warning(message) {
-    command_1.issue('warning', message instanceof Error ? message.toString() : message);
+function warning(message, properties = {}) {
+    command_1.issueCommand('warning', utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
 }
 exports.warning = warning;
+/**
+ * Adds a notice issue
+ * @param message notice issue message. Errors will be converted to string via toString()
+ * @param properties optional properties to add to the annotation.
+ */
+function notice(message, properties = {}) {
+    command_1.issueCommand('notice', utils_1.toCommandProperties(properties), message instanceof Error ? message.toString() : message);
+}
+exports.notice = notice;
 /**
  * Writes info to log with console.log.
  * @param message info message
@@ -13259,7 +13289,19 @@ var dbcsData = {
     'big5hkscs': {
         type: '_dbcs',
         table: function() { return require$$6.concat(require$$7) },
-        encodeSkipVals: [0xa2cc],
+        encodeSkipVals: [
+            // Although Encoding Standard says we should avoid encoding to HKSCS area (See Step 1 of
+            // https://encoding.spec.whatwg.org/#index-big5-pointer), we still do it to increase compatibility with ICU.
+            // But if a single unicode point can be encoded both as HKSCS and regular Big5, we prefer the latter.
+            0x8e69, 0x8e6f, 0x8e7e, 0x8eab, 0x8eb4, 0x8ecd, 0x8ed0, 0x8f57, 0x8f69, 0x8f6e, 0x8fcb, 0x8ffe,
+            0x906d, 0x907a, 0x90c4, 0x90dc, 0x90f1, 0x91bf, 0x92af, 0x92b0, 0x92b1, 0x92b2, 0x92d1, 0x9447, 0x94ca,
+            0x95d9, 0x96fc, 0x9975, 0x9b76, 0x9b78, 0x9b7b, 0x9bc6, 0x9bde, 0x9bec, 0x9bf6, 0x9c42, 0x9c53, 0x9c62,
+            0x9c68, 0x9c6b, 0x9c77, 0x9cbc, 0x9cbd, 0x9cd0, 0x9d57, 0x9d5a, 0x9dc4, 0x9def, 0x9dfb, 0x9ea9, 0x9eef,
+            0x9efd, 0x9f60, 0x9fcb, 0xa077, 0xa0dc, 0xa0df, 0x8fcc, 0x92c8, 0x9644, 0x96ed,
+
+            // Step 2 of https://encoding.spec.whatwg.org/#index-big5-pointer: Use last pointer for U+2550, U+255E, U+2561, U+256A, U+5341, or U+5345
+            0xa2a4, 0xa2a5, 0xa2a7, 0xa2a6, 0xa2cc, 0xa2ce,
+        ],
     },
 
     'cnbig5': 'big5hkscs',
@@ -15463,7 +15505,7 @@ class RequestError extends Error {
     }
 }
 
-const VERSION$4 = "5.6.0";
+const VERSION$4 = "5.6.1";
 
 function getBufferResponse(response) {
     return response.arrayBuffer();
@@ -15613,16 +15655,22 @@ const request = withDefaults$1(endpoint, {
     },
 });
 
-const VERSION$3 = "4.6.4";
+const VERSION$3 = "4.8.0";
 
-class GraphqlError extends Error {
-    constructor(request, response) {
-        const message = response.data.errors[0].message;
-        super(message);
-        Object.assign(this, response.data);
-        Object.assign(this, { headers: response.headers });
-        this.name = "GraphqlError";
+function _buildMessageForResponseErrors(data) {
+    return (`Request failed due to following response errors:\n` +
+        data.errors.map((e) => ` - ${e.message}`).join("\n"));
+}
+class GraphqlResponseError extends Error {
+    constructor(request, headers, response) {
+        super(_buildMessageForResponseErrors(response));
         this.request = request;
+        this.headers = headers;
+        this.response = response;
+        this.name = "GraphqlResponseError";
+        // Expose the errors and response data in their shorthand properties.
+        this.errors = response.errors;
+        this.data = response.data;
         // Maintains proper stack trace (only available on V8)
         /* istanbul ignore next */
         if (Error.captureStackTrace) {
@@ -15677,10 +15725,7 @@ function graphql(request, query, options) {
             for (const key of Object.keys(response.headers)) {
                 headers[key] = response.headers[key];
             }
-            throw new GraphqlError(requestOptions, {
-                headers,
-                data: response.data,
-            });
+            throw new GraphqlResponseError(requestOptions, headers, response.data);
         }
         return response.data.data;
     });
@@ -16136,6 +16181,7 @@ const Endpoints = {
         ],
         getUserInstallation: ["GET /users/{username}/installation"],
         getWebhookConfigForApp: ["GET /app/hook/config"],
+        getWebhookDelivery: ["GET /app/hook/deliveries/{delivery_id}"],
         listAccountsForPlan: ["GET /marketplace_listing/plans/{plan_id}/accounts"],
         listAccountsForPlanStubbed: [
             "GET /marketplace_listing/stubbed/plans/{plan_id}/accounts",
@@ -16151,6 +16197,10 @@ const Endpoints = {
         listSubscriptionsForAuthenticatedUser: ["GET /user/marketplace_purchases"],
         listSubscriptionsForAuthenticatedUserStubbed: [
             "GET /user/marketplace_purchases/stubbed",
+        ],
+        listWebhookDeliveries: ["GET /app/hook/deliveries"],
+        redeliverWebhookDelivery: [
+            "POST /app/hook/deliveries/{delivery_id}/attempts",
         ],
         removeRepoFromInstallation: [
             "DELETE /user/installations/{installation_id}/repositories/{repository_id}",
@@ -16230,14 +16280,8 @@ const Endpoints = {
         uploadSarif: ["POST /repos/{owner}/{repo}/code-scanning/sarifs"],
     },
     codesOfConduct: {
-        getAllCodesOfConduct: [
-            "GET /codes_of_conduct",
-            { mediaType: { previews: ["scarlet-witch"] } },
-        ],
-        getConductCode: [
-            "GET /codes_of_conduct/{key}",
-            { mediaType: { previews: ["scarlet-witch"] } },
-        ],
+        getAllCodesOfConduct: ["GET /codes_of_conduct"],
+        getConductCode: ["GET /codes_of_conduct/{key}"],
         getForRepo: [
             "GET /repos/{owner}/{repo}/community/code_of_conduct",
             { mediaType: { previews: ["scarlet-witch"] } },
@@ -16498,6 +16542,9 @@ const Endpoints = {
         getMembershipForUser: ["GET /orgs/{org}/memberships/{username}"],
         getWebhook: ["GET /orgs/{org}/hooks/{hook_id}"],
         getWebhookConfigForOrg: ["GET /orgs/{org}/hooks/{hook_id}/config"],
+        getWebhookDelivery: [
+            "GET /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}",
+        ],
         list: ["GET /organizations"],
         listAppInstallations: ["GET /orgs/{org}/installations"],
         listBlockedUsers: ["GET /orgs/{org}/blocks"],
@@ -16510,8 +16557,12 @@ const Endpoints = {
         listOutsideCollaborators: ["GET /orgs/{org}/outside_collaborators"],
         listPendingInvitations: ["GET /orgs/{org}/invitations"],
         listPublicMembers: ["GET /orgs/{org}/public_members"],
+        listWebhookDeliveries: ["GET /orgs/{org}/hooks/{hook_id}/deliveries"],
         listWebhooks: ["GET /orgs/{org}/hooks"],
         pingWebhook: ["POST /orgs/{org}/hooks/{hook_id}/pings"],
+        redeliverWebhookDelivery: [
+            "POST /orgs/{org}/hooks/{hook_id}/deliveries/{delivery_id}/attempts",
+        ],
         removeMember: ["DELETE /orgs/{org}/members/{username}"],
         removeMembershipForUser: ["DELETE /orgs/{org}/memberships/{username}"],
         removeOutsideCollaborator: [
@@ -16539,11 +16590,17 @@ const Endpoints = {
         deletePackageForOrg: [
             "DELETE /orgs/{org}/packages/{package_type}/{package_name}",
         ],
+        deletePackageForUser: [
+            "DELETE /users/{username}/packages/{package_type}/{package_name}",
+        ],
         deletePackageVersionForAuthenticatedUser: [
             "DELETE /user/packages/{package_type}/{package_name}/versions/{package_version_id}",
         ],
         deletePackageVersionForOrg: [
             "DELETE /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}",
+        ],
+        deletePackageVersionForUser: [
+            "DELETE /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}",
         ],
         getAllPackageVersionsForAPackageOwnedByAnOrg: [
             "GET /orgs/{org}/packages/{package_type}/{package_name}/versions",
@@ -16587,17 +16644,26 @@ const Endpoints = {
         getPackageVersionForUser: [
             "GET /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}",
         ],
+        listPackagesForAuthenticatedUser: ["GET /user/packages"],
+        listPackagesForOrganization: ["GET /orgs/{org}/packages"],
+        listPackagesForUser: ["GET /user/{username}/packages"],
         restorePackageForAuthenticatedUser: [
             "POST /user/packages/{package_type}/{package_name}/restore{?token}",
         ],
         restorePackageForOrg: [
             "POST /orgs/{org}/packages/{package_type}/{package_name}/restore{?token}",
         ],
+        restorePackageForUser: [
+            "POST /users/{username}/packages/{package_type}/{package_name}/restore{?token}",
+        ],
         restorePackageVersionForAuthenticatedUser: [
             "POST /user/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
         ],
         restorePackageVersionForOrg: [
             "POST /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
+        ],
+        restorePackageVersionForUser: [
+            "POST /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}/restore",
         ],
     },
     projects: {
@@ -16880,6 +16946,7 @@ const Endpoints = {
         compareCommitsWithBasehead: [
             "GET /repos/{owner}/{repo}/compare/{basehead}",
         ],
+        createAutolink: ["POST /repos/{owner}/{repo}/autolinks"],
         createCommitComment: [
             "POST /repos/{owner}/{repo}/commits/{commit_sha}/comments",
         ],
@@ -16922,6 +16989,7 @@ const Endpoints = {
         deleteAnEnvironment: [
             "DELETE /repos/{owner}/{repo}/environments/{environment_name}",
         ],
+        deleteAutolink: ["DELETE /repos/{owner}/{repo}/autolinks/{autolink_id}"],
         deleteBranchProtection: [
             "DELETE /repos/{owner}/{repo}/branches/{branch}/protection",
         ],
@@ -16991,6 +17059,7 @@ const Endpoints = {
         getAppsWithAccessToProtectedBranch: [
             "GET /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
         ],
+        getAutolink: ["GET /repos/{owner}/{repo}/autolinks/{autolink_id}"],
         getBranch: ["GET /repos/{owner}/{repo}/branches/{branch}"],
         getBranchProtection: [
             "GET /repos/{owner}/{repo}/branches/{branch}/protection",
@@ -17050,6 +17119,10 @@ const Endpoints = {
         getWebhookConfigForRepo: [
             "GET /repos/{owner}/{repo}/hooks/{hook_id}/config",
         ],
+        getWebhookDelivery: [
+            "GET /repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}",
+        ],
+        listAutolinks: ["GET /repos/{owner}/{repo}/autolinks"],
         listBranches: ["GET /repos/{owner}/{repo}/branches"],
         listBranchesForHeadCommit: [
             "GET /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head",
@@ -17089,9 +17162,16 @@ const Endpoints = {
         listReleases: ["GET /repos/{owner}/{repo}/releases"],
         listTags: ["GET /repos/{owner}/{repo}/tags"],
         listTeams: ["GET /repos/{owner}/{repo}/teams"],
+        listWebhookDeliveries: [
+            "GET /repos/{owner}/{repo}/hooks/{hook_id}/deliveries",
+        ],
         listWebhooks: ["GET /repos/{owner}/{repo}/hooks"],
         merge: ["POST /repos/{owner}/{repo}/merges"],
+        mergeUpstream: ["POST /repos/{owner}/{repo}/merge-upstream"],
         pingWebhook: ["POST /repos/{owner}/{repo}/hooks/{hook_id}/pings"],
+        redeliverWebhookDelivery: [
+            "POST /repos/{owner}/{repo}/hooks/{hook_id}/deliveries/{delivery_id}/attempts",
+        ],
         removeAppAccessRestrictions: [
             "DELETE /repos/{owner}/{repo}/branches/{branch}/protection/restrictions/apps",
             {},
@@ -17195,6 +17275,7 @@ const Endpoints = {
         getAlert: [
             "GET /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
         ],
+        listAlertsForOrg: ["GET /orgs/{org}/secret-scanning/alerts"],
         listAlertsForRepo: ["GET /repos/{owner}/{repo}/secret-scanning/alerts"],
         updateAlert: [
             "PATCH /repos/{owner}/{repo}/secret-scanning/alerts/{alert_number}",
@@ -17309,7 +17390,7 @@ const Endpoints = {
     },
 };
 
-const VERSION$1 = "5.3.1";
+const VERSION$1 = "5.10.1";
 
 function endpointsToMethods(octokit, endpointsMap) {
     const newMethods = {};
@@ -17396,7 +17477,7 @@ var distWeb$1 = /*#__PURE__*/Object.freeze({
 
 var require$$3 = /*@__PURE__*/getAugmentedNamespace(distWeb$1);
 
-const VERSION = "2.13.5";
+const VERSION = "2.16.0";
 
 /**
  * Some “list” response that can be paginated have a different response structure
@@ -17514,6 +17595,7 @@ const composePaginateRest = Object.assign(paginate, {
 });
 
 const paginatingEndpoints = [
+    "GET /app/hook/deliveries",
     "GET /app/installations",
     "GET /applications/grants",
     "GET /authorizations",
@@ -17552,6 +17634,7 @@ const paginatingEndpoints = [
     "GET /orgs/{org}/events",
     "GET /orgs/{org}/failed_invitations",
     "GET /orgs/{org}/hooks",
+    "GET /orgs/{org}/hooks/{hook_id}/deliveries",
     "GET /orgs/{org}/installations",
     "GET /orgs/{org}/invitations",
     "GET /orgs/{org}/invitations/{invitation_id}/teams",
@@ -17560,9 +17643,11 @@ const paginatingEndpoints = [
     "GET /orgs/{org}/migrations",
     "GET /orgs/{org}/migrations/{migration_id}/repositories",
     "GET /orgs/{org}/outside_collaborators",
+    "GET /orgs/{org}/packages",
     "GET /orgs/{org}/projects",
     "GET /orgs/{org}/public_members",
     "GET /orgs/{org}/repos",
+    "GET /orgs/{org}/secret-scanning/alerts",
     "GET /orgs/{org}/team-sync/groups",
     "GET /orgs/{org}/teams",
     "GET /orgs/{org}/teams/{team_slug}/discussions",
@@ -17588,6 +17673,7 @@ const paginatingEndpoints = [
     "GET /repos/{owner}/{repo}/actions/workflows",
     "GET /repos/{owner}/{repo}/actions/workflows/{workflow_id}/runs",
     "GET /repos/{owner}/{repo}/assignees",
+    "GET /repos/{owner}/{repo}/autolinks",
     "GET /repos/{owner}/{repo}/branches",
     "GET /repos/{owner}/{repo}/check-runs/{check_run_id}/annotations",
     "GET /repos/{owner}/{repo}/check-suites/{check_suite_id}/check-runs",
@@ -17611,6 +17697,7 @@ const paginatingEndpoints = [
     "GET /repos/{owner}/{repo}/forks",
     "GET /repos/{owner}/{repo}/git/matching-refs/{ref}",
     "GET /repos/{owner}/{repo}/hooks",
+    "GET /repos/{owner}/{repo}/hooks/{hook_id}/deliveries",
     "GET /repos/{owner}/{repo}/invitations",
     "GET /repos/{owner}/{repo}/issues",
     "GET /repos/{owner}/{repo}/issues/comments",
@@ -17681,12 +17768,14 @@ const paginatingEndpoints = [
     "GET /user/migrations",
     "GET /user/migrations/{migration_id}/repositories",
     "GET /user/orgs",
+    "GET /user/packages",
     "GET /user/public_emails",
     "GET /user/repos",
     "GET /user/repository_invitations",
     "GET /user/starred",
     "GET /user/subscriptions",
     "GET /user/teams",
+    "GET /user/{username}/packages",
     "GET /users",
     "GET /users/{username}/events",
     "GET /users/{username}/events/orgs/{org}",
