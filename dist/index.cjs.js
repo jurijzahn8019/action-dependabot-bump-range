@@ -118,7 +118,7 @@ var __importStar$4 = (commonjsGlobal && commonjsGlobal.__importStar) || function
 };
 Object.defineProperty(command, "__esModule", { value: true });
 command.issue = command.issueCommand = void 0;
-const os$2 = __importStar$4(require$$1__default['default']);
+const os$2 = __importStar$4(require$$1__default["default"]);
 const utils_1$2 = utils$2;
 /**
  * Commands
@@ -214,8 +214,8 @@ Object.defineProperty(fileCommand, "__esModule", { value: true });
 fileCommand.issueCommand = void 0;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const fs = __importStar$3(require$$0__default['default']);
-const os$1 = __importStar$3(require$$1__default['default']);
+const fs = __importStar$3(require$$0__default["default"]);
+const os$1 = __importStar$3(require$$1__default["default"]);
 const utils_1$1 = utils$2;
 function issueCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
@@ -265,8 +265,8 @@ exports.getState = exports.saveState = exports.group = exports.endGroup = export
 const command_1 = command;
 const file_command_1 = fileCommand;
 const utils_1 = utils$2;
-const os = __importStar(require$$1__default['default']);
-const path = __importStar(require$$4__default['default']);
+const os = __importStar(require$$1__default["default"]);
+const path = __importStar(require$$4__default["default"]);
 /**
  * The code to exit an action
  */
@@ -544,8 +544,8 @@ var context$1 = {};
 
 Object.defineProperty(context$1, "__esModule", { value: true });
 context$1.Context = void 0;
-const fs_1 = require$$0__default['default'];
-const os_1 = require$$1__default['default'];
+const fs_1 = require$$0__default["default"];
+const os_1 = require$$1__default["default"];
 class Context$2 {
     /**
      * Hydrate the context from the environment
@@ -662,11 +662,11 @@ proxy.checkBypass = checkBypass;
 
 var tunnel$1 = {};
 
-var tls = require$$1__default$1['default'];
-var http = require$$2__default['default'];
-var https = require$$3__default['default'];
-var events = require$$4__default$1['default'];
-var util = require$$6__default['default'];
+var tls = require$$1__default$1["default"];
+var http = require$$2__default["default"];
+var https = require$$3__default["default"];
+var events = require$$4__default$1["default"];
+var util = require$$6__default["default"];
 
 
 tunnel$1.httpOverHttp = httpOverHttp;
@@ -927,8 +927,8 @@ var tunnel = tunnel$1;
 
 (function (exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
-const http = require$$2__default['default'];
-const https = require$$3__default['default'];
+const http = require$$2__default["default"];
+const https = require$$3__default["default"];
 const pm = proxy;
 let tunnel$1;
 var HttpCodes;
@@ -2088,7 +2088,7 @@ var lib = {exports: {}};
 
 /* eslint-disable node/no-deprecated-api */
 
-var buffer = require$$0__default$1['default'];
+var buffer = require$$0__default$1["default"];
 var Buffer$9 = buffer.Buffer;
 
 var safer = {};
@@ -2224,7 +2224,7 @@ var safeBuffer = {exports: {}};
 
 (function (module, exports) {
 /* eslint-disable node/no-deprecated-api */
-var buffer = require$$0__default$1['default'];
+var buffer = require$$0__default$1["default"];
 var Buffer = buffer.Buffer;
 
 // alternative to using Object.keys for old browsers
@@ -13624,7 +13624,7 @@ iconv.enableStreamingAPI = function enableStreamingAPI(stream_module) {
 // Enable Streaming API automatically if 'stream' module is available and non-empty (the majority of environments).
 var stream_module;
 try {
-    stream_module = require$$4__default$2['default'];
+    stream_module = require$$4__default$2["default"];
 } catch (e) {}
 
 if (stream_module && stream_module.Transform) {
@@ -13726,11 +13726,11 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var Stream = _interopDefault(require$$4__default$2['default']);
-var http = _interopDefault(require$$2__default['default']);
-var Url = _interopDefault(require$$2__default$1['default']);
-var https = _interopDefault(require$$3__default['default']);
-var zlib = _interopDefault(require$$4__default$3['default']);
+var Stream = _interopDefault(require$$4__default$2["default"]);
+var http = _interopDefault(require$$2__default["default"]);
+var Url = _interopDefault(require$$2__default$1["default"]);
+var https = _interopDefault(require$$3__default["default"]);
+var zlib = _interopDefault(require$$4__default$3["default"]);
 
 // Based on https://github.com/tmpvar/jsdom/blob/aa85b2abf07766ff7bf5c1f6daafb3726f2f2db5/lib/jsdom/living/blob.js
 
@@ -18654,8 +18654,8 @@ var hasFlag$1 = (flag, argv = process.argv) => {
 	return position !== -1 && (terminatorPosition === -1 || position < terminatorPosition);
 };
 
-const os = require$$1__default['default'];
-const tty = require$$1__default$2['default'];
+const os = require$$1__default["default"];
+const tty = require$$1__default$2["default"];
 const hasFlag = hasFlag$1;
 
 const {env} = process;
@@ -18794,8 +18794,8 @@ var supportsColor_1 = {
  */
 
 (function (module, exports) {
-const tty = require$$1__default$2['default'];
-const util = require$$6__default['default'];
+const tty = require$$1__default$2["default"];
+const util = require$$6__default["default"];
 
 /**
  * This is the Node.js implementation of `debug()`.
