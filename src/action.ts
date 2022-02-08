@@ -52,6 +52,6 @@ export async function run(): Promise<void> {
     setOutput("diff", diff);
   } catch (e) {
     dbg("Failed:", e);
-    setFailed(e.message);
+    setFailed((e as Error).message);
   }
 }
