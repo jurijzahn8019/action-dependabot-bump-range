@@ -84588,7 +84588,7 @@ const createTokenAuth = function createTokenAuth(token) {
     });
 };
 
-const VERSION$2 = "3.5.1";
+const VERSION$2 = "3.6.0";
 
 class Octokit {
     constructor(options = {}) {
