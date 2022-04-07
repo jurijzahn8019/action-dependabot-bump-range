@@ -35,7 +35,7 @@
     "@octokit/types": "^6.34.0",
     "debug": "^4.3.4",
     "encoding": "^0.1.13",
-    "semver": "^7.3.5"
+    "semver": "^7.3.6"
   },
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
