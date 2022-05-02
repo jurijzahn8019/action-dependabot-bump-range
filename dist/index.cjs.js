@@ -1,34 +1,34 @@
 'use strict';
 
-var require$$1$1 = require('os');
-var require$$0 = require('fs');
+var require$$0 = require('os');
+var require$$0$1 = require('fs');
 var require$$4$2 = require('path');
 var require$$2$1 = require('http');
 var require$$3$1 = require('https');
 require('net');
-var require$$1$2 = require('tls');
+var require$$1$1 = require('tls');
 var require$$4$1 = require('events');
 require('assert');
 var require$$6 = require('util');
-var require$$0$1 = require('stream');
+var require$$0$2 = require('stream');
 var require$$2$2 = require('url');
 var require$$5 = require('zlib');
-var require$$0$2 = require('tty');
+var require$$0$3 = require('tty');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var require$$1__default = /*#__PURE__*/_interopDefaultLegacy(require$$1$1);
 var require$$0__default = /*#__PURE__*/_interopDefaultLegacy(require$$0);
+var require$$0__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$0$1);
 var require$$4__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$4$2);
 var require$$2__default = /*#__PURE__*/_interopDefaultLegacy(require$$2$1);
 var require$$3__default = /*#__PURE__*/_interopDefaultLegacy(require$$3$1);
-var require$$1__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$1$2);
+var require$$1__default = /*#__PURE__*/_interopDefaultLegacy(require$$1$1);
 var require$$4__default = /*#__PURE__*/_interopDefaultLegacy(require$$4$1);
 var require$$6__default = /*#__PURE__*/_interopDefaultLegacy(require$$6);
-var require$$0__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$0$1);
+var require$$0__default$2 = /*#__PURE__*/_interopDefaultLegacy(require$$0$2);
 var require$$2__default$1 = /*#__PURE__*/_interopDefaultLegacy(require$$2$2);
 var require$$5__default = /*#__PURE__*/_interopDefaultLegacy(require$$5);
-var require$$0__default$2 = /*#__PURE__*/_interopDefaultLegacy(require$$0$2);
+var require$$0__default$3 = /*#__PURE__*/_interopDefaultLegacy(require$$0$3);
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -117,7 +117,7 @@ var __importStar$4 = (commonjsGlobal && commonjsGlobal.__importStar) || function
 };
 Object.defineProperty(command, "__esModule", { value: true });
 command.issue = command.issueCommand = void 0;
-const os$1 = __importStar$4(require$$1__default["default"]);
+const os$1 = __importStar$4(require$$0__default["default"]);
 const utils_1$2 = utils$3;
 /**
  * Commands
@@ -213,8 +213,8 @@ Object.defineProperty(fileCommand, "__esModule", { value: true });
 fileCommand.issueCommand = void 0;
 // We use any as a valid input type
 /* eslint-disable @typescript-eslint/no-explicit-any */
-const fs = __importStar$3(require$$0__default["default"]);
-const os = __importStar$3(require$$1__default["default"]);
+const fs = __importStar$3(require$$0__default$1["default"]);
+const os = __importStar$3(require$$0__default["default"]);
 const utils_1$1 = utils$3;
 function issueCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
@@ -295,7 +295,7 @@ proxy.checkBypass = checkBypass;
 
 var tunnel$1 = {};
 
-var tls = require$$1__default$1["default"];
+var tls = require$$1__default["default"];
 var http = require$$2__default["default"];
 var https = require$$3__default["default"];
 var events = require$$4__default["default"];
@@ -1233,6 +1233,289 @@ class OidcClient {
 }
 oidcUtils.OidcClient = OidcClient;
 
+var markdownSummary = {};
+
+(function (exports) {
+var __awaiter = (commonjsGlobal && commonjsGlobal.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.markdownSummary = exports.SUMMARY_DOCS_URL = exports.SUMMARY_ENV_VAR = void 0;
+const os_1 = require$$0__default["default"];
+const fs_1 = require$$0__default$1["default"];
+const { access, appendFile, writeFile } = fs_1.promises;
+exports.SUMMARY_ENV_VAR = 'GITHUB_STEP_SUMMARY';
+exports.SUMMARY_DOCS_URL = 'https://docs.github.com/actions/using-workflows/workflow-commands-for-github-actions#adding-a-markdown-summary';
+class MarkdownSummary {
+    constructor() {
+        this._buffer = '';
+    }
+    /**
+     * Finds the summary file path from the environment, rejects if env var is not found or file does not exist
+     * Also checks r/w permissions.
+     *
+     * @returns step summary file path
+     */
+    filePath() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (this._filePath) {
+                return this._filePath;
+            }
+            const pathFromEnv = process.env[exports.SUMMARY_ENV_VAR];
+            if (!pathFromEnv) {
+                throw new Error(`Unable to find environment variable for $${exports.SUMMARY_ENV_VAR}. Check if your runtime environment supports markdown summaries.`);
+            }
+            try {
+                yield access(pathFromEnv, fs_1.constants.R_OK | fs_1.constants.W_OK);
+            }
+            catch (_a) {
+                throw new Error(`Unable to access summary file: '${pathFromEnv}'. Check if the file has correct read/write permissions.`);
+            }
+            this._filePath = pathFromEnv;
+            return this._filePath;
+        });
+    }
+    /**
+     * Wraps content in an HTML tag, adding any HTML attributes
+     *
+     * @param {string} tag HTML tag to wrap
+     * @param {string | null} content content within the tag
+     * @param {[attribute: string]: string} attrs key-value list of HTML attributes to add
+     *
+     * @returns {string} content wrapped in HTML element
+     */
+    wrap(tag, content, attrs = {}) {
+        const htmlAttrs = Object.entries(attrs)
+            .map(([key, value]) => ` ${key}="${value}"`)
+            .join('');
+        if (!content) {
+            return `<${tag}${htmlAttrs}>`;
+        }
+        return `<${tag}${htmlAttrs}>${content}</${tag}>`;
+    }
+    /**
+     * Writes text in the buffer to the summary buffer file and empties buffer. Will append by default.
+     *
+     * @param {SummaryWriteOptions} [options] (optional) options for write operation
+     *
+     * @returns {Promise<MarkdownSummary>} markdown summary instance
+     */
+    write(options) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const overwrite = !!(options === null || options === void 0 ? void 0 : options.overwrite);
+            const filePath = yield this.filePath();
+            const writeFunc = overwrite ? writeFile : appendFile;
+            yield writeFunc(filePath, this._buffer, { encoding: 'utf8' });
+            return this.emptyBuffer();
+        });
+    }
+    /**
+     * Clears the summary buffer and wipes the summary file
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    clear() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.emptyBuffer().write({ overwrite: true });
+        });
+    }
+    /**
+     * Returns the current summary buffer as a string
+     *
+     * @returns {string} string of summary buffer
+     */
+    stringify() {
+        return this._buffer;
+    }
+    /**
+     * If the summary buffer is empty
+     *
+     * @returns {boolen} true if the buffer is empty
+     */
+    isEmptyBuffer() {
+        return this._buffer.length === 0;
+    }
+    /**
+     * Resets the summary buffer without writing to summary file
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    emptyBuffer() {
+        this._buffer = '';
+        return this;
+    }
+    /**
+     * Adds raw text to the summary buffer
+     *
+     * @param {string} text content to add
+     * @param {boolean} [addEOL=false] (optional) append an EOL to the raw text (default: false)
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addRaw(text, addEOL = false) {
+        this._buffer += text;
+        return addEOL ? this.addEOL() : this;
+    }
+    /**
+     * Adds the operating system-specific end-of-line marker to the buffer
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addEOL() {
+        return this.addRaw(os_1.EOL);
+    }
+    /**
+     * Adds an HTML codeblock to the summary buffer
+     *
+     * @param {string} code content to render within fenced code block
+     * @param {string} lang (optional) language to syntax highlight code
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addCodeBlock(code, lang) {
+        const attrs = Object.assign({}, (lang && { lang }));
+        const element = this.wrap('pre', this.wrap('code', code), attrs);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML list to the summary buffer
+     *
+     * @param {string[]} items list of items to render
+     * @param {boolean} [ordered=false] (optional) if the rendered list should be ordered or not (default: false)
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addList(items, ordered = false) {
+        const tag = ordered ? 'ol' : 'ul';
+        const listItems = items.map(item => this.wrap('li', item)).join('');
+        const element = this.wrap(tag, listItems);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML table to the summary buffer
+     *
+     * @param {SummaryTableCell[]} rows table rows
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addTable(rows) {
+        const tableBody = rows
+            .map(row => {
+            const cells = row
+                .map(cell => {
+                if (typeof cell === 'string') {
+                    return this.wrap('td', cell);
+                }
+                const { header, data, colspan, rowspan } = cell;
+                const tag = header ? 'th' : 'td';
+                const attrs = Object.assign(Object.assign({}, (colspan && { colspan })), (rowspan && { rowspan }));
+                return this.wrap(tag, data, attrs);
+            })
+                .join('');
+            return this.wrap('tr', cells);
+        })
+            .join('');
+        const element = this.wrap('table', tableBody);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds a collapsable HTML details element to the summary buffer
+     *
+     * @param {string} label text for the closed state
+     * @param {string} content collapsable content
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addDetails(label, content) {
+        const element = this.wrap('details', this.wrap('summary', label) + content);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML image tag to the summary buffer
+     *
+     * @param {string} src path to the image you to embed
+     * @param {string} alt text description of the image
+     * @param {SummaryImageOptions} options (optional) addition image attributes
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addImage(src, alt, options) {
+        const { width, height } = options || {};
+        const attrs = Object.assign(Object.assign({}, (width && { width })), (height && { height }));
+        const element = this.wrap('img', null, Object.assign({ src, alt }, attrs));
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML section heading element
+     *
+     * @param {string} text heading text
+     * @param {number | string} [level=1] (optional) the heading level, default: 1
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addHeading(text, level) {
+        const tag = `h${level}`;
+        const allowedTag = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(tag)
+            ? tag
+            : 'h1';
+        const element = this.wrap(allowedTag, text);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML thematic break (<hr>) to the summary buffer
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addSeparator() {
+        const element = this.wrap('hr', null);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML line break (<br>) to the summary buffer
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addBreak() {
+        const element = this.wrap('br', null);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML blockquote to the summary buffer
+     *
+     * @param {string} text quote text
+     * @param {string} cite (optional) citation url
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addQuote(text, cite) {
+        const attrs = Object.assign({}, (cite && { cite }));
+        const element = this.wrap('blockquote', text, attrs);
+        return this.addRaw(element).addEOL();
+    }
+    /**
+     * Adds an HTML anchor tag to the summary buffer
+     *
+     * @param {string} text link text/content
+     * @param {string} href hyperlink
+     *
+     * @returns {MarkdownSummary} markdown summary instance
+     */
+    addLink(text, href) {
+        const element = this.wrap('a', text, { href });
+        return this.addRaw(element).addEOL();
+    }
+}
+// singleton export
+exports.markdownSummary = new MarkdownSummary();
+
+}(markdownSummary));
+
 (function (exports) {
 var __createBinding = (commonjsGlobal && commonjsGlobal.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
@@ -1267,7 +1550,7 @@ exports.getIDToken = exports.getState = exports.saveState = exports.group = expo
 const command_1 = command;
 const file_command_1 = fileCommand;
 const utils_1 = utils$3;
-const os = __importStar(require$$1__default["default"]);
+const os = __importStar(require$$0__default["default"]);
 const path = __importStar(require$$4__default$1["default"]);
 const oidc_utils_1 = oidcUtils;
 /**
@@ -1544,6 +1827,11 @@ function getIDToken(aud) {
     });
 }
 exports.getIDToken = getIDToken;
+/**
+ * Markdown summary exports
+ */
+var markdown_summary_1 = markdownSummary;
+Object.defineProperty(exports, "markdownSummary", { enumerable: true, get: function () { return markdown_summary_1.markdownSummary; } });
 
 }(core));
 
@@ -1553,8 +1841,8 @@ var context$1 = {};
 
 Object.defineProperty(context$1, "__esModule", { value: true });
 context$1.Context = void 0;
-const fs_1 = require$$0__default["default"];
-const os_1 = require$$1__default["default"];
+const fs_1 = require$$0__default$1["default"];
+const os_1 = require$$0__default["default"];
 class Context$2 {
     /**
      * Hydrate the context from the environment
@@ -82439,7 +82727,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var Stream = _interopDefault(require$$0__default$1["default"]);
+var Stream = _interopDefault(require$$0__default$2["default"]);
 var http = _interopDefault(require$$2__default["default"]);
 var Url = _interopDefault(require$$2__default$1["default"]);
 var whatwgUrl = _interopDefault(publicApi);
@@ -87396,7 +87684,7 @@ var node = {exports: {}};
  */
 
 (function (module, exports) {
-const tty = require$$0__default$2["default"];
+const tty = require$$0__default$3["default"];
 const util = require$$6__default["default"];
 
 /**
@@ -90482,7 +90770,7 @@ var semver = {
 };
 
 /* eslint-disable camelcase */
-const { readFile } = require$$0.promises;
+const { readFile } = require$$0$1.promises;
 const matchPattern = /[bB]ump\s+\S+\s+from\s+v?(?<from>[\d.]+[\w-.]*)\s+to\s+v?(?<to>[\d.]+[\w-.]*)/;
 function matchTitle(title) {
     const match = matchPattern.exec(title);
