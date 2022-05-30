@@ -102648,7 +102648,7 @@ const compare = compare_1;
 //     - If no C has a prerelease and the LT.semver tuple, return false
 // - Else return true
 
-const subset = (sub, dom, options = {}) => {
+const subset = (sub, dom, options) => {
   if (sub === dom) {
     return true
   }
