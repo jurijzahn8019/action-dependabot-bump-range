@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.83](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.82...v0.0.83) (2022-06-20)
+
+
+### Features
+
+* **action:** migrate to ncc, node16 ([ce19e0e](https://github.com/jurijzahn8019/action-dependabot-bump-range/commit/ce19e0e71cb7209a462659fa42ae8284b2fe7302))
+
 ### [0.0.82](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.81...v0.0.82) (2022-06-13)
 
 ### [0.0.81](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.80...v0.0.81) (2022-06-06)
