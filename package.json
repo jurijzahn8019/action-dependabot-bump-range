@@ -42,7 +42,7 @@
     "@types/semver": "^7.3.10",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
-    "@octokit/types": "^6.38.2",
+    "@octokit/types": "^6.39.0",
     "@vercel/ncc": "^0.34.0",
     "eslint": "^8.19.0",
     "eslint-config-airbnb-base": "^15.0.0",
