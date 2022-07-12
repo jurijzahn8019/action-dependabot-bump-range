@@ -40,7 +40,7 @@
     "@types/jest": "^27.5.0",
     "@types/node": "^18.0.3",
     "@types/semver": "^7.3.10",
-    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "@octokit/types": "^6.39.0",
     "@vercel/ncc": "^0.34.0",
