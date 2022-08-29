@@ -35,7 +35,7 @@
     "semver": "^7.3.7"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.0.3",
+    "@commitlint/cli": "^17.1.1",
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.5.0",
     "@types/node": "^18.7.13",
