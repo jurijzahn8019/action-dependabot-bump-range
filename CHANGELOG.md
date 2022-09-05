@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.0.94](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.93...v0.0.94) (2022-09-05)
+
 ### [0.0.93](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.92...v0.0.93) (2022-08-29)
 
 ### [0.0.92](https://github.com/jurijzahn8019/action-dependabot-bump-range/compare/v0.0.91...v0.0.92) (2022-08-22)
