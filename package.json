@@ -1,6 +1,6 @@
 {
   "name": "@jurijzahn8019/action-dependabot-bump-range",
-  "version": "0.0.110",
+  "version": "0.0.111",
   "description": "Evaluates the bump range (minor, major, patch) and outputs the metadata",
   "main": "./dist/index.js",
   "scripts": {
